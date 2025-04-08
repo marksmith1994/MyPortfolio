@@ -7,62 +7,66 @@
 
 <div class="container py-5">
     <h1 class="text-center mb-5">My Projects</h1>
-    
-    @if (repositories == null)
-    {
-        <div class="text-center">
-            <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading...</span>
+
+    <!-- GitHub Repositories Section -->
+    <section>
+        <h2 class="text-center mb-4">GitHub Repositories</h2>
+        @if (repositories == null)
+        {
+            <div class="text-center">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
             </div>
-        </div>
-    }
-    else if (!repositories.Any())
-    {
-        <div class="text-center">
-            <p>No projects found.</p>
-        </div>
-    }
-    else
-    {
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            @foreach (var repo in repositories)
-            {
-                <div class="col">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">@repo.Name</h5>
-                            <p class="card-text">@repo.Description</p>
-                            @if (!string.IsNullOrEmpty(repo.Language))
-                            {
-                                <span class="badge bg-secondary mb-2">@repo.Language</span>
-                            }
-                            @if (repo.Topics.Any())
-                            {
-                                <div class="mb-2">
-                                    @foreach (var topic in repo.Topics)
-                                    {
-                                        <span class="badge bg-primary me-1">@topic</span>
-                                    }
+        }
+        else if (!repositories.Any())
+        {
+            <div class="text-center">
+                <p>No repositories found.</p>
+            </div>
+        }
+        else
+        {
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                @foreach (var repo in repositories)
+                {
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">@repo.Name</h5>
+                                <p class="card-text">@repo.Description</p>
+                                @if (!string.IsNullOrEmpty(repo.Language))
+                                {
+                                    <span class="badge bg-secondary mb-2">@repo.Language</span>
+                                }
+                                @if (repo.Topics.Any())
+                                {
+                                    <div class="mb-2">
+                                        @foreach (var topic in repo.Topics)
+                                        {
+                                            <span class="badge bg-primary me-1">@topic</span>
+                                        }
+                                    </div>
+                                }
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <span class="ms-1">@repo.StargazersCount</span>
+                                    </div>
+                                    <a href="@repo.HtmlUrl" target="_blank" class="btn btn-primary">
+                                        <i class="fab fa-github me-1"></i>View on GitHub
+                                    </a>
                                 </div>
-                            }
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <i class="fas fa-star text-warning"></i>
-                                    <span class="ms-1">@repo.StargazersCount</span>
-                                </div>
-                                <a href="@repo.HtmlUrl" target="_blank" class="btn btn-primary">
-                                    <i class="fab fa-github me-1"></i>View on GitHub
-                                </a>
+                            </div>
+                            <div class="card-footer text-muted">
+                                Last updated: @repo.UpdatedAt.ToString("MMM dd, yyyy")
                             </div>
                         </div>
-                        <div class="card-footer text-muted">
-                            Last updated: @repo.UpdatedAt.ToString("MMM dd, yyyy")
-                        </div>
                     </div>
-                </div>
-            }
-        </div>
-    }
+                }
+            </div>
+        }
+    </section>
 </div>
 
 @code {

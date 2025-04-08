@@ -33,3 +33,4 @@ C:\Users\Mark\source\MyPortfolio\bin\Debug\net8.0\Microsoft.AspNetCore.Component
 C:\Users\Mark\source\MyPortfolio\bin\Debug\net8.0\Microsoft.JSInterop.WebAssembly.dll
 C:\Users\Mark\source\MyPortfolio\obj\Debug\net8.0\MyPortfolio.csproj.AssemblyReference.cache
 C:\Users\Mark\source\MyPortfolio\obj\Debug\net8.0\MyPortfo.01A62FBD.Up2Date
+C:\Users\Mark\source\MyPortfolio\obj\Debug\net8.0\MyPortfolio.sourcelink.json
