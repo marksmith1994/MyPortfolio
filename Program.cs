@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddHttpClient<GitHubService>();
+builder.Services.AddHttpClient<StravaService>();
 
 var app = builder.Build();
 

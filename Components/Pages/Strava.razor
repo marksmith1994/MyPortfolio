@@ -1,0 +1,102 @@
+@page "/strava"
+@using MyPortfolio.Services
+@using MyPortfolio.Models
+@inject StravaService StravaService
+
+<PageTitle>Strava Activities - My Portfolio</PageTitle>
+
+<div class="container py-5">
+    <h1 class="text-center mb-5">My Strava Activities</h1>
+
+    @if (activities == null)
+    {
+        <div class="text-center">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    }
+    else if (!activities.Any())
+    {
+        <div class="text-center">
+            <p>No activities found.</p>
+        </div>
+    }
+    else
+    {
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            @foreach (var activity in activities)
+            {
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">@activity.Name</h5>
+                            <div class="mb-3">
+                                <span class="badge bg-primary">@activity.Type</span>
+                            </div>
+                            <div class="activity-stats">
+                                <div class="stat-item">
+                                    <i class="fas fa-road"></i>
+                                    <span>@(Math.Round(activity.Distance / 1000, 2)) km</span>
+                                </div>
+                                <div class="stat-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>@TimeSpan.FromSeconds(activity.MovingTime).ToString(@"hh\:mm\:ss")</span>
+                                </div>
+                                <div class="stat-item">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                    <span>@(Math.Round(activity.AverageSpeed * 3.6, 2)) km/h</span>
+                                </div>
+                                @if (activity.AverageHeartrate > 0)
+                                {
+                                    <div class="stat-item">
+                                        <i class="fas fa-heart"></i>
+                                        <span>@(Math.Round(activity.AverageHeartrate)) bpm</span>
+                                    </div>
+                                }
+                                @if (activity.AverageCadence > 0)
+                                {
+                                    <div class="stat-item">
+                                        <i class="fas fa-shoe-prints"></i>
+                                        <span>@(Math.Round(activity.AverageCadence)) spm</span>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="card-footer text-muted">
+                            <small>@activity.StartDate.ToString("MMM dd, yyyy HH:mm")</small>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<style>
+    .activity-stats {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+
+    .stat-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .stat-item i {
+        color: #B85042;
+    }
+</style>
+
+@code {
+    private List<StravaActivity>? activities;
+
+    protected override async Task OnInitializedAsync()
+    {
+        activities = await StravaService.GetRecentActivitiesAsync();
+    }
+} 
