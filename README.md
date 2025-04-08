@@ -102,6 +102,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Contact
 
-- GitHub: [@yourusername](https://github.com/yourusername)
-- LinkedIn: [Your Name](https://linkedin.com/in/yourusername)
-- Email: your.email@example.com 
+- GitHub: [@marksmith1994](https://github.com/marksmith1994)
+- LinkedIn: [Mark Smith](https://linkedin.com/in/marksmithdeveloper)
+- Email: marksmith.ms804@gmail.com 
