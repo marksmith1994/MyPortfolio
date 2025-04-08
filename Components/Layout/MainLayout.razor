@@ -1,0 +1,34 @@
+﻿@namespace MyPortfolio.Components.Layout
+@inherits LayoutComponentBase
+
+<PageTitle>Mark Smith - Portfolio</PageTitle>
+
+<div class="page">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1995AD;">
+        <div class="container">
+            <a class="navbar-brand" href="/">Mark Smith</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <NavMenu />
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mt-4">
+        @Body
+    </main>
+
+    <footer class="footer mt-auto py-3" style="background-color: #1995AD; color: #F1F1F2;">
+        <div class="container text-center">
+            <span>&copy; @DateTime.Now.Year - Mark Smith</span>
+        </div>
+    </footer>
+</div>
+
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>
