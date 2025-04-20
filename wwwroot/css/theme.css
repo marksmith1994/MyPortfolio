@@ -1,0 +1,62 @@
+:root {
+    --primary: #4f8cff;
+    --primary-dark: #2d5ea8;
+    --accent: #74ebd5;
+    --accent-2: #cfdef3;
+    --background: #f8fafc;
+    --surface: #fff;
+    --text: #222;
+    --navbar-bg: #4f8cff;
+    --navbar-text: #fff;
+    --footer-bg: #e0eafc;
+    --footer-text: #222;
+}
+
+body {
+    background: var(--background);
+    color: var(--text);
+}
+
+.navbar {
+    background-color: var(--navbar-bg) !important;
+}
+.navbar .navbar-brand, .navbar .nav-link, .navbar .navbar-toggler {
+    color: var(--navbar-text) !important;
+}
+
+.footer-section {
+    background: var(--footer-bg);
+    color: var(--footer-text);
+}
+
+.btn-primary, .btn-primary:focus, .btn-primary:active {
+    background-color: var(--primary) !important;
+    border-color: var(--primary-dark) !important;
+}
+.btn-primary:hover {
+    background-color: var(--primary-dark) !important;
+    border-color: var(--primary-dark) !important;
+}
+.btn-outline-primary {
+    color: var(--primary) !important;
+    border-color: var(--primary) !important;
+    background: transparent !important;
+}
+.btn-outline-primary:hover, .btn-outline-primary:focus {
+    background: var(--primary) !important;
+    color: #fff !important;
+    border-color: var(--primary-dark) !important;
+}
+
+.gradient-bg {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+}
+
+.card {
+    background: var(--surface);
+    color: var(--text);
+}
+
+.divider {
+    border-top: 2px solid var(--accent-2);
+}

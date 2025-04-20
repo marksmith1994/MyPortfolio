@@ -1,0 +1,65 @@
+html, body {
+    font-family: 'Montserrat', Arial, sans-serif;
+    background: #f8fafc;
+}
+.gradient-bg {
+    background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+}
+.min-vh-70 {
+    min-height: 70vh;
+}
+.profile-img {
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 6px solid #fff;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    background: #e9ecef;
+    transition: box-shadow 0.3s;
+}
+.profile-img:hover {
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+}
+.card-hover {
+    transition: transform 0.18s, box-shadow 0.18s;
+}
+.card-hover:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.14);
+    z-index: 2;
+}
+.divider {
+    border-top: 2px solid #e0eafc;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.footer-section {
+    background: #f1f3f7;
+    border-top: 1px solid #e0eafc;
+}
+/* Animations */
+.animate-fadein {
+    opacity: 0;
+    animation: fadeInUp 0.7s forwards;
+}
+.animate-delay-1 { animation-delay: 0.2s; }
+.animate-delay-2 { animation-delay: 0.4s; }
+.animate-delay-3 { animation-delay: 0.6s; }
+.animate-delay-4 { animation-delay: 0.8s; }
+.animate-delay-5 { animation-delay: 1.0s; }
+.animate-delay-6 { animation-delay: 1.2s; }
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@media (max-width: 991px) {
+    .profile-img { width: 150px; height: 150px; }
+    .hero-section { padding-top: 3rem; padding-bottom: 3rem; }
+}
+@media (max-width: 767px) {
+    .display-3 { font-size: 2.2rem; }
+    .hero-section { min-height: 50vh; }
+    .divider { width: 90%; }
+}

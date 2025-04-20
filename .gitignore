@@ -206,3 +206,29 @@ TestResults/
 
 # Exclude node_modules if you ever use JS tooling
 node_modules/
+
+# Ignore build outputs and binaries
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+*.cache
+*.log
+*.dbmdl
+*.pack.json
+*.runtime.json
+*.build.json
+*.development.json
+*.staticwebassets.*
+
+# Ignore Rider and VS Code settings
+.idea/
+.vscode/
+
+# Ignore secrets
+secrets.json
+
+# Ignore ref and refint folders
+ref/
+refint/

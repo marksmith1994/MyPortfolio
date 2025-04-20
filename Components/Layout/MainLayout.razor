@@ -1,10 +1,12 @@
-﻿@namespace MyPortfolio.Components.Layout
+@namespace MyPortfolio.Components.Layout
 @inherits LayoutComponentBase
+
+<link href="css/theme.css" rel="stylesheet">
 
 <PageTitle>Mark Smith - Portfolio</PageTitle>
 
 <div class="page">
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1995AD;">
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand" href="/">Mark Smith</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -19,10 +21,4 @@
     <main class="container mt-4">
         @Body
     </main>
-
-    <footer class="footer mt-auto py-3" style="background-color: #1995AD; color: #F1F1F2;">
-        <div class="container text-center">
-            <span>&copy; @DateTime.Now.Year - Mark Smith</span>
-        </div>
-    </footer>
 </div>
