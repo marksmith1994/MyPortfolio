@@ -92,53 +92,132 @@
 
             <div class="card mb-4">
                 <div class="card-body">
-                    <h2 class="mb-4" style="color: #1995AD;">
+                    <h2 class="mb-4" style="color: var(--primary);">
                         <i class="fas fa-code me-2"></i>Technical Skills
                     </h2>
-                    <div class="row">
+                    <a href="/assets/MarkSmith_CV.pdf" class="download-cv-btn" download>
+                        <i class="fas fa-file-download me-2"></i>Download CV
+                    </a>
+                    <div class="row mt-4">
                         <div class="col-md-6">
                             <h5>Programming Languages & Frameworks</h5>
                             <div class="skill-bars">
-                                <div class="skill-item">
-                                    <span>C# & .NET</span>
+                                <div class="skill-item" tabindex="0">
+                                    <span class="skill-icon fab fa-csharp" title="C#"></span>
+                                    <span class="skill-label">C# &amp; .NET (Core, 6+)</span>
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 95%; background-color: #1995AD;"></div>
+                                        <div class="progress-bar" role="progressbar" style="width: 95%; background-color: var(--primary);"></div>
                                     </div>
+                                    <span class="skill-tooltip">Enterprise-grade backend and cloud services</span>
                                 </div>
-                                <div class="skill-item">
-                                    <span>JavaScript/TypeScript</span>
+                                <div class="skill-item" tabindex="0">
+                                    <span class="skill-icon fab fa-microsoft"></span>
+                                    <span class="skill-label">ASP.NET MVC / Blazor</span>
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 90%; background-color: #1995AD;"></div>
+                                        <div class="progress-bar" role="progressbar" style="width: 90%; background-color: var(--primary);"></div>
                                     </div>
+                                    <span class="skill-tooltip">Modern web apps, interactive UI, and APIs</span>
                                 </div>
-                                <div class="skill-item">
-                                    <span>SQL</span>
+                                <div class="skill-item" tabindex="0">
+                                    <span class="skill-icon fab fa-js-square"></span>
+                                    <span class="skill-label">JavaScript / TypeScript</span>
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 90%; background-color: #1995AD;"></div>
+                                        <div class="progress-bar" role="progressbar" style="width: 90%; background-color: var(--primary);"></div>
                                     </div>
+                                    <span class="skill-tooltip">Frontend frameworks, dynamic UIs, and SPA</span>
+                                </div>
+                                <div class="skill-item" tabindex="0">
+                                    <span class="skill-icon fas fa-database"></span>
+                                    <span class="skill-label">SQL (Azure SQL, MS SQL, PostgreSQL)</span>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 90%; background-color: var(--primary);"></div>
+                                    </div>
+                                    <span class="skill-tooltip">Data modeling, migrations, and performance tuning</span>
+                                </div>
+                                <div class="skill-item" tabindex="0">
+                                    <span class="skill-icon fab fa-python"></span>
+                                    <span class="skill-label">Python</span>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 70%; background-color: var(--primary);"></div>
+                                    </div>
+                                    <span class="skill-tooltip">Automation, scripting, and data analysis</span>
+                                </div>
+                                <div class="skill-item" tabindex="0">
+                                    <span class="skill-icon fab fa-html5"></span>
+                                    <span class="skill-label">HTML5 / CSS3 / SASS</span>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 85%; background-color: var(--primary);"></div>
+                                    </div>
+                                    <span class="skill-tooltip">Responsive layouts and modern UI design</span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <h5>Technologies & Tools</h5>
                             <div class="skill-bars">
-                                <div class="skill-item">
-                                    <span>Azure Cloud</span>
+                                <div class="skill-item" tabindex="0">
+                                    <span class="skill-icon fab fa-microsoft"></span>
+                                    <span class="skill-label">Azure Cloud / Azure DevOps</span>
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 90%; background-color: #1995AD;"></div>
+                                        <div class="progress-bar" role="progressbar" style="width: 90%; background-color: var(--primary);"></div>
                                     </div>
+                                    <span class="skill-tooltip">Cloud infrastructure, CI/CD, and deployments</span>
                                 </div>
-                                <div class="skill-item">
-                                    <span>React/Angular</span>
+                                <div class="skill-item" tabindex="0">
+                                    <span class="skill-icon fab fa-react"></span>
+                                    <span class="skill-label">React / Angular / Redux</span>
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 85%; background-color: #1995AD;"></div>
+                                        <div class="progress-bar" role="progressbar" style="width: 85%; background-color: var(--primary);"></div>
                                     </div>
+                                    <span class="skill-tooltip">SPA frameworks and state management</span>
                                 </div>
-                                <div class="skill-item">
-                                    <span>DevOps & CI/CD</span>
+                                <div class="skill-item" tabindex="0">
+                                    <span class="skill-icon fas fa-cogs"></span>
+                                    <span class="skill-label">DevOps, CI/CD (GitHub Actions, Azure Pipelines)</span>
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 85%; background-color: #1995AD;"></div>
+                                        <div class="progress-bar" role="progressbar" style="width: 85%; background-color: var(--primary);"></div>
                                     </div>
+                                    <span class="skill-tooltip">Automation, pipelines, and release management</span>
+                                </div>
+                                <div class="skill-item" tabindex="0">
+                                    <span class="skill-icon fas fa-code-branch"></span>
+                                    <span class="skill-label">Terraform / Infrastructure as Code</span>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 75%; background-color: var(--primary);"></div>
+                                    </div>
+                                    <span class="skill-tooltip">Automated cloud provisioning</span>
+                                </div>
+                                <div class="skill-item" tabindex="0">
+                                    <span class="skill-icon fab fa-docker"></span>
+                                    <span class="skill-label">Docker / Kubernetes</span>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 70%; background-color: var(--primary);"></div>
+                                    </div>
+                                    <span class="skill-tooltip">Containerization and orchestration</span>
+                                </div>
+                                <div class="skill-item" tabindex="0">
+                                    <span class="skill-icon fas fa-user-shield"></span>
+                                    <span class="skill-label">Auth0 / OpenID / OAuth2</span>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 80%; background-color: var(--primary);"></div>
+                                    </div>
+                                    <span class="skill-tooltip">Authentication and secure APIs</span>
+                                </div>
+                                <div class="skill-item" tabindex="0">
+                                    <span class="skill-icon fas fa-vial"></span>
+                                    <span class="skill-label">Unit Testing (xUnit, NUnit, Jest)</span>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 80%; background-color: var(--primary);"></div>
+                                    </div>
+                                    <span class="skill-tooltip">Automated testing for quality code</span>
+                                </div>
+                                <div class="skill-item" tabindex="0">
+                                    <span class="skill-icon fas fa-users"></span>
+                                    <span class="skill-label">Agile / Scrum / Kanban</span>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 80%; background-color: var(--primary);"></div>
+                                    </div>
+                                    <span class="skill-tooltip">Team collaboration and project delivery</span>
                                 </div>
                             </div>
                         </div>

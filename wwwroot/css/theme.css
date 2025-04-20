@@ -1,15 +1,15 @@
 :root {
-    --primary: #4f8cff;
-    --primary-dark: #2d5ea8;
-    --accent: #74ebd5;
-    --accent-2: #cfdef3;
-    --background: #f8fafc;
-    --surface: #fff;
-    --text: #222;
-    --navbar-bg: #4f8cff;
+    --primary: #2563eb;            /* Modern blue */
+    --primary-dark: #1e40af;      /* Deep blue for hover/focus */
+    --accent: #38bdf8;            /* Sky blue accent */
+    --accent-2: #f472b6;          /* Soft pink accent */
+    --background: #f6f8fa;        /* Gentle off-white background */
+    --surface: #ffffff;           /* Card and surface background */
+    --text: #1e293b;              /* Slate text for readability */
+    --navbar-bg: #2563eb;         /* Navbar matches primary */
     --navbar-text: #fff;
-    --footer-bg: #e0eafc;
-    --footer-text: #222;
+    --footer-bg: #f1f5f9;         /* Light footer */
+    --footer-text: #64748b;       /* Muted text for footer */
 }
 
 body {
