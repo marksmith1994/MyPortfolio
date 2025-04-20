@@ -1,0 +1,163 @@
+@page "/spacex"
+@using System.Net.Http.Json
+@inject HttpClient Http
+
+<PageTitle>SpaceX Launches</PageTitle>
+
+<div class="container py-5">
+    <h1 class="text-center mb-4">SpaceX Launches</h1>
+    <div class="mb-4 text-center">
+        <button class="btn btn-primary me-2" @onclick="ShowUpcoming" title="Show upcoming launches">Upcoming Launches</button>
+        <button class="btn btn-secondary me-4" @onclick="ShowPast" title="Show past launches">Past Launches</button>
+        <select class="form-select d-inline-block w-auto" @bind="successFilter" title="Filter by launch success">
+            <option value="all">All</option>
+            <option value="success">Success</option>
+            <option value="failure">Failure</option>
+            <option value="tbd">TBD</option>
+        </select>
+    </div>
+    @if (isLoading)
+    {
+        <div class="text-center"><div class="spinner-border text-primary" role="status"></div></div>
+    }
+    else if (launches != null)
+    {
+        var filteredLaunches = launches;
+        if (successFilter == "success")
+            filteredLaunches = launches.Where(l => l.Success == true).ToList();
+        else if (successFilter == "failure")
+            filteredLaunches = launches.Where(l => l.Success == false).ToList();
+        else if (successFilter == "tbd")
+            filteredLaunches = launches.Where(l => l.Success == null).ToList();
+        // Fix: If date is MinValue but launch has a valid Unix timestamp, parse from raw JSON field
+        foreach (var launch in filteredLaunches)
+        {
+            if (launch.DateUtc == DateTime.MinValue && !string.IsNullOrEmpty(launch.RawDateUtc))
+            {
+                if (DateTime.TryParse(launch.RawDateUtc, null, System.Globalization.DateTimeStyles.RoundtripKind, out var parsed))
+                {
+                    launch.DateUtc = parsed;
+                }
+            }
+        }
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            @foreach (var launch in filteredLaunches)
+            {
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title" title="@launch.Name">@launch.Name</h5>
+                            <p class="card-text"><strong>Date:</strong> @((launch.DateUtc == DateTime.MinValue ? "TBD" : launch.DateUtc.ToLocalTime().ToString("yyyy-MM-dd HH:mm")))</p>
+                            <p class="card-text"><strong>Rocket:</strong> @launch.Rocket</p>
+                            <p class="card-text"><strong>Success:</strong> @((launch.Success == true)
+                                ? @<span title="Success"><i class="fas fa-check-circle text-success"></i></span>
+                                : (launch.Success == false)
+                                    ? @<span title="Failure"><i class="fas fa-times-circle text-danger"></i></span>
+                                    : @<span title="TBD"><i class="fas fa-clock text-warning"></i></span>)
+                            </p>
+                            @if (!string.IsNullOrEmpty(launch.Details))
+                            {
+                                <p class="card-text" title="@launch.Details">@launch.Details</p>
+                            }
+                            @if (!string.IsNullOrEmpty(launch.Links.Webcast))
+                            {
+                                <a href="@launch.Links.Webcast" target="_blank" class="btn btn-outline-info btn-sm mt-2" title="Watch webcast">Webcast</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else if (errorMessage != null)
+    {
+        <div class="alert alert-danger text-center">@errorMessage</div>
+    }
+</div>
+
+@code {
+    private List<Launch>? launches;
+    private bool isLoading = false;
+    private string? errorMessage;
+    private bool showUpcoming = true;
+    private string successFilter = "all";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadLaunchesAsync();
+    }
+
+    private async Task LoadLaunchesAsync()
+    {
+        isLoading = true;
+        errorMessage = null;
+        try
+        {
+            string url = showUpcoming
+                ? "https://api.spacexdata.com/v4/launches/upcoming"
+                : "https://api.spacexdata.com/v4/launches/past";
+            var json = await Http.GetStringAsync(url);
+            launches = System.Text.Json.JsonSerializer.Deserialize<List<Launch>>(json, new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            // Map RawDateUtc
+            foreach (var l in launches ?? new List<Launch>())
+            {
+                using var doc = System.Text.Json.JsonDocument.Parse(json);
+                foreach (var element in doc.RootElement.EnumerateArray())
+                {
+                    if (element.TryGetProperty("name", out var nameProp) && nameProp.GetString() == l.Name)
+                    {
+                        if (element.TryGetProperty("date_utc", out var dateProp))
+                        {
+                            l.RawDateUtc = dateProp.GetString();
+                        }
+                    }
+                }
+            }
+            if (!showUpcoming)
+            {
+                launches = launches?.OrderByDescending(l => l.DateUtc).Take(12).ToList();
+            }
+            else
+            {
+                launches = launches?.OrderBy(l => l.DateUtc).Take(12).ToList();
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = "Could not fetch SpaceX launches. Please try again later.";
+            launches = null;
+        }
+        isLoading = false;
+    }
+
+    private async Task ShowUpcoming()
+    {
+        showUpcoming = true;
+        await LoadLaunchesAsync();
+    }
+
+    private async Task ShowPast()
+    {
+        showUpcoming = false;
+        await LoadLaunchesAsync();
+    }
+
+    private Task OnSuccessFilterChanged(ChangeEventArgs e)
+    {
+        successFilter = e.Value?.ToString() ?? "all";
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    public class Launch
+    {
+        public string Name { get; set; } = string.Empty;
+        public DateTime DateUtc { get; set; }
+        public string? RawDateUtc { get; set; } // for fallback parsing
+        public string Rocket { get; set; } = string.Empty;
+        public bool? Success { get; set; }
+        public string? Details { get; set; }
+        public LaunchLinks Links { get; set; } = new();
+    }
+    public class LaunchLinks { public string Webcast { get; set; } = string.Empty; }
+}

@@ -1,0 +1,134 @@
+@page "/weather"
+@using System.Net.Http.Json
+@inject HttpClient Http
+
+<PageTitle>Weather Dashboard</PageTitle>
+
+<div class="container py-5">
+    <h1 class="text-center mb-4">Weather Dashboard</h1>
+    <div class="weather-search mx-auto mb-4 p-4 rounded shadow-sm bg-white" style="max-width: 430px;">
+        <div class="input-group mb-3">
+            <input class="form-control" @bind="city" @bind:event="oninput" placeholder="Enter city name..." title="Type a city and press Enter or click Search" @onkeypress="OnKeyPress" />
+            <button class="btn btn-primary" @onclick="GetWeatherAsync" title="Fetch weather for the entered city">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </div>
+    @if (isLoading)
+    {
+        <div class="text-center"><div class="spinner-border text-primary" role="status"></div></div>
+    }
+    else if (cachedWeather.Count > 0)
+    {
+        @foreach (var w in cachedWeather)
+        {
+            <div class="weather-card mx-auto p-4 mb-4 rounded shadow-lg bg-gradient" style="max-width: 430px; background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%); color: #222;">
+                <div class="d-flex align-items-center mb-3">
+                    <img src="@($"https://openweathermap.org/img/wn/{w.Weather[0].Icon}@2x.png")" alt="Weather Icon" style="width:72px; height:72px;" class="me-3" />
+                    <div>
+                        <h3 class="mb-0">@w.Name, @w.Sys.Country</h3>
+                        <div class="lead">@w.Weather[0].Main (@w.Weather[0].Description)</div>
+                    </div>
+                </div>
+                <div class="row text-center mb-2">
+                    <div class="col">
+                        <div class="display-5 fw-bold">@w.Main.Temp.ToString("0")&deg;C</div>
+                        <div class="small text-muted">Temperature</div>
+                    </div>
+                    <div class="col">
+                        <div class="fs-5">@w.Main.Humidity %</div>
+                        <div class="small text-muted">Humidity</div>
+                    </div>
+                    <div class="col">
+                        <div class="fs-5">@w.Wind.Speed m/s</div>
+                        <div class="small text-muted">Wind</div>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="col">
+                        <span class="text-primary"><i class="fas fa-eye"></i></span> <span class="ms-1">@w.Visibility m</span>
+                    </div>
+                    <div class="col">
+                        <span class="text-primary"><i class="fas fa-cloud"></i></span> <span class="ms-1">@w.Clouds.All %</span>
+                    </div>
+                    <div class="col">
+                        <span class="text-primary"><i class="fas fa-clock"></i></span> <span class="ms-1">@DateTimeOffset.FromUnixTimeSeconds(w.Dt).ToLocalTime().ToString("ddd, dd MMM yyyy HH:mm")</span>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else if (errorMessage != null)
+    {
+        <div class="alert alert-danger text-center">@errorMessage</div>
+    }
+</div>
+
+<style>
+    .weather-search {
+        background: #f8fafc;
+    }
+    .weather-card {
+        background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+    }
+</style>
+
+@code {
+    private string city = "London";
+    private List<WeatherResult> cachedWeather = new();
+    private bool isLoading = false;
+    private string? errorMessage;
+
+    private async Task GetWeatherAsync()
+    {
+        if (string.IsNullOrWhiteSpace(city))
+        {
+            errorMessage = "Please enter a city name.";
+            return;
+        }
+        isLoading = true;
+        errorMessage = null;
+        try
+        {
+            string apiKey = "c3a3187b76e9396a9318e4cd9f8daea9";
+            string url = $"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={apiKey}&units=metric";
+            var result = await Http.GetFromJsonAsync<WeatherResult>(url);
+            if (result != null && !cachedWeather.Any(w => w.Name.Equals(result.Name, StringComparison.OrdinalIgnoreCase)))
+            {
+                cachedWeather.Insert(0, result);
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Could not fetch weather data. Error: {ex.Message}";
+        }
+        isLoading = false;
+    }
+
+    private async Task OnKeyPress(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            await GetWeatherAsync();
+        }
+    }
+
+    public class WeatherResult
+    {
+        public string Name { get; set; } = string.Empty;
+        public SysInfo Sys { get; set; } = new();
+        public MainInfo Main { get; set; } = new();
+        public List<WeatherInfo> Weather { get; set; } = new();
+        public WindInfo Wind { get; set; } = new();
+        public int Visibility { get; set; }
+        public int Timezone { get; set; }
+        public int Dt { get; set; }
+        public CloudsInfo Clouds { get; set; } = new();
+        public int Cod { get; set; }
+    }
+    public class SysInfo { public string Country { get; set; } = string.Empty; }
+    public class MainInfo { public double Temp { get; set; } public int Humidity { get; set; } }
+    public class WeatherInfo { public string Main { get; set; } = string.Empty; public string Description { get; set; } = string.Empty; public string Icon { get; set; } = string.Empty; }
+    public class WindInfo { public double Speed { get; set; } }
+    public class CloudsInfo { public int All { get; set; } }
+}
