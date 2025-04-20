@@ -1,0 +1,110 @@
+@page "/contact"
+@using MyPortfolio.Services
+@using MyPortfolio.Models
+@inject IEmailService EmailService
+
+<PageTitle>Contact - My Portfolio</PageTitle>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="text-center mb-4">Contact Me</h1>
+            <p class="text-center mb-4">Feel free to reach out to me for any inquiries or opportunities.</p>
+
+            @if (showSuccess)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Success!</strong> Your message has been sent. I'll get back to you soon.
+                    <button type="button" class="btn-close" @onclick="() => showSuccess = false"></button>
+                </div>
+            }
+
+            @if (showError)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Error!</strong> @errorMessage
+                    <button type="button" class="btn-close" @onclick="() => showError = false"></button>
+                </div>
+            }
+
+            <div class="card">
+                <div class="card-body">
+                    <EditForm Model="@contactModel" OnValidSubmit="HandleValidSubmit">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary />
+
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <InputText id="name" @bind-Value="contactModel.Name" class="form-control" />
+                            <ValidationMessage For="@(() => contactModel.Name)" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <InputText id="email" @bind-Value="contactModel.Email" class="form-control" />
+                            <ValidationMessage For="@(() => contactModel.Email)" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">Subject</label>
+                            <InputText id="subject" @bind-Value="contactModel.Subject" class="form-control" />
+                            <ValidationMessage For="@(() => contactModel.Subject)" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message</label>
+                            <InputTextArea id="message" @bind-Value="contactModel.Message" class="form-control" rows="5" />
+                            <ValidationMessage For="@(() => contactModel.Message)" />
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary" disabled="@isSending">
+                                @if (isSending)
+                                {
+                                    <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                    <span>Sending...</span>
+                                }
+                                else
+                                {
+                                    <span>Send Message</span>
+                                }
+                            </button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private ContactModel contactModel = new();
+    private bool isSending = false;
+    private bool showSuccess = false;
+    private bool showError = false;
+    private string errorMessage = string.Empty;
+
+    private async Task HandleValidSubmit()
+    {
+        isSending = true;
+        showSuccess = false;
+        showError = false;
+        
+        try
+        {
+            await EmailService.SendEmailAsync(contactModel);
+            contactModel = new ContactModel();
+            showSuccess = true;
+        }
+        catch (Exception ex)
+        {
+            showError = true;
+            errorMessage = "There was an error sending your message. Please try again later.";
+            Console.WriteLine($"Error sending email: {ex.Message}");
+        }
+        finally
+        {
+            isSending = false;
+        }
+    }
+} 

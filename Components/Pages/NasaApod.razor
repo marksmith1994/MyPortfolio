@@ -1,0 +1,66 @@
+@page "/nasa-apod"
+@using System.Net.Http.Json
+@inject HttpClient Http
+
+<PageTitle>NASA Astronomy Picture of the Day</PageTitle>
+
+<div class="container py-5">
+    <h1 class="text-center mb-4">NASA Astronomy Picture of the Day</h1>
+
+    @if (apod == null)
+    {
+        <div class="text-center">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="card mx-auto" style="max-width: 700px;">
+            @if (!string.IsNullOrEmpty(apod.Url))
+            {
+                var mediaType = string.IsNullOrEmpty(apod.MediaType) ? "image" : apod.MediaType;
+                if (mediaType == "image")
+                {
+                    <img src="@apod.Url" class="card-img-top" alt="NASA Astronomy Picture of the Day" />
+                }
+                else if (mediaType == "video")
+                {
+                    <div class="ratio ratio-16x9">
+                        <iframe src="@apod.Url" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                }
+            }
+            <div class="card-body">
+                <h5 class="card-title" title="@apod.Title">@apod.Title</h5>
+                <p class="card-text" title="@apod.Explanation">@apod.Explanation</p>
+                <p class="card-text"><small class="text-muted" title="Date of this APOD">Date: @apod.Date</small></p>
+                @if (!string.IsNullOrEmpty(apod.Copyright))
+                {
+                    <p class="card-text"><small class="text-muted" title="Image copyright and credits">&copy; @apod.Copyright</small></p>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private ApodResult? apod;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var apiKey = "DEMO_KEY"; // Replace with your own API key if you have one
+        apod = await Http.GetFromJsonAsync<ApodResult>($"https://api.nasa.gov/planetary/apod?api_key={apiKey}");
+    }
+
+    public class ApodResult
+    {
+        public string Title { get; set; } = string.Empty;
+        public string Explanation { get; set; } = string.Empty;
+        public string Url { get; set; } = string.Empty;
+        public string MediaType { get; set; } = string.Empty;
+        public string Date { get; set; } = string.Empty;
+        public string Copyright { get; set; } = string.Empty;
+    }
+}

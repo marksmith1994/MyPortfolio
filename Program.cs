@@ -9,6 +9,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddHttpClient<GitHubService>();
 builder.Services.AddHttpClient<StravaService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddLogging();
 
 var app = builder.Build();
 

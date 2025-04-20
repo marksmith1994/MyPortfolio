@@ -169,4 +169,40 @@ wwwroot/css/site.min.css.map
 wwwroot/css/app.css
 wwwroot/css/app.css.map
 wwwroot/css/app.min.css
-wwwroot/css/app.min.css.map 
+wwwroot/css/app.min.css.map
+
+# Local secrets (ASP.NET Core User Secrets)
+secrets.json
+
+# Azure pipeline artifacts
+*.azurepipelines/*
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Rider IDE
+.idea/
+*.sln.iml
+
+# VS Code settings
+.vscode/
+
+# dotenv environment files
+.env
+.env.*
+
+# Backup files
+*.bak
+
+# Exclude publish output
+publish/
+
+# Exclude test results
+TestResults/
+
+# Exclude logs
+*.log
+
+# Exclude node_modules if you ever use JS tooling
+node_modules/

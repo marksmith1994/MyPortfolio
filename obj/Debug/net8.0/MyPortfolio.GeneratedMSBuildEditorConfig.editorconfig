@@ -22,12 +22,24 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xBcHAucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Mark/source/MyPortfolio/Components/Layout/Footer.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcRm9vdGVyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mark/source/MyPortfolio/Components/Pages/Contact.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDb250YWN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Mark/source/MyPortfolio/Components/Pages/Error.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFcnJvci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Mark/source/MyPortfolio/Components/Pages/Home.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xIb21lLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mark/source/MyPortfolio/Components/Pages/NasaApod.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xOYXNhQXBvZC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Mark/source/MyPortfolio/Components/Pages/Projects.razor]
@@ -40,10 +52,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Mark/source/MyPortfolio/Components/Pages/Strava.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTdHJhdmEucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Mark/source/MyPortfolio/Components/Routes.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xSb3V0ZXMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Mark/source/MyPortfolio/Components/_Imports.razor]

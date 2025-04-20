@@ -8,6 +8,23 @@
 <div class="container py-5">
     <h1 class="text-center mb-5">My Projects</h1>
 
+    <!-- Internal Site Projects Section -->
+    <section>
+        <h2 class="text-center mb-4">Featured In-Site Projects</h2>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5">
+            <div class="col">
+                <a href="/nasa-apod" class="card h-100 text-decoration-none text-reset" style="display:block;">
+                    <div class="card-body">
+                        <h5 class="card-title mb-2"><i class="fas fa-moon me-2"></i>NASA Astronomy Picture</h5>
+                        <p class="card-text">See today's NASA Astronomy Picture of the Day, with explanation and credits from NASA's open API.</p>
+                        <span class="badge bg-info">API Demo</span>
+                    </div>
+                </a>
+            </div>
+            <!-- Add more internal project cards here as needed -->
+        </div>
+    </section>
+
     <!-- GitHub Repositories Section -->
     <section>
         <h2 class="text-center mb-4">GitHub Repositories</h2>
@@ -31,37 +48,52 @@
                 @foreach (var repo in repositories)
                 {
                     <div class="col">
-                        <div class="card h-100">
+                        <a href="@repo.HtmlUrl" target="_blank" class="card h-100 text-decoration-none text-reset" style="display:block;">
                             <div class="card-body">
-                                <h5 class="card-title">@repo.Name</h5>
+                                <h5 class="card-title mb-2">@repo.Name</h5>
                                 <p class="card-text">@repo.Description</p>
-                                @if (!string.IsNullOrEmpty(repo.Language))
-                                {
-                                    <span class="badge bg-secondary mb-2">@repo.Language</span>
-                                }
+                                <div class="mb-3">
+                                    @if (!string.IsNullOrEmpty(repo.Language))
+                                    {
+                                        <span class="badge bg-secondary me-2">@repo.Language</span>
+                                    }
+                                    <span class="badge bg-primary me-2">
+                                        <i class="fas fa-star"></i> @repo.StargazersCount
+                                    </span>
+                                    <span class="badge bg-info me-2">
+                                        <i class="fas fa-code-branch"></i> @repo.ForksCount
+                                    </span>
+                                    @if (repo.License != null)
+                                    {
+                                        <span class="badge bg-light text-dark me-2">
+                                            <i class="fas fa-balance-scale"></i> @repo.License.Name
+                                        </span>
+                                    }
+                                </div>
                                 @if (repo.Topics.Any())
                                 {
-                                    <div class="mb-2">
+                                    <div class="mb-3">
                                         @foreach (var topic in repo.Topics)
                                         {
-                                            <span class="badge bg-primary me-1">@topic</span>
+                                            <span class="badge bg-light text-dark me-1">@topic</span>
                                         }
                                     </div>
                                 }
                                 <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted">
+                                        <i class="fas fa-clock me-1"></i>
+                                        Updated @GetTimeAgo(repo.UpdatedAt)
+                                    </small>
                                     <div>
-                                        <i class="fas fa-star text-warning"></i>
-                                        <span class="ms-1">@repo.StargazersCount</span>
+                                        @if (!string.IsNullOrEmpty(repo.Homepage))
+                                        {
+                                            <a href="@repo.Homepage" target="_blank" class="btn btn-outline-primary btn-sm me-2" onclick="event.stopPropagation();"> <i class="fas fa-external-link-alt"></i> </a>
+                                        }
+                                        <a href="@repo.HtmlUrl" target="_blank" class="btn btn-primary btn-sm" onclick="event.stopPropagation();"> <i class="fab fa-github me-1"></i>View </a>
                                     </div>
-                                    <a href="@repo.HtmlUrl" target="_blank" class="btn btn-primary">
-                                        <i class="fab fa-github me-1"></i>View on GitHub
-                                    </a>
                                 </div>
                             </div>
-                            <div class="card-footer text-muted">
-                                Last updated: @repo.UpdatedAt.ToString("MMM dd, yyyy")
-                            </div>
-                        </div>
+                        </a>
                     </div>
                 }
             </div>
@@ -75,5 +107,32 @@
     protected override async Task OnInitializedAsync()
     {
         repositories = await GitHubService.GetRepositoriesAsync();
+    }
+
+    private string GetTimeAgo(DateTime dateTime)
+    {
+        var timeSpan = DateTime.Now - dateTime;
+
+        if (timeSpan.TotalDays > 365)
+        {
+            return $"{(int)(timeSpan.TotalDays / 365)} years ago";
+        }
+        if (timeSpan.TotalDays > 30)
+        {
+            return $"{(int)(timeSpan.TotalDays / 30)} months ago";
+        }
+        if (timeSpan.TotalDays > 1)
+        {
+            return $"{(int)timeSpan.TotalDays} days ago";
+        }
+        if (timeSpan.TotalHours > 1)
+        {
+            return $"{(int)timeSpan.TotalHours} hours ago";
+        }
+        if (timeSpan.TotalMinutes > 1)
+        {
+            return $"{(int)timeSpan.TotalMinutes} minutes ago";
+        }
+        return "just now";
     }
 } 
