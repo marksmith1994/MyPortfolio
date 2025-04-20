@@ -85,6 +85,38 @@ The Projects page automatically fetches and displays your GitHub repositories. T
 1. Update the GitHub username in `Services/GitHubService.cs`
 2. Modify the repository display in `Components/Pages/Projects.razor`
 
+## Configuration & API Key Safety
+
+This project uses third-party APIs (e.g., GitHub API). **Never commit real API keys or secrets to source control.**
+
+### Local Development
+- Use the [.NET Secret Manager](https://learn.microsoft.com/en-us/aspnet/core/security/app-secrets) to store API keys and sensitive settings securely on your machine:
+  ```bash
+  dotnet user-secrets set "GitHub:ApiKey" "<YOUR_GITHUB_API_KEY>"
+  ```
+- These secrets are never committed and are only available on your local machine.
+
+### Production Deployment
+- Use environment variables or a cloud secrets manager (e.g., Azure Key Vault) to provide API keys and secrets securely.
+- The app will automatically read configuration from environment variables in production.
+
+### Example `appsettings.json`
+```json
+{
+  "GitHub": {
+    "ApiKey": "<GITHUB_API_KEY>"
+  }
+}
+```
+**Do not put real values in this file!**
+
+### .gitignore
+- The `.gitignore` is set up to exclude all build outputs, user secrets, and sensitive files by default.
+
+### API Key Safety in Code
+- All services check for missing or empty API keys and fail gracefully with a clear error message.
+- API keys are never logged or exposed in error messages.
+
 ## Deployment
 
 The website is configured for deployment to GitHub Pages. To deploy:
