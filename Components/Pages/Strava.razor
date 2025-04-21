@@ -1,102 +1,218 @@
 @page "/strava"
 @using MyPortfolio.Services
 @using MyPortfolio.Models
+@inject IJSRuntime JS
 @inject StravaService StravaService
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync("eval", "document.body.classList.add('strava-bg')");
+        }
+    }
+
+    private List<StravaActivity>? activities;
+    private int currentPage = 1;
+    private int pageSize = 18;
+    private int totalPages => (int)Math.Ceiling((activities?.Count ?? 0) / (double)pageSize);
+    private IEnumerable<StravaActivity> pagedActivities =>
+        (activities ?? Enumerable.Empty<StravaActivity>())
+            .Skip((currentPage - 1) * pageSize)
+            .Take(pageSize);
+    private bool isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        isLoading = true;
+        activities = await StravaService.GetAllActivitiesAsync();
+        isLoading = false;
+    }
+
+    private void GoToPage(int page)
+    {
+        if (page >= 1 && page <= totalPages)
+            currentPage = page;
+    }
+
+    private string GetActivityEmoji(string type)
+    {
+        return type switch
+        {
+            "Run" => "🏃‍♂️",
+            "Ride" => "🚴‍♂️",
+            "Walk" => "🚶‍♂️",
+            "Swim" => "🏊‍♂️",
+            "Hike" => "🥾",
+            "Rowing" => "🚣‍♂️",
+            "Workout" => "💪",
+            "Yoga" => "🧘‍♂️",
+            _ => "🏅"
+        };
+    }
+
+    private string FormatTime(int seconds)
+    {
+        var t = TimeSpan.FromSeconds(seconds);
+        if (t.Hours > 0)
+            return t.ToString(@"h\:mm\:ss");
+        return t.ToString(@"m\:ss");
+    }
+
+    private string GetLocalDate(DateTime utcDate)
+    {
+        try { return utcDate.ToLocalTime().ToString("MMM dd, yyyy HH:mm"); }
+        catch { return utcDate.ToString("MMM dd, yyyy HH:mm"); }
+    }
+}
 
 <PageTitle>Strava Activities - My Portfolio</PageTitle>
 
-<div class="container py-5">
-    <h1 class="text-center mb-5">My Strava Activities</h1>
-
-    @if (activities == null)
+<div class="container-fluid">
+    <h1 class="mb-4 text-center">Mark’s Strava Dashboard 🚴‍♂️</h1>
+    @if (isLoading)
     {
-        <div class="text-center">
-            <div class="spinner-border text-primary" role="status">
+        <div class="d-flex justify-content-center my-5">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="visually-hidden">Loading...</span>
             </div>
         </div>
     }
-    else if (!activities.Any())
-    {
-        <div class="text-center">
-            <p>No activities found.</p>
-        </div>
-    }
     else
     {
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            @foreach (var activity in activities)
-            {
-                <div class="col">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">@activity.Name</h5>
-                            <div class="mb-3">
-                                <span class="badge bg-primary">@activity.Type</span>
-                            </div>
-                            <div class="activity-stats">
-                                <div class="stat-item">
-                                    <i class="fas fa-road"></i>
-                                    <span>@(Math.Round(activity.Distance / 1000, 2)) km</span>
-                                </div>
-                                <div class="stat-item">
-                                    <i class="fas fa-clock"></i>
-                                    <span>@TimeSpan.FromSeconds(activity.MovingTime).ToString(@"hh\:mm\:ss")</span>
-                                </div>
-                                <div class="stat-item">
-                                    <i class="fas fa-tachometer-alt"></i>
-                                    <span>@(Math.Round(activity.AverageSpeed * 3.6, 2)) km/h</span>
-                                </div>
-                                @if (activity.AverageHeartrate > 0)
-                                {
-                                    <div class="stat-item">
-                                        <i class="fas fa-heart"></i>
-                                        <span>@(Math.Round(activity.AverageHeartrate)) bpm</span>
-                                    </div>
-                                }
-                                @if (activity.AverageCadence > 0)
-                                {
-                                    <div class="stat-item">
-                                        <i class="fas fa-shoe-prints"></i>
-                                        <span>@(Math.Round(activity.AverageCadence)) spm</span>
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                        <div class="card-footer text-muted">
-                            <small>@activity.StartDate.ToString("MMM dd, yyyy HH:mm")</small>
-                        </div>
+        <div class="row mb-4">
+            <div class="col-md-3 mb-3 mb-md-0">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header gradient-bg text-white fw-bold">⏱️ Total Time</div>
+                    <div class="card-body text-center">
+                        <span class="display-6">@FormatTime((int)(activities?.Sum(a => a.ElapsedTime) ?? 0))</span>
                     </div>
                 </div>
-            }
+            </div>
+            <div class="col-md-3 mb-3 mb-md-0">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header gradient-bg text-white fw-bold">🏅 Furthest Distance</div>
+                    <div class="card-body text-center">
+                        @if (activities != null && activities.Any())
+                        {
+                            var furthest = activities.OrderByDescending(a => a.Distance).FirstOrDefault();
+                            <span class="display-6">@furthest?.Name</span>
+                            <div class="small">@((decimal.Round((decimal)(furthest?.Distance ?? 0) / 1000m, 2)).ToString("F2")) km</div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3 mb-md-0">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header gradient-bg text-white fw-bold">⬆️ Most Elevation</div>
+                    <div class="card-body text-center">
+                        @if (activities != null && activities.Any())
+                        {
+                            var climb = activities.OrderByDescending(a => a.TotalElevationGain).FirstOrDefault();
+                            <span class="display-6">@climb?.Name</span>
+                            <div class="small">@climb?.TotalElevationGain m</div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header gradient-bg text-white fw-bold">❤️ Highest Heart Rate</div>
+                    <div class="card-body text-center">
+                        @if (activities != null && activities.Any())
+                        {
+                            var maxHr = activities.OrderByDescending(a => a.AverageHeartrate).FirstOrDefault();
+                            <span class="display-6">@maxHr?.Name</span>
+                            <div class="small">@((maxHr?.AverageHeartrate ?? 0).ToString("F0")) bpm</div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <!-- Activities Grid -->
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    @foreach (var activity in pagedActivities)
+                    {
+                        <div class="col">
+                            <div class="card h-100 strava-card shadow-sm border-0">
+                                <div class="card-header gradient-bg text-white d-flex align-items-center justify-content-between p-3 rounded-top">
+                                    <div>
+                                        @GetActivityEmoji(activity.Type)
+                                        <span class="fw-bold">@activity.Type</span>
+                                    </div>
+                                    <span class="activity-date">@GetLocalDate(activity.StartDateLocal != default ? activity.StartDateLocal : activity.StartDate)</span>
+                                </div>
+                                <div class="card-body pb-2">
+                                    <h5 class="card-title mb-2">@activity.Name</h5>
+                                    <div class="activity-stats mb-3">
+                                        <div class="stat-item">
+                                            <i class="fas fa-road"></i>
+                                            <span>@(Math.Round(activity.Distance / 1000, 2)) km</span>
+                                        </div>
+                                        <div class="stat-item">
+                                            <i class="fas fa-clock"></i>
+                                            <span>@FormatTime(activity.MovingTime)</span>
+                                        </div>
+                                        <div class="stat-item">
+                                            <span>⏱️</span>
+                                            <span>@FormatTime(activity.ElapsedTime)</span>
+                                        </div>
+                                        <div class="stat-item">
+                                            <i class="fas fa-tachometer-alt"></i>
+                                            <span>@(Math.Round(activity.AverageSpeed * 3.6, 2)) km/h</span>
+                                        </div>
+                                        <div class="stat-item">
+                                            <span>⬆️</span>
+                                            <span>@activity.TotalElevationGain m</span>
+                                        </div>
+                                        <div class="stat-item">
+                                            <span>⚡</span>
+                                            <span>@(Math.Round(activity.MaxSpeed * 3.6, 2)) km/h max</span>
+                                        </div>
+                                        @if (activity.AverageHeartrate > 0)
+                                        {
+                                            <div class="stat-item">
+                                                <span>❤️</span>
+                                                <span>@(Math.Round(activity.AverageHeartrate)) bpm</span>
+                                            </div>
+                                        }
+                                        @if (activity.AverageCadence > 0)
+                                        {
+                                            <div class="stat-item">
+                                                <span>🦶</span>
+                                                <span>@(Math.Round(activity.AverageCadence)) spm</span>
+                                            </div>
+                                        }
+                                    </div>
+                                    @if (!string.IsNullOrEmpty(activity.Map?.Polyline))
+                                    {
+                                        <div class="activity-map mb-2">
+                                            <img src="https://maps.googleapis.com/maps/api/staticmap?size=400x200&path=enc:@activity.Map.Polyline&key=YOUR_GOOGLE_MAPS_API_KEY" alt="Activity Map" class="img-fluid rounded" />
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                @if (totalPages > 1)
+                {
+                    <nav class="mt-4 d-flex justify-content-center">
+                        <ul class="pagination">
+                            <li class="page-item @(currentPage == 1 ? "disabled" : null)">
+                                <button class="page-link" @onclick="() => GoToPage(currentPage - 1)">Previous</button>
+                            </li>
+                            <li class="page-item @(currentPage == totalPages ? "disabled" : null)">
+                                <button class="page-link" @onclick="() => GoToPage(currentPage + 1)">Next</button>
+                            </li>
+                        </ul>
+                    </nav>
+                }
+            </div>
         </div>
     }
 </div>
-
-<style>
-    .activity-stats {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.5rem;
-        margin-top: 1rem;
-    }
-
-    .stat-item {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    .stat-item i {
-        color: #B85042;
-    }
-</style>
-
-@code {
-    private List<StravaActivity>? activities;
-
-    protected override async Task OnInitializedAsync()
-    {
-        activities = await StravaService.GetRecentActivitiesAsync();
-    }
-} 
+<link rel="stylesheet" href="/css/strava.css" />

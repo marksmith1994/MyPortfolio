@@ -29,6 +29,10 @@
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
+      "Id": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\css\\strava.css",
+      "PackagePath": "staticwebassets\\css\\strava.css"
+    },
+    {
       "Id": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\css\\theme.css",
       "PackagePath": "staticwebassets\\css\\theme.css"
     },
@@ -39,6 +43,18 @@
     {
       "Id": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\images\\profile.jpeg",
       "PackagePath": "staticwebassets\\images\\profile.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\js\\strava-charts.js",
+      "PackagePath": "staticwebassets\\js\\strava-charts.js"
+    },
+    {
+      "Id": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\js\\strava-heatmap.js",
+      "PackagePath": "staticwebassets\\js\\strava-heatmap.js"
+    },
+    {
+      "Id": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\js\\strava-visuals.js",
+      "PackagePath": "staticwebassets\\js\\strava-visuals.js"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.MyPortfolio.Microsoft.AspNetCore.StaticWebAssets.props",

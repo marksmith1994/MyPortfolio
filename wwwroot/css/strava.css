@@ -1,0 +1,101 @@
+/* Strava Dashboard Styles */
+.card-header.gradient-bg {
+    background: linear-gradient(90deg, #36A2EB 0%, #4BC0C0 100%);
+    font-size: 1.08rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+.display-6 {
+    font-size: 2rem;
+    font-weight: 600;
+}
+.card .small {
+    font-size: 1rem;
+    color: #666;
+}
+.card {
+    border-radius: 1rem;
+}
+.card-body {
+    padding: 1.1rem 1.2rem;
+}
+.activity-stats .stat-item {
+    margin-bottom: 0.4rem;
+}
+.activity-map img {
+    border-radius: 0.5rem;
+}
+.card-title {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+.row.mb-4 > .col-md-3, .row.mb-4 > .col-md-4 {
+    margin-bottom: 1rem !important;
+}
+.card-header {
+    letter-spacing: 0.5px;
+}
+.pagination .page-link {
+    border-radius: 0.4rem;
+}
+.pagination .active .page-link {
+    background: #36A2EB;
+    border-color: #36A2EB;
+}
+.activity-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(56, 189, 248, 0.10);
+    border-radius: 8px;
+    padding: 0.3rem 0.7rem;
+    font-size: 1rem;
+    color: var(--primary-dark);
+}
+.stat-item i {
+    color: #B85042;
+}
+.strava-card {
+    border-radius: 18px !important;
+    overflow: hidden;
+    transition: transform 0.13s, box-shadow 0.13s;
+}
+.strava-card:hover {
+    transform: translateY(-6px) scale(1.015);
+    box-shadow: 0 8px 32px 0 rgba(56, 189, 248, 0.12), 0 1.5px 4px 0 rgba(80,80,80,0.10);
+}
+.strava-card .card-header.gradient-bg {
+    border-radius: 18px 18px 0 0 !important;
+    background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%) !important;
+}
+.activity-date {
+    font-size: 0.95rem;
+    opacity: 0.85;
+}
+.activity-map {
+    border-radius: 8px;
+    overflow: hidden;
+}
+.activity-map img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+body.strava-bg {
+    background: var(--background) !important;
+}
+.page {
+    background: transparent !important;
+}
+.container-fluid {
+    background: var(--surface);
+    border-radius: 1.5rem;
+    box-shadow: 0 2px 12px 0 rgba(56, 189, 248, 0.04);
+    padding-bottom: 2rem;
+}

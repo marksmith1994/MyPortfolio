@@ -232,3 +232,50 @@ secrets.json
 # Ignore ref and refint folders
 ref/
 refint/
+
+# --- SECURITY: Ignore secrets and sensitive config ---
+# App settings (API keys, secrets, etc)
+appsettings.json
+appsettings.Development.json
+appsettings.Production.json
+*.secrets.json
+.env
+.env.*
+# --- Node/npm ---
+node_modules/
+# --- Build output ---
+bin/
+obj/
+# --- User/IDE/VS files ---
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+# --- Logs ---
+*.log
+# --- OS/Editor/Backup ---
+.DS_Store
+Thumbs.db
+*.bak
+*~
+# --- Publish/Deploy ---
+publish/
+dist/
+build/
+
+# --- NuGet ---
+*.nupkg
+**/packages/*
+!**/packages/build/
+
+# --- Misc ---
+*.dbmdl
+*.pfx
+*.publishsettings
+
+# --- Ignore downloadable CV or resume ---
+wwwroot/files/CV.pdf
+wwwroot/files/cv.pdf
+wwwroot/files/Resume.pdf
+wwwroot/files/resume.pdf

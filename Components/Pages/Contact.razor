@@ -41,7 +41,7 @@
 
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <InputText id="email" @bind-Value="contactModel.Email" class="form-control" />
+                            <InputText id="email" @bind-Value="contactModel.Email" class="form-control" inputmode="email" />
                             <ValidationMessage For="@(() => contactModel.Email)" />
                         </div>
 
@@ -55,6 +55,15 @@
                             <label for="message" class="form-label">Message</label>
                             <InputTextArea id="message" @bind-Value="contactModel.Message" class="form-control" rows="5" />
                             <ValidationMessage For="@(() => contactModel.Message)" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="antispam" class="form-label">Anti-Spam: What is 3 + 4?</label>
+                            <InputText id="antispam" @bind-Value="antiSpamAnswer" class="form-control" />
+                            @if (showAntiSpamError)
+                            {
+                                <div class="text-danger small mt-1">Incorrect anti-spam answer.</div>
+                            }
                         </div>
 
                         <div class="text-center">
@@ -83,17 +92,28 @@
     private bool showSuccess = false;
     private bool showError = false;
     private string errorMessage = string.Empty;
+    private string antiSpamAnswer = string.Empty;
+    private bool showAntiSpamError = false;
 
     private async Task HandleValidSubmit()
     {
         isSending = true;
         showSuccess = false;
         showError = false;
-        
+        showAntiSpamError = false;
+
+        // Simple anti-spam check
+        if (antiSpamAnswer.Trim() != "7")
+        {
+            showAntiSpamError = true;
+            isSending = false;
+            return;
+        }
         try
         {
             await EmailService.SendEmailAsync(contactModel);
             contactModel = new ContactModel();
+            antiSpamAnswer = string.Empty;
             showSuccess = true;
         }
         catch (Exception ex)

@@ -12,9 +12,23 @@
     --footer-text: #64748b;       /* Muted text for footer */
 }
 
+html, body {
+    height: 100%;
+}
+
 body {
     background: var(--background);
     color: var(--text);
+}
+
+.page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main.container {
+    flex: 1 0 auto;
 }
 
 .navbar {
