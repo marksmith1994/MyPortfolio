@@ -1,0 +1,44 @@
+# GitHub Actions workflow for Azure App Service deployment (Blazor Server)
+# Docs: https://learn.microsoft.com/en-us/azure/app-service/deploy-aspnet-core-from-github
+
+name: Build and deploy ASP.Net Core app to Azure Web App - portfolio-uksouth-as
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build MyPortfolio.csproj --configuration Release --no-restore
+
+    - name: Publish
+      run: dotnet publish MyPortfolio.csproj -c Release -o ./publish --no-build
+
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v3
+      with:
+        app-name: 'portfolio-uksouth-as'
+        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE }}
+        package: ./publish
+
+    # Optionally, add a step to remove sensitive files from the published output
+    # - name: Remove secrets from publish folder
+    #   run: rm -f ./publish/appsettings*.json
