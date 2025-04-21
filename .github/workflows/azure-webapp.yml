@@ -27,7 +27,7 @@ jobs:
       run: dotnet restore
 
     - name: Build
-      run: dotnet build MyPortfolio.csproj --configuration Release --no-restore
+      run: dotnet build MyPortfolio.csproj --configuration Release --no-restore --warnaserror
 
     - name: Publish
       run: dotnet publish MyPortfolio.csproj -c Release -o ./publish --no-build

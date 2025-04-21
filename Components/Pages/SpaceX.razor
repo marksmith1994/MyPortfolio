@@ -122,7 +122,7 @@
                 launches = launches?.OrderBy(l => l.DateUtc).Take(12).ToList();
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             errorMessage = "Could not fetch SpaceX launches. Please try again later.";
             launches = null;
