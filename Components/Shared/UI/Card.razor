@@ -1,0 +1,81 @@
+@namespace MyPortfolio.Components.Shared.UI
+
+<div class="@GetCardClasses()" @attributes="@AdditionalAttributes">
+    @if (Header != null)
+    {
+        <div class="card-header">
+            @Header
+        </div>
+    }
+    
+    @if (ImageSrc != null)
+    {
+        <img src="@ImageSrc" class="card-img-top" alt="@ImageAlt" />
+    }
+    
+    <div class="card-body">
+        @if (Title != null)
+        {
+            <h5 class="card-title">@Title</h5>
+        }
+        @if (Subtitle != null)
+        {
+            <h6 class="card-subtitle mb-2 text-muted">@Subtitle</h6>
+        }
+        @ChildContent
+    </div>
+    
+    @if (Footer != null)
+    {
+        <div class="card-footer">
+            @Footer
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public RenderFragment? Header { get; set; }
+    [Parameter] public RenderFragment? Footer { get; set; }
+    [Parameter] public string? Title { get; set; }
+    [Parameter] public string? Subtitle { get; set; }
+    [Parameter] public string? ImageSrc { get; set; }
+    [Parameter] public string? ImageAlt { get; set; }
+    [Parameter] public CardVariant Variant { get; set; } = CardVariant.Default;
+    [Parameter] public bool Hover { get; set; }
+    [Parameter] public bool Shadow { get; set; } = true;
+    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string GetCardClasses()
+    {
+        var classes = new List<string> { "card" };
+
+        if (Hover)
+        {
+            classes.Add("card-hover");
+        }
+
+        if (Shadow)
+        {
+            classes.Add("shadow-sm");
+        }
+
+        // Variant classes
+        classes.Add(Variant switch
+        {
+            CardVariant.Default => "",
+            CardVariant.Bordered => "border-primary",
+            CardVariant.Glass => "glass-effect",
+            _ => ""
+        });
+
+        return string.Join(" ", classes.Where(c => !string.IsNullOrEmpty(c)));
+    }
+
+    public enum CardVariant
+    {
+        Default,
+        Bordered,
+        Glass
+    }
+} 

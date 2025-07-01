@@ -34,3 +34,8 @@ C:\Users\Mark\source\MyPortfolio\obj\Debug\net8.0\MyPortfo.01A62FBD.Up2Date
 C:\Users\Mark\source\MyPortfolio\obj\Debug\net8.0\MyPortfolio.dll
 C:\Users\Mark\source\MyPortfolio\obj\Debug\net8.0\refint\MyPortfolio.dll
 C:\Users\Mark\source\MyPortfolio\obj\Debug\net8.0\MyPortfolio.pdb
+C:\Users\Mark\source\MyPortfolio\bin\Debug\net8.0\MyPortfolio.deps.json
+C:\Users\Mark\source\MyPortfolio\bin\Debug\net8.0\MyPortfolio.runtimeconfig.json
+C:\Users\Mark\source\MyPortfolio\bin\Debug\net8.0\MyPortfolio.pdb
+C:\Users\Mark\source\MyPortfolio\obj\Debug\net8.0\MyPortfolio.genruntimeconfig.cache
+C:\Users\Mark\source\MyPortfolio\obj\Debug\net8.0\ref\MyPortfolio.dll

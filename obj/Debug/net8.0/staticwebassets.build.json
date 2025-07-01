@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "L/80zXVZwyf+ABeRmHIL4/MRBOign+7FL7cbIbggqoc=",
+  "Hash": "CfSleKJDqa1ECHO0kPDDD/qaIWbsNjuX9t29WwXZWXU=",
   "Source": "MyPortfolio",
   "BasePath": "_content/MyPortfolio",
   "Mode": "Default",
@@ -167,6 +167,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\enhanced-skills.css"
+    },
+    {
+      "Identity": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\css\\fixes.css",
+      "SourceId": "MyPortfolio",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\",
+      "BasePath": "_content/MyPortfolio",
+      "RelativePath": "css/fixes.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\fixes.css"
     },
     {
       "Identity": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\css\\home.css",

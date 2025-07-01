@@ -29,6 +29,10 @@
       "PackagePath": "staticwebassets\\css\\enhanced-skills.css"
     },
     {
+      "Id": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\css\\fixes.css",
+      "PackagePath": "staticwebassets\\css\\fixes.css"
+    },
+    {
       "Id": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\css\\home.css",
       "PackagePath": "staticwebassets\\css\\home.css"
     },

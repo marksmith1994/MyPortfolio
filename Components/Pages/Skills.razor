@@ -23,7 +23,7 @@
                     <h2 class="mb-4" style="color: #1995AD;">
                         <i class="fas fa-briefcase me-2"></i>Professional Experience
                     </h2>
-                    <AnimatedTimeline Items="@workExperience" />
+                    <Timeline Items="@workExperience" />
                 </div>
             </div>
 
@@ -32,7 +32,7 @@
                     <h2 class="mb-4" style="color: #1995AD;">
                         <i class="fas fa-graduation-cap me-2"></i>Education
                     </h2>
-                    <AnimatedTimeline Items="@education" />
+                    <Timeline Items="@education" />
                 </div>
             </div>
 
@@ -419,8 +419,8 @@
 </div>
 
 @code {
-    private List<AnimatedTimeline.TimelineItem> workExperience = new();
-    private List<AnimatedTimeline.TimelineItem> education = new();
+    private List<Timeline.TimelineItem> workExperience = new();
+    private List<Timeline.TimelineItem> education = new();
 
     protected override void OnInitialized()
     {
@@ -430,9 +430,9 @@
 
     private void InitializeWorkExperience()
     {
-        workExperience = new List<AnimatedTimeline.TimelineItem>
+        workExperience = new List<Timeline.TimelineItem>
         {
-            new AnimatedTimeline.TimelineItem
+            new Timeline.TimelineItem
             {
                 Title = "Senior Software Engineer",
                 Subtitle = "Downing LLP",
@@ -449,7 +449,7 @@
                 },
                 TechStack = new List<string> { ".NET", "C#", "Azure", "SQL", "CQRS", "Mediator Pattern", "API Gateway" }
             },
-            new AnimatedTimeline.TimelineItem
+            new Timeline.TimelineItem
             {
                 Title = "Software Developer",
                 Subtitle = "Thinkproject UK, Gloucester",
@@ -467,7 +467,7 @@
                 },
                 TechStack = new List<string> { ".NET Core 6", "React", "Angular", "Azure", "Terraform", "Auth0", "Microservices" }
             },
-            new AnimatedTimeline.TimelineItem
+            new Timeline.TimelineItem
             {
                 Title = "Developer",
                 Subtitle = "Assured Futures, Cheltenham",
@@ -482,7 +482,7 @@
                 },
                 TechStack = new List<string> { "Angular", "ASP.NET", "Blazor", "REST APIs", "Agile" }
             },
-            new AnimatedTimeline.TimelineItem
+            new Timeline.TimelineItem
             {
                 Title = "Frontend Developer",
                 Subtitle = "Limegreentangerine, Cardiff",
@@ -501,9 +501,9 @@
 
     private void InitializeEducation()
     {
-        education = new List<AnimatedTimeline.TimelineItem>
+        education = new List<Timeline.TimelineItem>
         {
-            new AnimatedTimeline.TimelineItem
+            new Timeline.TimelineItem
             {
                 Title = "Aberystwyth University",
                 Subtitle = "BSc (Hons) Internet Computing and Systems Administration",
@@ -512,7 +512,7 @@
                 Description = "Degree classification: 2:2",
                 TechStack = new List<string> { "Computer Science", "Systems Administration", "Networking" }
             },
-            new AnimatedTimeline.TimelineItem
+            new Timeline.TimelineItem
             {
                 Title = "Bryntirion Comprehensive School",
                 Subtitle = "A Levels and GCSEs",
