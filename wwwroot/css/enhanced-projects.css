@@ -1,5 +1,4 @@
-/* Projects Page Styles */
-
+/* Enhanced Project Cards */
 .project-card {
     transition: all 0.3s ease;
     border: none;
@@ -10,205 +9,6 @@
 .project-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-}
-
-.project-card .card-body {
-    padding: 1.5rem;
-}
-
-.project-card .card-title {
-    color: var(--text);
-    font-weight: 600;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-}
-
-.project-card .card-title i {
-    margin-right: 0.75rem;
-    font-size: 1.2rem;
-}
-
-.project-card .card-text {
-    color: var(--text-muted);
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-}
-
-.project-card .badge {
-    font-size: 0.75rem;
-    padding: 0.375rem 0.75rem;
-    border-radius: 6px;
-    font-weight: 500;
-}
-
-.project-card .btn {
-    border-radius: 20px;
-    padding: 0.375rem 1rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-}
-
-/* GitHub Repository Cards */
-.project-card a {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    height: 100%;
-}
-
-.project-card a:hover {
-    text-decoration: none;
-    color: inherit;
-}
-
-.project-card a .card-body {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.project-card a .card-title {
-    color: var(--primary);
-    font-weight: 600;
-}
-
-.project-card a .card-text {
-    flex-grow: 1;
-    color: var(--text-muted);
-}
-
-/* Empty State */
-.empty-state {
-    padding: 3rem 1rem;
-}
-
-.empty-state i {
-    color: var(--text-muted);
-    margin-bottom: 1rem;
-}
-
-/* Loading Animation */
-.fade-in {
-    animation: fadeIn 0.6s ease-in-out;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Section Headers */
-section h2 {
-    color: var(--text);
-    font-weight: 600;
-    margin-bottom: 2rem;
-    position: relative;
-    padding-bottom: 0.5rem;
-}
-
-section h2::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
-    border-radius: 2px;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .project-card .card-body {
-        padding: 1rem;
-    }
-    
-    .project-card .card-title {
-        font-size: 1.1rem;
-    }
-    
-    .project-card .card-text {
-        font-size: 0.9rem;
-    }
-    
-    .badge {
-        font-size: 0.7rem;
-        padding: 0.25rem 0.5rem;
-    }
-}
-
-/* Dark Mode Enhancements */
-[data-theme="dark"] .project-card {
-    background: var(--surface);
-    border-color: var(--border);
-}
-
-[data-theme="dark"] .project-card:hover {
-    background: var(--surface-hover);
-    border-color: var(--primary);
-}
-
-[data-theme="dark"] .project-card .card-title {
-    color: var(--text);
-}
-
-[data-theme="dark"] .project-card .card-text {
-    color: var(--text-muted);
-}
-
-/* Hover Effects */
-.project-card:hover .card-title {
-    color: var(--primary);
-}
-
-.project-card:hover .btn {
-    background-color: var(--primary);
-    border-color: var(--primary);
-    color: white;
-}
-
-/* Badge Colors */
-.badge.bg-primary {
-    background-color: var(--primary) !important;
-}
-
-.badge.bg-secondary {
-    background-color: var(--text-muted) !important;
-}
-
-.badge.bg-info {
-    background-color: var(--accent) !important;
-}
-
-.badge.bg-success {
-    background-color: #28a745 !important;
-}
-
-.badge.bg-warning {
-    background-color: #ffc107 !important;
-    color: #212529 !important;
-}
-
-.badge.bg-danger {
-    background-color: #dc3545 !important;
-}
-
-.badge.bg-light {
-    background-color: var(--surface-hover) !important;
-    color: var(--text) !important;
-}
-
-/* Purple badge for game development */
-.badge.bg-purple {
-    background-color: #6f42c1 !important;
 }
 
 /* Project Image Container */
@@ -349,8 +149,38 @@ section h2::after {
     color: #1f2937;
 }
 
+.tech-badge[data-tech="typescript"] {
+    background: linear-gradient(135deg, #3178c6 0%, #4f9cd6 100%);
+    color: white;
+}
+
+.tech-badge[data-tech="html"] {
+    background: linear-gradient(135deg, #e34f26 0%, #f06529 100%);
+    color: white;
+}
+
+.tech-badge[data-tech="css"] {
+    background: linear-gradient(135deg, #1572b6 0%, #33a9dc 100%);
+    color: white;
+}
+
+.tech-badge[data-tech="python"] {
+    background: linear-gradient(135deg, #3776ab 0%, #ffde57 100%);
+    color: #1f2937;
+}
+
+.tech-badge[data-tech="java"] {
+    background: linear-gradient(135deg, #ed8b00 0%, #f89820 100%);
+    color: white;
+}
+
 .tech-badge[data-tech="api"] {
     background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+    color: white;
+}
+
+.tech-badge[data-tech="topic"] {
+    background: linear-gradient(135deg, #6b7280 0%, #9ca3af 100%);
     color: white;
 }
 
@@ -383,6 +213,50 @@ section h2::after {
 
 .stat-text {
     font-weight: 500;
+}
+
+/* Repository Header */
+.repo-header {
+    text-align: center;
+}
+
+.repo-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    border-radius: 50%;
+    margin: 0 auto;
+    color: white;
+}
+
+/* Repository Stats */
+.repo-stats {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1rem 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.repo-stats .stat-item {
+    text-align: center;
+    flex: 1;
+}
+
+.repo-stats .stat-item i {
+    display: block;
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.repo-stats .stat-text {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text);
 }
 
 /* Enhanced GitHub Repository Cards */
@@ -419,6 +293,11 @@ section h2::after {
     color: var(--text-muted);
 }
 
+[data-theme="dark"] .repo-stats {
+    border-top-color: var(--border);
+    border-bottom-color: var(--border);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .project-image-container {
@@ -448,6 +327,11 @@ section h2::after {
         flex-direction: column;
         gap: 0.5rem;
         align-items: flex-start;
+    }
+    
+    .repo-stats {
+        flex-direction: column;
+        gap: 1rem;
     }
 }
 

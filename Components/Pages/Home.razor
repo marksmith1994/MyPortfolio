@@ -3,29 +3,61 @@
 
 <PageTitle>Mark Smith - Senior Software Engineer</PageTitle>
 
-<div class="hero-section gradient-bg d-flex align-items-center min-vh-70 py-5 mb-5">
-    <div class="container">
+<div class="hero-section gradient-bg d-flex align-items-center min-vh-70 py-5 mb-5 position-relative overflow-hidden">
+    <!-- Particle Background -->
+    <div class="particles-container">
+        <div class="particle" style="--delay: 0s; --duration: 20s;"></div>
+        <div class="particle" style="--delay: 2s; --duration: 25s;"></div>
+        <div class="particle" style="--delay: 4s; --duration: 18s;"></div>
+        <div class="particle" style="--delay: 6s; --duration: 22s;"></div>
+        <div class="particle" style="--delay: 8s; --duration: 30s;"></div>
+        <div class="particle" style="--delay: 10s; --duration: 15s;"></div>
+        <div class="particle" style="--delay: 12s; --duration: 28s;"></div>
+        <div class="particle" style="--delay: 14s; --duration: 20s;"></div>
+    </div>
+
+    <div class="container position-relative">
         <div class="row align-items-center flex-column-reverse flex-lg-row">
             <div class="col-lg-6 text-center text-lg-start">
                 <h1 class="display-3 fw-bold mb-3 animate-fadein text-white">
-                    Hi, I'm <span class="text-gradient">Mark Smith</span>
+                    Hi, I'm <span class="text-gradient typing-text" id="typing-text">Mark Smith</span>
                 </h1>
                 <p class="lead mb-4 animate-fadein animate-delay-1 text-white-75">
                     A passionate senior software engineer crafting modern web applications with cutting-edge technologies. 
                     I love turning complex problems into elegant, user-friendly solutions.
                 </p>
-                <div class="d-flex gap-3 justify-content-center justify-content-lg-start animate-fadein animate-delay-2">
+                @* <div class="d-flex gap-3 justify-content-center justify-content-lg-start animate-fadein animate-delay-2">
                     <a href="/projects" class="btn btn-light btn-lg shadow-sm">
                         <i class="fas fa-code me-2"></i>View My Work
                     </a>
                     <a href="/contact" class="btn btn-outline-light btn-lg shadow-sm">
                         <i class="fas fa-envelope me-2"></i>Get in Touch
                     </a>
-                </div>
+                </div> *@
             </div>
-            <div class="col-lg-6 mb-4 mb-lg-0 text-center animate-fadein animate-delay-3">
+            <div class="col-lg-6 mb-4 mb-lg-0 text-center animate-fadein animate-delay-3 position-relative">
                 <div class="hero-image">
                     <img src="images/profile.jpeg" alt="Mark Smith - Senior Software Engineer" class="profile-img mx-auto" />
+                    
+                    <!-- Floating Tech Icons -->
+                    <div class="floating-icon" style="--delay: 0s; --position: top-left;">
+                        <i class="fab fa-react"></i>
+                    </div>
+                    <div class="floating-icon" style="--delay: 1s; --position: top-right;">
+                        <i class="fab fa-microsoft"></i>
+                    </div>
+                    <div class="floating-icon" style="--delay: 2s; --position: bottom-left;">
+                        <i class="fab fa-js-square"></i>
+                    </div>
+                    <div class="floating-icon" style="--delay: 3s; --position: bottom-right;">
+                        <i class="fab fa-angular"></i>
+                    </div>
+                    <div class="floating-icon" style="--delay: 4s; --position: top-center;">
+                        <i class="fab fa-git-alt"></i>
+                    </div>
+                    <div class="floating-icon" style="--delay: 5s; --position: bottom-center;">
+                        <i class="fab fa-docker"></i>
+                    </div>
                 </div>
             </div>
         </div>
@@ -148,3 +180,4 @@
 </div>
 
 <link href="css/home.css" rel="stylesheet">
+<script src="js/hero-animations.js"></script>

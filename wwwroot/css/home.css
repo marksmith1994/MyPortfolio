@@ -3,6 +3,158 @@
     color: rgba(255, 255, 255, 0.75) !important;
 }
 
+/* Particle Background */
+.particles-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    animation: float var(--duration) linear infinite;
+    animation-delay: var(--delay);
+    opacity: 0;
+}
+
+.particle:nth-child(odd) {
+    background: rgba(255, 255, 255, 0.5);
+    width: 6px;
+    height: 6px;
+}
+
+.particle:nth-child(even) {
+    background: rgba(255, 255, 255, 0.2);
+    width: 3px;
+    height: 3px;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(100vh) translateX(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) translateX(100px);
+        opacity: 0;
+    }
+}
+
+/* Floating Tech Icons */
+.hero-image {
+    position: relative;
+    display: inline-block;
+}
+
+.floating-icon {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: var(--primary);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    animation: float-icon 6s ease-in-out infinite;
+    animation-delay: var(--delay);
+    z-index: 1;
+    pointer-events: none; /* Make icons non-interactive so buttons work */
+}
+
+.floating-icon:nth-child(2) { /* React */
+    top: -20px;
+    left: -20px;
+    color: #61dafb;
+}
+
+.floating-icon:nth-child(3) { /* Microsoft */
+    top: -20px;
+    right: -20px;
+    color: #00a4ef;
+}
+
+.floating-icon:nth-child(4) { /* JavaScript */
+    bottom: -20px;
+    left: -20px;
+    color: #f7df1e;
+}
+
+.floating-icon:nth-child(5) { /* Angular */
+    bottom: -20px;
+    right: -20px;
+    color: #dd0031;
+}
+
+.floating-icon:nth-child(6) { /* Git */
+    top: 50%;
+    left: -40px;
+    transform: translateY(-50%);
+    color: #f05032;
+}
+
+.floating-icon:nth-child(7) { /* Docker */
+    bottom: 50%;
+    right: -40px;
+    transform: translateY(50%);
+    color: #2496ed;
+}
+
+@keyframes float-icon {
+    0%, 100% {
+        transform: translateY(0px) scale(1);
+    }
+    50% {
+        transform: translateY(-10px) scale(1.1);
+    }
+}
+
+/* Hero Buttons - Ensure they're clickable */
+.hero-section .btn {
+    position: relative;
+    z-index: 10;
+}
+
+/* Typing Animation */
+.typing-text {
+    position: relative;
+    display: inline-block;
+}
+
+.typing-text::after {
+    content: '|';
+    position: absolute;
+    right: -8px;
+    animation: blink 1s infinite;
+    color: var(--accent);
+    font-weight: bold;
+}
+
+@keyframes blink {
+    0%, 50% {
+        opacity: 1;
+    }
+    51%, 100% {
+        opacity: 0;
+    }
+}
+
 /* Dark mode support for home page */
 [data-theme="dark"] .card-title {
     color: var(--text) !important;
@@ -34,6 +186,11 @@
 
 [data-theme="dark"] .divider {
     border-top-color: var(--border) !important;
+}
+
+[data-theme="dark"] .floating-icon {
+    background: rgba(30, 41, 59, 0.9);
+    color: var(--accent);
 }
 
 .icon-wrapper {
@@ -150,11 +307,78 @@
 @media (max-width: 991px) {
     .profile-img { width: 150px; height: 150px; }
     .hero-section { padding-top: 3rem; padding-bottom: 3rem; }
+    
+    /* Adjust floating icons for smaller screens */
+    .floating-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    
+    .floating-icon:nth-child(2) { /* React */
+        top: -15px;
+        left: -15px;
+    }
+    
+    .floating-icon:nth-child(3) { /* Microsoft */
+        top: -15px;
+        right: -15px;
+    }
+    
+    .floating-icon:nth-child(4) { /* JavaScript */
+        bottom: -15px;
+        left: -15px;
+    }
+    
+    .floating-icon:nth-child(5) { /* Angular */
+        bottom: -15px;
+        right: -15px;
+    }
+    
+    .floating-icon:nth-child(6) { /* Git */
+        left: -30px;
+    }
+    
+    .floating-icon:nth-child(7) { /* Docker */
+        right: -30px;
+    }
 }
 @media (max-width: 767px) {
     .display-3 { font-size: 2.2rem; }
     .hero-section { min-height: 50vh; }
     .divider { width: 90%; }
+    
+    /* Hide some floating icons on very small screens */
+    .floating-icon:nth-child(6),
+    .floating-icon:nth-child(7) {
+        display: none;
+    }
+    
+    .floating-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+    
+    .floating-icon:nth-child(2) { /* React */
+        top: -10px;
+        left: -10px;
+    }
+    
+    .floating-icon:nth-child(3) { /* Microsoft */
+        top: -10px;
+        right: -10px;
+    }
+    
+    .floating-icon:nth-child(4) { /* JavaScript */
+        bottom: -10px;
+        left: -10px;
+    }
+    
+    .floating-icon:nth-child(5) { /* Angular */
+        bottom: -10px;
+        right: -10px;
+    }
 }
 
 /* --- Skill Icons, Tooltips, and Download CV Button --- */

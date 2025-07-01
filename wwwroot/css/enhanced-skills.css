@@ -1,0 +1,301 @@
+/* Enhanced Skills Visualization */
+
+/* Skills Overview */
+.skills-overview {
+    background: linear-gradient(135deg, var(--surface) 0%, var(--surface-hover) 100%);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: var(--shadow-md);
+}
+
+/* Radar Chart Container */
+.skill-radar-chart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: var(--shadow);
+}
+
+/* Skills Summary */
+.skills-summary {
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+}
+
+.skill-category {
+    margin-bottom: 1.5rem;
+}
+
+.category-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.category-name {
+    font-weight: 600;
+    color: var(--text);
+    flex: 1;
+    margin-left: 0.75rem;
+}
+
+.category-score {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 1.1rem;
+}
+
+.category-progress {
+    height: 8px;
+    background: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+    border-radius: 4px;
+    transition: width 1s ease;
+    animation: progressFill 2s ease-out;
+}
+
+@keyframes progressFill {
+    from { width: 0%; }
+    to { width: var(--target-width); }
+}
+
+/* Interactive Skill Cards */
+.skills-grid {
+    margin-top: 2rem;
+}
+
+.skill-cards {
+    display: grid;
+    gap: 1rem;
+}
+
+.skill-card {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.skill-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-light);
+}
+
+.skill-card:hover::before {
+    transform: scaleX(1);
+}
+
+.skill-card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.skill-icon {
+    font-size: 2rem;
+    margin-right: 1rem;
+    color: var(--primary);
+    transition: transform 0.3s ease;
+}
+
+.skill-card:hover .skill-icon {
+    transform: scale(1.1);
+}
+
+.skill-name {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--text);
+    flex: 1;
+}
+
+.skill-level {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.skill-card-body {
+    margin-bottom: 1rem;
+}
+
+.skill-description {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* Hide experience years */
+.skill-experience {
+    display: none;
+}
+
+.skill-card-footer {
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+}
+
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.skill-tag {
+    background: var(--surface-hover);
+    color: var(--text-muted);
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.skill-card:hover .skill-tag {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+}
+
+/* Skill Card Animations */
+.skill-card {
+    animation: fadeInUp 0.6s ease forwards;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.skill-card:nth-child(1) { animation-delay: 0.1s; }
+.skill-card:nth-child(2) { animation-delay: 0.2s; }
+.skill-card:nth-child(3) { animation-delay: 0.3s; }
+.skill-card:nth-child(4) { animation-delay: 0.4s; }
+.skill-card:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Skill Level Indicator - Updated for text-based levels */
+.skill-card[data-level="expert"] .skill-level,
+.skill-card[data-level="95"] .skill-level,
+.skill-card[data-level="90"] .skill-level {
+    background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+}
+
+.skill-card[data-level="advanced"] .skill-level,
+.skill-card[data-level="85"] .skill-level,
+.skill-card[data-level="80"] .skill-level {
+    background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+}
+
+.skill-card[data-level="intermediate"] .skill-level,
+.skill-card[data-level="75"] .skill-level,
+.skill-card[data-level="70"] .skill-level {
+    background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+}
+
+.skill-card[data-level="beginner"] .skill-level {
+    background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
+}
+
+/* Dark Mode Support */
+[data-theme="dark"] .skills-overview {
+    background: linear-gradient(135deg, var(--surface) 0%, var(--surface-hover) 100%);
+}
+
+[data-theme="dark"] .skill-card {
+    background: var(--surface);
+    border-color: var(--border);
+}
+
+[data-theme="dark"] .skill-tag {
+    background: var(--surface-hover);
+    color: var(--text-muted);
+}
+
+[data-theme="dark"] .skill-card:hover .skill-tag {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .skills-overview {
+        padding: 1rem;
+    }
+    
+    .skill-radar-chart {
+        min-height: 300px;
+        margin-bottom: 1rem;
+    }
+    
+    .skill-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .skill-card {
+        padding: 1rem;
+    }
+    
+    .skill-icon {
+        font-size: 1.5rem;
+    }
+    
+    .skill-tags {
+        gap: 0.25rem;
+    }
+    
+    .skill-tag {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.6rem;
+    }
+}
+
+/* Hover Effects */
+.skill-card:hover .skill-description {
+    color: var(--text);
+}
+
+/* Loading Animation */
+.skill-card.loading {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+} 

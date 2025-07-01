@@ -4,6 +4,8 @@
 @using MyPortfolio.Components.Shared
 @inject GitHubService GitHubService
 
+<link href="css/enhanced-projects.css" rel="stylesheet">
+
 <PageTitle>Projects - Mark Smith</PageTitle>
 
 <div class="container py-5">
@@ -21,7 +23,21 @@
         <h2 class="text-center mb-4">Side Projects</h2>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
             <div class="col">
-                <a href="/nasa-apod" class="card h-100 project-card text-decoration-none text-reset">
+                <div class="card h-100 project-card text-decoration-none text-reset">
+                    <div class="project-image-container">
+                        <div class="project-image nasa-apod-preview">
+                            <div class="project-overlay">
+                                <div class="project-actions">
+                                    <a href="/nasa-apod" class="btn btn-light btn-sm me-2">
+                                        <i class="fas fa-eye me-1"></i>View Demo
+                                    </a>
+                                    <a href="https://github.com/marksmith1994/MyPortfolio" target="_blank" class="btn btn-outline-light btn-sm">
+                                        <i class="fab fa-github me-1"></i>Code
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card-body">
                         <h5 class="card-title">
                             <i class="fas fa-meteor me-2 text-warning"></i>NASA APOD
@@ -29,14 +45,40 @@
                         <p class="card-text">
                             View the Astronomy Picture of the Day, with details and explanations, powered by NASA's public API.
                         </p>
-                        <div class="d-flex justify-content-end">
-                            <span class="btn btn-outline-primary btn-sm disabled">Internal</span>
+                        <div class="tech-stack mb-3">
+                            <span class="tech-badge" data-tech="blazor">Blazor</span>
+                            <span class="tech-badge" data-tech="csharp">C#</span>
+                            <span class="tech-badge" data-tech="api">NASA API</span>
+                        </div>
+                        <div class="project-stats">
+                            <span class="stat-item">
+                                <i class="fas fa-calendar-alt text-primary"></i>
+                                <span class="stat-text">Daily Updates</span>
+                            </span>
+                            <span class="stat-item">
+                                <i class="fas fa-mobile-alt text-success"></i>
+                                <span class="stat-text">Responsive</span>
+                            </span>
                         </div>
                     </div>
-                </a>
+                </div>
             </div>
             <div class="col">
-                <a href="/spacex" class="card h-100 project-card text-decoration-none text-reset">
+                <div class="card h-100 project-card text-decoration-none text-reset">
+                    <div class="project-image-container">
+                        <div class="project-image spacex-preview">
+                            <div class="project-overlay">
+                                <div class="project-actions">
+                                    <a href="/spacex" class="btn btn-light btn-sm me-2">
+                                        <i class="fas fa-eye me-1"></i>View Demo
+                                    </a>
+                                    <a href="https://github.com/marksmith1994/MyPortfolio" target="_blank" class="btn btn-outline-light btn-sm">
+                                        <i class="fab fa-github me-1"></i>Code
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card-body">
                         <h5 class="card-title">
                             <i class="fas fa-rocket me-2 text-danger"></i>SpaceX Launches
@@ -44,14 +86,40 @@
                         <p class="card-text">
                             Explore recent and upcoming SpaceX launches, with mission details and rocket info, using the SpaceX API.
                         </p>
-                        <div class="d-flex justify-content-end">
-                            <span class="btn btn-outline-primary btn-sm disabled">Internal</span>
+                        <div class="tech-stack mb-3">
+                            <span class="tech-badge" data-tech="blazor">Blazor</span>
+                            <span class="tech-badge" data-tech="csharp">C#</span>
+                            <span class="tech-badge" data-tech="api">SpaceX API</span>
+                        </div>
+                        <div class="project-stats">
+                            <span class="stat-item">
+                                <i class="fas fa-rocket text-danger"></i>
+                                <span class="stat-text">Live Data</span>
+                            </span>
+                            <span class="stat-item">
+                                <i class="fas fa-filter text-info"></i>
+                                <span class="stat-text">Filterable</span>
+                            </span>
                         </div>
                     </div>
-                </a>
+                </div>
             </div>
             <div class="col">
-                <a href="/weather" class="card h-100 project-card text-decoration-none text-reset">
+                <div class="card h-100 project-card text-decoration-none text-reset">
+                    <div class="project-image-container">
+                        <div class="project-image weather-preview">
+                            <div class="project-overlay">
+                                <div class="project-actions">
+                                    <a href="/weather" class="btn btn-light btn-sm me-2">
+                                        <i class="fas fa-eye me-1"></i>View Demo
+                                    </a>
+                                    <a href="https://github.com/marksmith1994/MyPortfolio" target="_blank" class="btn btn-outline-light btn-sm">
+                                        <i class="fab fa-github me-1"></i>Code
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card-body">
                         <h5 class="card-title">
                             <i class="fas fa-cloud-sun-rain me-2 text-info"></i>Weather Dashboard
@@ -59,14 +127,40 @@
                         <p class="card-text">
                             Check the weather for multiple cities, with daily caching and a modern, responsive UI.
                         </p>
-                        <div class="d-flex justify-content-end">
-                            <span class="btn btn-outline-primary btn-sm disabled">Internal</span>
+                        <div class="tech-stack mb-3">
+                            <span class="tech-badge" data-tech="blazor">Blazor</span>
+                            <span class="tech-badge" data-tech="csharp">C#</span>
+                            <span class="tech-badge" data-tech="api">Weather API</span>
+                        </div>
+                        <div class="project-stats">
+                            <span class="stat-item">
+                                <i class="fas fa-cloud text-info"></i>
+                                <span class="stat-text">Real-time</span>
+                            </span>
+                            <span class="stat-item">
+                                <i class="fas fa-database text-warning"></i>
+                                <span class="stat-text">Cached</span>
+                            </span>
                         </div>
                     </div>
-                </a>
+                </div>
             </div>
             <div class="col">
-                <a href="/strava" class="card h-100 project-card text-decoration-none text-reset">
+                <div class="card h-100 project-card text-decoration-none text-reset">
+                    <div class="project-image-container">
+                        <div class="project-image strava-preview">
+                            <div class="project-overlay">
+                                <div class="project-actions">
+                                    <a href="/strava" class="btn btn-light btn-sm me-2">
+                                        <i class="fas fa-eye me-1"></i>View Demo
+                                    </a>
+                                    <a href="https://github.com/marksmith1994/MyPortfolio" target="_blank" class="btn btn-outline-light btn-sm">
+                                        <i class="fab fa-github me-1"></i>Code
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card-body">
                         <h5 class="card-title">
                             <i class="fas fa-running me-2 text-success"></i>Strava Analytics
@@ -74,11 +168,23 @@
                         <p class="card-text">
                             Analyse your Strava activities with interactive charts, heatmaps, and performance metrics.
                         </p>
-                        <div class="d-flex justify-content-end">
-                            <span class="btn btn-outline-primary btn-sm disabled">Internal</span>
+                        <div class="tech-stack mb-3">
+                            <span class="tech-badge" data-tech="blazor">Blazor</span>
+                            <span class="tech-badge" data-tech="javascript">JavaScript</span>
+                            <span class="tech-badge" data-tech="api">Strava API</span>
+                        </div>
+                        <div class="project-stats">
+                            <span class="stat-item">
+                                <i class="fas fa-chart-line text-success"></i>
+                                <span class="stat-text">Analytics</span>
+                            </span>
+                            <span class="stat-item">
+                                <i class="fas fa-map-marked-alt text-danger"></i>
+                                <span class="stat-text">Heatmaps</span>
+                            </span>
                         </div>
                     </div>
-                </a>
+                </div>
             </div>
         </div>
     </section>
@@ -123,43 +229,67 @@
                 @foreach (var repo in repositories)
                 {
                     <div class="col">
-                        <a href="@repo.HtmlUrl" target="_blank" class="card h-100 text-decoration-none text-reset project-card" style="display:block;">
-                            <div class="card-body">
-                                <h5 class="card-title mb-2">@repo.Name</h5>
-                                <p class="card-text">@repo.Description</p>
-                                <div class="mb-3">
+                        <div class="card h-100 project-card">
+                            <div class="card-body d-flex flex-column">
+                                <div class="repo-header mb-3">
+                                    <div class="repo-icon mb-2">
+                                        <i class="fab fa-github fa-2x text-primary"></i>
+                                    </div>
+                                    <h5 class="card-title mb-2">@repo.Name</h5>
+                                    <p class="card-text text-muted">@repo.Description</p>
+                                </div>
+                                
+                                <div class="tech-stack mb-3">
                                     @if (!string.IsNullOrEmpty(repo.Language))
                                     {
-                                        <span class="badge bg-secondary me-1">@repo.Language</span>
+                                        <span class="tech-badge" data-tech="@repo.Language.ToLower()">@repo.Language</span>
                                     }
                                     @if (repo.Topics.Any())
                                     {
                                         @foreach (var topic in repo.Topics.Take(3))
                                         {
-                                            <span class="badge bg-info me-1">@topic</span>
+                                            <span class="tech-badge" data-tech="topic">@topic</span>
                                         }
                                     }
                                 </div>
-                                <div class="mb-3">
-                                    <span class="badge bg-primary me-2">
-                                        <i class="fas fa-star"></i> @repo.StargazersCount
-                                    </span>
-                                    <span class="badge bg-info me-2">
-                                        <i class="fas fa-code-branch"></i> @repo.ForksCount
-                                    </span>
+                                
+                                <div class="repo-stats mb-3">
+                                    <div class="stat-item">
+                                        <i class="fas fa-star text-warning"></i>
+                                        <span class="stat-text">@repo.StargazersCount</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="fas fa-code-branch text-info"></i>
+                                        <span class="stat-text">@repo.ForksCount</span>
+                                    </div>
                                     @if (repo.License != null)
                                     {
-                                        <span class="badge bg-light text-dark me-2">
-                                            <i class="fas fa-balance-scale"></i> @repo.License.Name
-                                        </span>
+                                        <div class="stat-item">
+                                            <i class="fas fa-balance-scale text-success"></i>
+                                            <span class="stat-text">@repo.License.Name</span>
+                                        </div>
                                     }
                                 </div>
-                                <div class="text-muted small">
-                                    <i class="fas fa-clock me-1"></i>
-                                    Updated @GetTimeAgo(repo.UpdatedAt)
+                                
+                                <div class="mt-auto">
+                                    <div class="text-muted small mb-2">
+                                        <i class="fas fa-clock me-1"></i>
+                                        Updated @GetTimeAgo(repo.UpdatedAt)
+                                    </div>
+                                    <div class="d-flex gap-2">
+                                        <a href="@repo.HtmlUrl" target="_blank" class="btn btn-primary btn-sm flex-fill">
+                                            <i class="fab fa-github me-2"></i>View Repository
+                                        </a>
+                                        @if (!string.IsNullOrWhiteSpace(repo.Homepage))
+                                        {
+                                            <a href="@repo.Homepage" target="_blank" class="btn btn-success btn-sm flex-fill">
+                                                <i class="fas fa-globe me-2"></i>Website
+                                            </a>
+                                        }
+                                    </div>
                                 </div>
                             </div>
-                        </a>
+                        </div>
                     </div>
                 }
             </div>

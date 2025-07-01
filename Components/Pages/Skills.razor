@@ -1,5 +1,8 @@
 @page "/skills"
 
+<link href="css/enhanced-skills.css" rel="stylesheet">
+<script src="js/skills-visualization.js"></script>
+
 <div class="container py-5">
     <div class="row">
         <div class="col-lg-8 mx-auto">
@@ -95,137 +98,347 @@
                     <h2 class="mb-4" style="color: var(--primary);">
                         <i class="fas fa-code me-2"></i>Technical Skills
                     </h2>
-                    <!-- Removed downloadable CV button for security/privacy -->
-                    <div class="row mt-4">
-                        <div class="col-md-6 mb-4">
-                            <h5 class="text-primary mb-3"><i class="fas fa-laptop-code me-2"></i>Frontend</h5>
-                            <div class="skill-bars">
-                                <div class="skill-item mb-3">
-                                    <span class="skill-icon fab fa-react"></span>
-                                    <span class="skill-label">React</span>
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 90%; background-color: var(--primary);"></div>
-                                    </div>
-                                    <span class="skill-percent">90%</span>
-                                </div>
-                                <div class="skill-item mb-3">
-                                    <span class="skill-icon fab fa-angular"></span>
-                                    <span class="skill-label">Angular</span>
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 85%; background-color: var(--accent);"></div>
-                                    </div>
-                                    <span class="skill-percent">85%</span>
-                                </div>
-                                <div class="skill-item mb-3">
-                                    <span class="skill-icon fab fa-js-square"></span>
-                                    <span class="skill-label">JavaScript/TypeScript</span>
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 90%; background-color: var(--accent-2);"></div>
-                                    </div>
-                                    <span class="skill-percent">90%</span>
-                                </div>
-                                <div class="skill-item mb-3">
-                                    <span class="skill-icon fab fa-html5"></span>
-                                    <span class="skill-label">HTML/CSS</span>
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 95%; background-color: var(--primary);"></div>
-                                    </div>
-                                    <span class="skill-percent">95%</span>
-                                </div>
-                                <div class="skill-item mb-3">
-                                    <span class="skill-icon fab fa-blazor"></span>
-                                    <span class="skill-label">Blazor</span>
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 80%; background-color: var(--accent);"></div>
-                                    </div>
-                                    <span class="skill-percent">80%</span>
+                    
+                    <!-- Skills Overview -->
+                    <div class="skills-overview mb-5">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="skills-summary text-center">
+                                    <h4 class="mb-4">Technical Expertise</h4>
+                                    <p class="lead text-muted mb-0">
+                                        Full-stack development with focus on modern web technologies, cloud architecture, and DevOps practices.
+                                    </p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 mb-4">
-                            <h5 class="text-primary mb-3"><i class="fas fa-server me-2"></i>Backend</h5>
-                            <div class="skill-bars">
-                                <div class="skill-item mb-3">
-                                    <span class="skill-icon fab fa-microsoft"></span>
-                                    <span class="skill-label">.NET / C#</span>
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 95%; background-color: var(--primary);"></div>
+                    </div>
+
+                    <!-- Interactive Skill Cards -->
+                    <div class="skills-grid">
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <h5 class="text-primary mb-3"><i class="fas fa-laptop-code me-2"></i>Frontend</h5>
+                                <div class="skill-cards">
+                                    <div class="skill-card" data-skill="react" data-level="expert">
+                                        <div class="skill-card-header">
+                                            <i class="fab fa-react skill-icon"></i>
+                                            <span class="skill-name">React</span>
+                                            <span class="skill-level">Expert</span>
+                                        </div>
+                                        <div class="skill-card-body">
+                                            <div class="skill-description">Modern React with hooks, context, and functional components</div>
+                                            <div class="skill-experience">3+ years experience</div>
+                                        </div>
+                                        <div class="skill-card-footer">
+                                            <div class="skill-tags">
+                                                <span class="skill-tag">Hooks</span>
+                                                <span class="skill-tag">Context</span>
+                                                <span class="skill-tag">Redux</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <span class="skill-percent">95%</span>
+                                    
+                                    <div class="skill-card" data-skill="angular" data-level="expert">
+                                        <div class="skill-card-header">
+                                            <i class="fab fa-angular skill-icon"></i>
+                                            <span class="skill-name">Angular</span>
+                                            <span class="skill-level">Expert</span>
+                                        </div>
+                                        <div class="skill-card-body">
+                                            <div class="skill-description">Angular 2+ with TypeScript, services, and RxJS</div>
+                                            <div class="skill-experience">4+ years experience</div>
+                                        </div>
+                                        <div class="skill-card-footer">
+                                            <div class="skill-tags">
+                                                <span class="skill-tag">TypeScript</span>
+                                                <span class="skill-tag">RxJS</span>
+                                                <span class="skill-tag">Services</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="skill-card" data-skill="javascript" data-level="expert">
+                                        <div class="skill-card-header">
+                                            <i class="fab fa-js-square skill-icon"></i>
+                                            <span class="skill-name">JavaScript/TypeScript</span>
+                                            <span class="skill-level">Expert</span>
+                                        </div>
+                                        <div class="skill-card-body">
+                                            <div class="skill-description">ES6+, TypeScript, modern JavaScript patterns</div>
+                                            <div class="skill-experience">5+ years experience</div>
+                                        </div>
+                                        <div class="skill-card-footer">
+                                            <div class="skill-tags">
+                                                <span class="skill-tag">ES6+</span>
+                                                <span class="skill-tag">TypeScript</span>
+                                                <span class="skill-tag">Async/Await</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="skill-card" data-skill="html-css" data-level="expert">
+                                        <div class="skill-card-header">
+                                            <i class="fab fa-html5 skill-icon"></i>
+                                            <span class="skill-name">HTML/CSS</span>
+                                            <span class="skill-level">Expert</span>
+                                        </div>
+                                        <div class="skill-card-body">
+                                            <div class="skill-description">Semantic HTML, CSS3, responsive design, animations</div>
+                                            <div class="skill-experience">7+ years experience</div>
+                                        </div>
+                                        <div class="skill-card-footer">
+                                            <div class="skill-tags">
+                                                <span class="skill-tag">CSS3</span>
+                                                <span class="skill-tag">Responsive</span>
+                                                <span class="skill-tag">Animations</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="skill-card" data-skill="blazor" data-level="advanced">
+                                        <div class="skill-card-header">
+                                            <i class="fab fa-blazor skill-icon"></i>
+                                            <span class="skill-name">Blazor</span>
+                                            <span class="skill-level">Advanced</span>
+                                        </div>
+                                        <div class="skill-card-body">
+                                            <div class="skill-description">Blazor WebAssembly and Server, component development</div>
+                                            <div class="skill-experience">2+ years experience</div>
+                                        </div>
+                                        <div class="skill-card-footer">
+                                            <div class="skill-tags">
+                                                <span class="skill-tag">WebAssembly</span>
+                                                <span class="skill-tag">Components</span>
+                                                <span class="skill-tag">SignalR</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="skill-item mb-3">
-                                    <span class="skill-icon fas fa-database"></span>
-                                    <span class="skill-label">SQL / Entity Framework</span>
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 85%; background-color: var(--accent);"></div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-4">
+                                <h5 class="text-primary mb-3"><i class="fas fa-server me-2"></i>Backend</h5>
+                                <div class="skill-cards">
+                                    <div class="skill-card" data-skill="dotnet" data-level="95">
+                                        <div class="skill-card-header">
+                                            <i class="fab fa-microsoft skill-icon"></i>
+                                            <span class="skill-name">.NET / C#</span>
+                                            <span class="skill-level">Expert</span>
+                                        </div>
+                                        <div class="skill-card-body">
+                                            <div class="skill-description">.NET Core, C#, ASP.NET, modern .NET development</div>
+                                            <div class="skill-experience">5+ years experience</div>
+                                        </div>
+                                        <div class="skill-card-footer">
+                                            <div class="skill-tags">
+                                                <span class="skill-tag">.NET Core</span>
+                                                <span class="skill-tag">ASP.NET</span>
+                                                <span class="skill-tag">C#</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <span class="skill-percent">85%</span>
-                                </div>
-                                <div class="skill-item mb-3">
-                                    <span class="skill-icon fas fa-cloud"></span>
-                                    <span class="skill-label">Azure / Cloud</span>
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 80%; background-color: var(--accent-2);"></div>
+                                    
+                                    <div class="skill-card" data-skill="sql" data-level="advanced">
+                                        <div class="skill-card-header">
+                                            <i class="fas fa-database skill-icon"></i>
+                                            <span class="skill-name">SQL / Entity Framework</span>
+                                            <span class="skill-level">Advanced</span>
+                                        </div>
+                                        <div class="skill-card-body">
+                                            <div class="skill-description">SQL Server, Entity Framework, database design</div>
+                                            <div class="skill-experience">4+ years experience</div>
+                                        </div>
+                                        <div class="skill-card-footer">
+                                            <div class="skill-tags">
+                                                <span class="skill-tag">SQL Server</span>
+                                                <span class="skill-tag">EF Core</span>
+                                                <span class="skill-tag">Migrations</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <span class="skill-percent">80%</span>
-                                </div>
-                                <div class="skill-item mb-3">
-                                    <span class="skill-icon fas fa-cogs"></span>
-                                    <span class="skill-label">REST APIs / Microservices</span>
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 85%; background-color: var(--primary);"></div>
+                                    
+                                    <div class="skill-card" data-skill="azure" data-level="advanced">
+                                        <div class="skill-card-header">
+                                            <i class="fas fa-cloud skill-icon"></i>
+                                            <span class="skill-name">Azure / Cloud</span>
+                                            <span class="skill-level">Advanced</span>
+                                        </div>
+                                        <div class="skill-card-body">
+                                            <div class="skill-description">Azure services, cloud architecture, serverless</div>
+                                            <div class="skill-experience">3+ years experience</div>
+                                        </div>
+                                        <div class="skill-card-footer">
+                                            <div class="skill-tags">
+                                                <span class="skill-tag">Azure</span>
+                                                <span class="skill-tag">Serverless</span>
+                                                <span class="skill-tag">Functions</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <span class="skill-percent">85%</span>
+                                    
+                                    <div class="skill-card" data-skill="api" data-level="advanced">
+                                        <div class="skill-card-header">
+                                            <i class="fas fa-cogs skill-icon"></i>
+                                            <span class="skill-name">REST APIs / Microservices</span>
+                                            <span class="skill-level">Advanced</span>
+                                        </div>
+                                        <div class="skill-card-body">
+                                            <div class="skill-description">RESTful APIs, microservices architecture, API design</div>
+                                            <div class="skill-experience">4+ years experience</div>
+                                        </div>
+                                        <div class="skill-card-footer">
+                                            <div class="skill-tags">
+                                                <span class="skill-tag">REST</span>
+                                                <span class="skill-tag">Microservices</span>
+                                                <span class="skill-tag">Swagger</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 mb-4">
-                            <h5 class="text-primary mb-3"><i class="fas fa-tools me-2"></i>Tools & DevOps</h5>
-                            <div class="skill-bars">
-                                <div class="skill-item mb-3">
-                                    <span class="skill-icon fab fa-git-alt"></span>
-                                    <span class="skill-label">Git</span>
-                                    <span class="badge bg-secondary ms-2">Version Control</span>
-                                </div>
-                                <div class="skill-item mb-3">
-                                    <span class="skill-icon fab fa-docker"></span>
-                                    <span class="skill-label">Docker</span>
-                                    <span class="badge bg-info ms-2">Containers</span>
-                                </div>
-                                <div class="skill-item mb-3">
-                                    <span class="skill-icon fab fa-jenkins"></span>
-                                    <span class="skill-label">CI/CD</span>
-                                    <span class="badge bg-success ms-2">Pipelines</span>
-                                </div>
-                                <div class="skill-item mb-3">
-                                    <span class="skill-icon fas fa-cloud"></span>
-                                    <span class="skill-label">Terraform</span>
-                                    <span class="badge bg-primary ms-2">IaC</span>
-                                </div>
-                                <div class="skill-item mb-3">
-                                    <span class="skill-icon fab fa-azure"></span>
-                                    <span class="skill-label">Azure DevOps</span>
-                                    <span class="badge bg-primary ms-2">DevOps</span>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <h5 class="text-primary mb-3"><i class="fas fa-tools me-2"></i>Tools & DevOps</h5>
+                                <div class="skill-cards">
+                                    <div class="skill-card" data-skill="git" data-level="expert">
+                                        <div class="skill-card-header">
+                                            <i class="fab fa-git-alt skill-icon"></i>
+                                            <span class="skill-name">Git</span>
+                                            <span class="skill-level">Expert</span>
+                                        </div>
+                                        <div class="skill-card-body">
+                                            <div class="skill-description">Version control, branching strategies, Git workflows</div>
+                                            <div class="skill-experience">5+ years experience</div>
+                                        </div>
+                                        <div class="skill-card-footer">
+                                            <div class="skill-tags">
+                                                <span class="skill-tag">GitFlow</span>
+                                                <span class="skill-tag">Rebase</span>
+                                                <span class="skill-tag">Merge</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="skill-card" data-skill="docker" data-level="intermediate">
+                                        <div class="skill-card-header">
+                                            <i class="fab fa-docker skill-icon"></i>
+                                            <span class="skill-name">Docker</span>
+                                            <span class="skill-level">Intermediate</span>
+                                        </div>
+                                        <div class="skill-card-body">
+                                            <div class="skill-description">Containerization, Docker Compose, container orchestration</div>
+                                            <div class="skill-experience">2+ years experience</div>
+                                        </div>
+                                        <div class="skill-card-footer">
+                                            <div class="skill-tags">
+                                                <span class="skill-tag">Containers</span>
+                                                <span class="skill-tag">Compose</span>
+                                                <span class="skill-tag">Images</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="skill-card" data-skill="cicd" data-level="advanced">
+                                        <div class="skill-card-header">
+                                            <i class="fab fa-jenkins skill-icon"></i>
+                                            <span class="skill-name">CI/CD</span>
+                                            <span class="skill-level">Advanced</span>
+                                        </div>
+                                        <div class="skill-card-body">
+                                            <div class="skill-description">Continuous integration, deployment pipelines, automation</div>
+                                            <div class="skill-experience">3+ years experience</div>
+                                        </div>
+                                        <div class="skill-card-footer">
+                                            <div class="skill-tags">
+                                                <span class="skill-tag">Pipelines</span>
+                                                <span class="skill-tag">Automation</span>
+                                                <span class="skill-tag">Azure DevOps</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="skill-card" data-skill="terraform" data-level="intermediate">
+                                        <div class="skill-card-header">
+                                            <i class="fas fa-cloud skill-icon"></i>
+                                            <span class="skill-name">Terraform</span>
+                                            <span class="skill-level">Intermediate</span>
+                                        </div>
+                                        <div class="skill-card-body">
+                                            <div class="skill-description">Infrastructure as Code, cloud resource management</div>
+                                            <div class="skill-experience">2+ years experience</div>
+                                        </div>
+                                        <div class="skill-card-footer">
+                                            <div class="skill-tags">
+                                                <span class="skill-tag">IaC</span>
+                                                <span class="skill-tag">Azure</span>
+                                                <span class="skill-tag">Modules</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <h5 class="text-primary mb-3"><i class="fas fa-users me-2"></i>Other & Methodologies</h5>
-                            <div class="skill-bars">
-                                <div class="skill-item mb-3">
-                                    <span class="skill-icon fas fa-users"></span>
-                                    <span class="skill-label">Agile / Scrum / Kanban</span>
-                                    <span class="badge bg-warning ms-2">Teamwork</span>
-                                </div>
-                                <div class="skill-item mb-3">
-                                    <span class="skill-icon fas fa-chalkboard-teacher"></span>
-                                    <span class="skill-label">Mentoring</span>
-                                    <span class="badge bg-light text-dark ms-2">Leadership</span>
-                                </div>
-                                <div class="skill-item mb-3">
-                                    <span class="skill-icon fas fa-comments"></span>
-                                    <span class="skill-label">Stakeholder Communication</span>
-                                    <span class="badge bg-light text-dark ms-2">Soft Skills</span>
+                            
+                            <div class="col-md-6 mb-4">
+                                <h5 class="text-primary mb-3"><i class="fas fa-users me-2"></i>Other & Methodologies</h5>
+                                <div class="skill-cards">
+                                    <div class="skill-card" data-skill="agile" data-level="advanced">
+                                        <div class="skill-card-header">
+                                            <i class="fas fa-users skill-icon"></i>
+                                            <span class="skill-name">Agile / Scrum / Kanban</span>
+                                            <span class="skill-level">Advanced</span>
+                                        </div>
+                                        <div class="skill-card-body">
+                                            <div class="skill-description">Agile methodologies, sprint planning, team collaboration</div>
+                                            <div class="skill-experience">5+ years experience</div>
+                                        </div>
+                                        <div class="skill-card-footer">
+                                            <div class="skill-tags">
+                                                <span class="skill-tag">Scrum</span>
+                                                <span class="skill-tag">Kanban</span>
+                                                <span class="skill-tag">Sprints</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="skill-card" data-skill="mentoring" data-level="advanced">
+                                        <div class="skill-card-header">
+                                            <i class="fas fa-chalkboard-teacher skill-icon"></i>
+                                            <span class="skill-name">Mentoring</span>
+                                            <span class="skill-level">Advanced</span>
+                                        </div>
+                                        <div class="skill-card-body">
+                                            <div class="skill-description">Junior developer mentoring, code reviews, knowledge sharing</div>
+                                            <div class="skill-experience">3+ years experience</div>
+                                        </div>
+                                        <div class="skill-card-footer">
+                                            <div class="skill-tags">
+                                                <span class="skill-tag">Code Reviews</span>
+                                                <span class="skill-tag">Training</span>
+                                                <span class="skill-tag">Leadership</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="skill-card" data-skill="communication" data-level="expert">
+                                        <div class="skill-card-header">
+                                            <i class="fas fa-comments skill-icon"></i>
+                                            <span class="skill-name">Stakeholder Communication</span>
+                                            <span class="skill-level">Expert</span>
+                                        </div>
+                                        <div class="skill-card-body">
+                                            <div class="skill-description">Technical communication, requirements gathering, presentations</div>
+                                            <div class="skill-experience">5+ years experience</div>
+                                        </div>
+                                        <div class="skill-card-footer">
+                                            <div class="skill-tags">
+                                                <span class="skill-tag">Presentations</span>
+                                                <span class="skill-tag">Requirements</span>
+                                                <span class="skill-tag">Documentation</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
