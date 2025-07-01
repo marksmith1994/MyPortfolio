@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "fp7W7Wsi5GPJX1V/WxNllem3gFRWSCeVU4ByBT79b6c=",
+  "Hash": "L/80zXVZwyf+ABeRmHIL4/MRBOign+7FL7cbIbggqoc=",
   "Source": "MyPortfolio",
   "BasePath": "_content/MyPortfolio",
   "Mode": "Default",
@@ -207,6 +207,25 @@
       "OriginalItemSpec": "wwwroot\\css\\loading.css"
     },
     {
+      "Identity": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\css\\microinteractions.css",
+      "SourceId": "MyPortfolio",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\",
+      "BasePath": "_content/MyPortfolio",
+      "RelativePath": "css/microinteractions.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\microinteractions.css"
+    },
+    {
       "Identity": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\css\\projects.css",
       "SourceId": "MyPortfolio",
       "SourceType": "Discovered",
@@ -283,6 +302,25 @@
       "OriginalItemSpec": "wwwroot\\css\\theme.css"
     },
     {
+      "Identity": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\css\\timeline.css",
+      "SourceId": "MyPortfolio",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\",
+      "BasePath": "_content/MyPortfolio",
+      "RelativePath": "css/timeline.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\timeline.css"
+    },
+    {
       "Identity": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\favicon.png",
       "SourceId": "MyPortfolio",
       "SourceType": "Discovered",
@@ -338,6 +376,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\hero-animations.js"
+    },
+    {
+      "Identity": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\js\\microinteractions.js",
+      "SourceId": "MyPortfolio",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\",
+      "BasePath": "_content/MyPortfolio",
+      "RelativePath": "js/microinteractions.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\microinteractions.js"
     },
     {
       "Identity": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\js\\skills-visualization.js",

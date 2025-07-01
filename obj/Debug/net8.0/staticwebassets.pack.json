@@ -37,6 +37,10 @@
       "PackagePath": "staticwebassets\\css\\loading.css"
     },
     {
+      "Id": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\css\\microinteractions.css",
+      "PackagePath": "staticwebassets\\css\\microinteractions.css"
+    },
+    {
       "Id": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\css\\projects.css",
       "PackagePath": "staticwebassets\\css\\projects.css"
     },
@@ -53,6 +57,10 @@
       "PackagePath": "staticwebassets\\css\\theme.css"
     },
     {
+      "Id": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\css\\timeline.css",
+      "PackagePath": "staticwebassets\\css\\timeline.css"
+    },
+    {
       "Id": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\favicon.png",
       "PackagePath": "staticwebassets\\favicon.png"
     },
@@ -63,6 +71,10 @@
     {
       "Id": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\js\\hero-animations.js",
       "PackagePath": "staticwebassets\\js\\hero-animations.js"
+    },
+    {
+      "Id": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\js\\microinteractions.js",
+      "PackagePath": "staticwebassets\\js\\microinteractions.js"
     },
     {
       "Id": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\js\\skills-visualization.js",

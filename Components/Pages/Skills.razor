@@ -23,52 +23,7 @@
                     <h2 class="mb-4" style="color: #1995AD;">
                         <i class="fas fa-briefcase me-2"></i>Professional Experience
                     </h2>
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <h5>Senior Software Engineer | Downing LLP</h5>
-                            <p class="text-muted">October 2023 – Present</p>
-                            <ul>
-                                <li>Implemented CQRS and Mediator patterns to develop a sophisticated document generation tool for client services</li>
-                                <li>Enhanced data security by implementing column-level encryption for sensitive payment-related SQL database columns</li>
-                                <li>Architected financial applications using .NET, Azure, and SQL, following strict ISO standards</li>
-                                <li>Participated in technical hiring and mentoring of junior developers and contractors</li>
-                                <li>Implemented secure API gateways for financial transaction processing</li>
-                                <li>Drove solutions from initial stakeholder discussions through to full production release</li>
-                            </ul>
-                        </div>
-                        <div class="timeline-item">
-                            <h5>Software Developer | Thinkproject UK, Gloucester</h5>
-                            <p class="text-muted">January 2021 – October 2023</p>
-                            <ul>
-                                <li>Transformed legacy monolithic architecture to modern microservice architecture</li>
-                                <li>Built infrastructure using Terraform to automate Azure services</li>
-                                <li>Developed services using .NET Core 6, MVC, Entity Framework, React, and Angular</li>
-                                <li>Migrated on-premises database structures to Azure SQL with high availability</li>
-                                <li>Created event messaging services, serverless function apps, and blob storage integrations</li>
-                                <li>Developed authorisation service with Auth0 and OpenID</li>
-                                <li>Chaired Employee Engagement Team, managing £50k annual budget</li>
-                            </ul>
-                        </div>
-                        <div class="timeline-item">
-                            <h5>Developer | Assured Futures, Cheltenham</h5>
-                            <p class="text-muted">August 2019 – January 2021</p>
-                            <ul>
-                                <li>Managed Compare the Market Over 50's life insurance remodel project</li>
-                                <li>Developed web applications using Angular and ASP.NET</li>
-                                <li>Delivered projects using Agile methodology</li>
-                                <li>Created RESTful API applications with Microsoft Blazor platform</li>
-                            </ul>
-                        </div>
-                        <div class="timeline-item">
-                            <h5>Frontend Developer | Limegreentangerine, Cardiff</h5>
-                            <p class="text-muted">July 2017 – July 2019</p>
-                            <ul>
-                                <li>Analysed and debugged front and back-end performance issues</li>
-                                <li>Updated legacy websites to modern security standards</li>
-                                <li>Designed and developed MVC Content Management Systems</li>
-                            </ul>
-                        </div>
-                    </div>
+                    <AnimatedTimeline Items="@workExperience" />
                 </div>
             </div>
 
@@ -77,19 +32,7 @@
                     <h2 class="mb-4" style="color: #1995AD;">
                         <i class="fas fa-graduation-cap me-2"></i>Education
                     </h2>
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <h5>Aberystwyth University</h5>
-                            <p class="text-muted">BSc (Hons) Internet Computing and Systems Administration, 2:2</p>
-                            <p>Graduation: July 2017</p>
-                        </div>
-                        <div class="timeline-item">
-                            <h5>Bryntirion Comprehensive School</h5>
-                            <p class="text-muted">September 2005 - July 2012</p>
-                            <p>A Levels: Computing, Biology, Maths, and Welsh Baccalaureate</p>
-                            <p>11 GCSEs A*-C including Maths, English, and Science</p>
-                        </div>
-                    </div>
+                    <AnimatedTimeline Items="@education" />
                 </div>
             </div>
 
@@ -473,4 +416,115 @@
             </div>
         </div>
     </div>
-</div> 
+</div>
+
+@code {
+    private List<AnimatedTimeline.TimelineItem> workExperience = new();
+    private List<AnimatedTimeline.TimelineItem> education = new();
+
+    protected override void OnInitialized()
+    {
+        InitializeWorkExperience();
+        InitializeEducation();
+    }
+
+    private void InitializeWorkExperience()
+    {
+        workExperience = new List<AnimatedTimeline.TimelineItem>
+        {
+            new AnimatedTimeline.TimelineItem
+            {
+                Title = "Senior Software Engineer",
+                Subtitle = "Downing LLP",
+                DateRange = "October 2023 – Present",
+                Icon = "fas fa-briefcase",
+                BulletPoints = new List<string>
+                {
+                    "Implemented CQRS and Mediator patterns to develop a sophisticated document generation tool for client services",
+                    "Enhanced data security by implementing column-level encryption for sensitive payment-related SQL database columns",
+                    "Architected financial applications using .NET, Azure, and SQL, following strict ISO standards",
+                    "Participated in technical hiring and mentoring of junior developers and contractors",
+                    "Implemented secure API gateways for financial transaction processing",
+                    "Drove solutions from initial stakeholder discussions through to full production release"
+                },
+                TechStack = new List<string> { ".NET", "C#", "Azure", "SQL", "CQRS", "Mediator Pattern", "API Gateway" }
+            },
+            new AnimatedTimeline.TimelineItem
+            {
+                Title = "Software Developer",
+                Subtitle = "Thinkproject UK, Gloucester",
+                DateRange = "January 2021 – October 2023",
+                Icon = "fas fa-code",
+                BulletPoints = new List<string>
+                {
+                    "Transformed legacy monolithic architecture to modern microservice architecture",
+                    "Built infrastructure using Terraform to automate Azure services",
+                    "Developed services using .NET Core 6, MVC, Entity Framework, React, and Angular",
+                    "Migrated on-premises database structures to Azure SQL with high availability",
+                    "Created event messaging services, serverless function apps, and blob storage integrations",
+                    "Developed authorisation service with Auth0 and OpenID",
+                    "Chaired Employee Engagement Team, managing £50k annual budget"
+                },
+                TechStack = new List<string> { ".NET Core 6", "React", "Angular", "Azure", "Terraform", "Auth0", "Microservices" }
+            },
+            new AnimatedTimeline.TimelineItem
+            {
+                Title = "Developer",
+                Subtitle = "Assured Futures, Cheltenham",
+                DateRange = "August 2019 – January 2021",
+                Icon = "fas fa-laptop-code",
+                BulletPoints = new List<string>
+                {
+                    "Managed Compare the Market Over 50's life insurance remodel project",
+                    "Developed web applications using Angular and ASP.NET",
+                    "Delivered projects using Agile methodology",
+                    "Created RESTful API applications with Microsoft Blazor platform"
+                },
+                TechStack = new List<string> { "Angular", "ASP.NET", "Blazor", "REST APIs", "Agile" }
+            },
+            new AnimatedTimeline.TimelineItem
+            {
+                Title = "Frontend Developer",
+                Subtitle = "Limegreentangerine, Cardiff",
+                DateRange = "July 2017 – July 2019",
+                Icon = "fas fa-palette",
+                BulletPoints = new List<string>
+                {
+                    "Analysed and debugged front and back-end performance issues",
+                    "Updated legacy websites to modern security standards",
+                    "Designed and developed MVC Content Management Systems"
+                },
+                TechStack = new List<string> { "MVC", "CMS", "Performance Optimization", "Security" }
+            }
+        };
+    }
+
+    private void InitializeEducation()
+    {
+        education = new List<AnimatedTimeline.TimelineItem>
+        {
+            new AnimatedTimeline.TimelineItem
+            {
+                Title = "Aberystwyth University",
+                Subtitle = "BSc (Hons) Internet Computing and Systems Administration",
+                DateRange = "Graduation: July 2017",
+                Icon = "fas fa-graduation-cap",
+                Description = "Degree classification: 2:2",
+                TechStack = new List<string> { "Computer Science", "Systems Administration", "Networking" }
+            },
+            new AnimatedTimeline.TimelineItem
+            {
+                Title = "Bryntirion Comprehensive School",
+                Subtitle = "A Levels and GCSEs",
+                DateRange = "September 2005 - July 2012",
+                Icon = "fas fa-school",
+                BulletPoints = new List<string>
+                {
+                    "A Levels: Computing, Biology, Maths, and Welsh Baccalaureate",
+                    "11 GCSEs A*-C including Maths, English, and Science"
+                },
+                TechStack = new List<string> { "Computing", "Mathematics", "Biology" }
+            }
+        };
+    }
+} 

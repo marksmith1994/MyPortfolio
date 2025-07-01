@@ -1,0 +1,93 @@
+@using System.Collections.Generic
+
+<div class="animated-timeline">
+    <div class="timeline-container">
+        @foreach (var item in Items)
+        {
+            <div class="timeline-item @(item.IsExpanded ? "expanded" : "")" @onclick="() => ToggleItem(item)">
+                <div class="timeline-marker">
+                    <div class="marker-icon">
+                        <i class="@item.Icon"></i>
+                    </div>
+                    <div class="timeline-line"></div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-header">
+                        <div class="timeline-title-section">
+                            <h5 class="timeline-title">@item.Title</h5>
+                            <div class="timeline-subtitle">@item.Subtitle</div>
+                            <div class="timeline-date">@item.DateRange</div>
+                        </div>
+                        <div class="timeline-toggle">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-details">
+                        @if (!string.IsNullOrEmpty(item.Description))
+                        {
+                            <p class="timeline-description">@item.Description</p>
+                        }
+                        
+                        @if (item.BulletPoints?.Any() == true)
+                        {
+                            <ul class="timeline-bullets">
+                                @foreach (var point in item.BulletPoints)
+                                {
+                                    <li>@point</li>
+                                }
+                            </ul>
+                        }
+                        
+                        @if (item.TechStack?.Any() == true)
+                        {
+                            <div class="timeline-tech-stack">
+                                <h6>Technologies Used:</h6>
+                                <div class="tech-tags">
+                                    @foreach (var tech in item.TechStack)
+                                    {
+                                        <span class="tech-tag">@tech</span>
+                                    }
+                                </div>
+                            </div>
+                        }
+                        
+                        @if (!string.IsNullOrEmpty(item.Link))
+                        {
+                            <div class="timeline-link">
+                                <a href="@item.Link" target="_blank" class="btn btn-outline-primary btn-sm">
+                                    <i class="fas fa-external-link-alt me-2"></i>Learn More
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public List<TimelineItem> Items { get; set; } = new();
+    
+    private void ToggleItem(TimelineItem item)
+    {
+        item.IsExpanded = !item.IsExpanded;
+        StateHasChanged();
+    }
+    
+    public class TimelineItem
+    {
+        public string Title { get; set; } = string.Empty;
+        public string Subtitle { get; set; } = string.Empty;
+        public string DateRange { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public List<string> BulletPoints { get; set; } = new();
+        public List<string> TechStack { get; set; } = new();
+        public string Icon { get; set; } = "fas fa-briefcase";
+        public string Link { get; set; } = string.Empty;
+        public bool IsExpanded { get; set; } = false;
+    }
+} 
