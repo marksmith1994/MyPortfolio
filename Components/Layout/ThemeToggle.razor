@@ -1,0 +1,48 @@
+@using MyPortfolio.Services
+@inject ThemeService ThemeService
+@inject IJSRuntime JSRuntime
+
+<button @onclick="ToggleTheme" class="btn theme-toggle" title="@(isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode")">
+    @if (isDarkMode)
+    {
+        <i class="fas fa-sun"></i>
+    }
+    else
+    {
+        <i class="fas fa-moon"></i>
+    }
+</button>
+
+@code {
+    private bool isDarkMode = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await UpdateThemeState();
+        ThemeService.OnThemeChanged += OnThemeChanged;
+    }
+
+    private async void OnThemeChanged()
+    {
+        await UpdateThemeState();
+        StateHasChanged();
+    }
+
+    private async Task UpdateThemeState()
+    {
+        isDarkMode = await ThemeService.IsDarkModeAsync();
+    }
+
+    private async Task ToggleTheme()
+    {
+        await ThemeService.ToggleThemeAsync();
+        // Update state immediately after toggle
+        await UpdateThemeState();
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        ThemeService.OnThemeChanged -= OnThemeChanged;
+    }
+} 

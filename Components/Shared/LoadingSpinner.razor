@@ -1,0 +1,55 @@
+@if (Show)
+{
+    <div class="loading-container @ContainerClass">
+        @if (Type == LoadingType.Spinner)
+        {
+            <div class="spinner-wrapper">
+                <div class="spinner-border @SpinnerClass" role="status" style="width: @Size; height: @Size;">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                @if (!string.IsNullOrEmpty(Message))
+                {
+                    <div class="loading-message mt-2">@Message</div>
+                }
+            </div>
+        }
+        else if (Type == LoadingType.Dots)
+        {
+            <div class="loading-dots">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                @if (!string.IsNullOrEmpty(Message))
+                {
+                    <div class="loading-message mt-3">@Message</div>
+                }
+            </div>
+        }
+        else if (Type == LoadingType.Pulse)
+        {
+            <div class="loading-pulse">
+                <div class="pulse-circle"></div>
+                @if (!string.IsNullOrEmpty(Message))
+                {
+                    <div class="loading-message mt-3">@Message</div>
+                }
+            </div>
+        }
+    </div>
+}
+
+@code {
+    [Parameter] public bool Show { get; set; } = true;
+    [Parameter] public LoadingType Type { get; set; } = LoadingType.Spinner;
+    [Parameter] public string Size { get; set; } = "3rem";
+    [Parameter] public string Message { get; set; } = "";
+    [Parameter] public string ContainerClass { get; set; } = "d-flex justify-content-center align-items-center py-5";
+    [Parameter] public string SpinnerClass { get; set; } = "text-primary";
+
+    public enum LoadingType
+    {
+        Spinner,
+        Dots,
+        Pulse
+    }
+} 

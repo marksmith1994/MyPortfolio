@@ -1,0 +1,26 @@
+<div class="skeleton-card @CardClass">
+    @if (ShowImage)
+    {
+        <div class="skeleton-image"></div>
+    }
+    <div class="skeleton-content">
+        <div class="skeleton-title"></div>
+        <div class="skeleton-text"></div>
+        <div class="skeleton-text"></div>
+        <div class="skeleton-text short"></div>
+        @if (ShowBadges)
+        {
+            <div class="skeleton-badges">
+                <div class="skeleton-badge"></div>
+                <div class="skeleton-badge"></div>
+                <div class="skeleton-badge"></div>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter] public bool ShowImage { get; set; } = true;
+    [Parameter] public bool ShowBadges { get; set; } = true;
+    [Parameter] public string CardClass { get; set; } = "card h-100";
+} 

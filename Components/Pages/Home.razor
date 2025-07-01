@@ -1,22 +1,31 @@
 @page "/"
 @using MyPortfolio.Components.Layout
 
-<PageTitle>Home - My Portfolio</PageTitle>
+<PageTitle>Mark Smith - Senior Software Engineer</PageTitle>
 
 <div class="hero-section gradient-bg d-flex align-items-center min-vh-70 py-5 mb-5">
     <div class="container">
         <div class="row align-items-center flex-column-reverse flex-lg-row">
             <div class="col-lg-6 text-center text-lg-start">
-                <h1 class="display-3 fw-bold mb-3 animate-fadein">Welcome to My Portfolio</h1>
-                <p class="lead mb-4 animate-fadein animate-delay-1">I'm a passionate developer creating modern web applications with cutting-edge technologies.</p>
+                <h1 class="display-3 fw-bold mb-3 animate-fadein text-white">
+                    Hi, I'm <span class="text-gradient">Mark Smith</span>
+                </h1>
+                <p class="lead mb-4 animate-fadein animate-delay-1 text-white-75">
+                    A passionate senior software engineer crafting modern web applications with cutting-edge technologies. 
+                    I love turning complex problems into elegant, user-friendly solutions.
+                </p>
                 <div class="d-flex gap-3 justify-content-center justify-content-lg-start animate-fadein animate-delay-2">
-                    <a href="/projects" class="btn btn-primary btn-lg shadow-sm">View My Work</a>
-                    <a href="/contact" class="btn btn-outline-primary btn-lg shadow-sm">Get in Touch</a>
+                    <a href="/projects" class="btn btn-light btn-lg shadow-sm">
+                        <i class="fas fa-code me-2"></i>View My Work
+                    </a>
+                    <a href="/contact" class="btn btn-outline-light btn-lg shadow-sm">
+                        <i class="fas fa-envelope me-2"></i>Get in Touch
+                    </a>
                 </div>
             </div>
             <div class="col-lg-6 mb-4 mb-lg-0 text-center animate-fadein animate-delay-3">
                 <div class="hero-image">
-                    <img src="images/profile.jpeg" alt="Developer at work" class="profile-img mx-auto" />
+                    <img src="images/profile.jpeg" alt="Mark Smith - Senior Software Engineer" class="profile-img mx-auto" />
                 </div>
             </div>
         </div>
@@ -28,30 +37,48 @@
         <div class="col-md-4">
             <div class="card h-100 card-hover shadow-sm animate-fadein animate-delay-4">
                 <div class="card-body text-center">
-                    <i class="fas fa-code fa-3x mb-3 text-primary"></i>
+                    <div class="icon-wrapper mb-3">
+                        <i class="fas fa-code fa-3x text-primary"></i>
+                    </div>
                     <h3 class="card-title">Projects</h3>
-                    <p class="card-text">Explore my latest projects and see how I solve real-world problems with code.</p>
-                    <a href="/projects" class="btn btn-primary">View Projects</a>
+                    <p class="card-text">
+                        Explore my latest projects and see how I solve real-world problems with clean, efficient code.
+                    </p>
+                    <a href="/projects" class="btn btn-primary">
+                        <i class="fas fa-arrow-right me-2"></i>View Projects
+                    </a>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
             <div class="card h-100 card-hover shadow-sm animate-fadein animate-delay-5">
                 <div class="card-body text-center">
-                    <i class="fas fa-cogs fa-3x mb-3 text-primary"></i>
+                    <div class="icon-wrapper mb-3">
+                        <i class="fas fa-cogs fa-3x text-primary"></i>
+                    </div>
                     <h3 class="card-title">Skills</h3>
-                    <p class="card-text">Discover the technologies and tools I use to build modern web applications.</p>
-                    <a href="/skills" class="btn btn-outline-primary">View Skills</a>
+                    <p class="card-text">
+                        Discover the technologies and tools I use to build modern, scalable web applications.
+                    </p>
+                    <a href="/skills" class="btn btn-outline-primary">
+                        <i class="fas fa-arrow-right me-2"></i>View Skills
+                    </a>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
             <div class="card h-100 card-hover shadow-sm animate-fadein animate-delay-6">
                 <div class="card-body text-center">
-                    <i class="fas fa-rocket fa-3x mb-3 text-primary"></i>
+                    <div class="icon-wrapper mb-3">
+                        <i class="fas fa-rocket fa-3x text-primary"></i>
+                    </div>
                     <h3 class="card-title">SpaceX Launches</h3>
-                    <p class="card-text">Check out the latest and upcoming SpaceX launches, with live data and filters.</p>
-                    <a href="/spacex" class="btn btn-outline-primary">View Launches</a>
+                    <p class="card-text">
+                        Check out the latest and upcoming SpaceX launches with real-time data and interactive filters.
+                    </p>
+                    <a href="/spacex" class="btn btn-outline-primary">
+                        <i class="fas fa-arrow-right me-2"></i>View Launches
+                    </a>
                 </div>
             </div>
         </div>
@@ -60,6 +87,64 @@
 
 <div class="divider my-5"></div>
 
+<div class="container py-5">
+    <div class="row align-items-center">
+        <div class="col-lg-6 mb-4 mb-lg-0">
+            <h2 class="display-5 fw-bold mb-4">Why Choose Me?</h2>
+            <div class="feature-list">
+                <div class="feature-item d-flex align-items-start mb-4">
+                    <div class="feature-icon me-3">
+                        <i class="fas fa-check-circle text-success fa-lg"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-2">Modern Tech Stack</h5>
+                        <p class="mb-0">Using the latest technologies like .NET 8, Blazor, and modern JavaScript frameworks.</p>
+                    </div>
+                </div>
+                <div class="feature-item d-flex align-items-start mb-4">
+                    <div class="feature-icon me-3">
+                        <i class="fas fa-check-circle text-success fa-lg"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-2">Performance Focused</h5>
+                        <p class="mb-0">Optimised applications with caching, lazy loading, and efficient data handling.</p>
+                    </div>
+                </div>
+                <div class="feature-item d-flex align-items-start mb-4">
+                    <div class="feature-icon me-3">
+                        <i class="fas fa-check-circle text-success fa-lg"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-2">User Experience</h5>
+                        <p class="mb-0">Creating intuitive, responsive interfaces that users love to interact with.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="stats-card glass-effect p-4 rounded-3">
+                <h3 class="text-center mb-4 text-white">Quick Stats</h3>
+                <div class="row text-center">
+                    <div class="col-6 mb-3">
+                        <div class="stat-number text-white display-6 fw-bold">5+</div>
+                        <div class="stat-label text-white-75">Years Experience</div>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <div class="stat-number text-white display-6 fw-bold">20+</div>
+                        <div class="stat-label text-white-75">Projects Completed</div>
+                    </div>
+                    <div class="col-6">
+                        <div class="stat-number text-white display-6 fw-bold">10+</div>
+                        <div class="stat-label text-white-75">Technologies</div>
+                    </div>
+                    <div class="col-6">
+                        <div class="stat-number text-white display-6 fw-bold">∞</div>
+                        <div class="stat-label text-white-75">Coffee Consumed</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
 <link href="css/home.css" rel="stylesheet">

@@ -173,6 +173,8 @@ wwwroot/css/app.min.css.map
 
 # Local secrets (ASP.NET Core User Secrets)
 secrets.json
+appsettings.Development.json
+appsettings.Production.json
 
 # Azure pipeline artifacts
 *.azurepipelines/*

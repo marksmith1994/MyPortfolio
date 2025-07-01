@@ -1,6 +1,6 @@
 @page "/spacex"
-@using System.Net.Http.Json
-@inject HttpClient Http
+@using MyPortfolio.Services
+@inject SpaceXService SpaceXService
 
 <PageTitle>SpaceX Launches</PageTitle>
 
@@ -20,7 +20,7 @@
     {
         <div class="text-center"><div class="spinner-border text-primary" role="status"></div></div>
     }
-    else if (launches != null)
+    else if (launches != null && launches.Count > 0)
     {
         var filteredLaunches = launches;
         if (successFilter == "success")
@@ -29,17 +29,7 @@
             filteredLaunches = launches.Where(l => l.Success == false).ToList();
         else if (successFilter == "tbd")
             filteredLaunches = launches.Where(l => l.Success == null).ToList();
-        // Fix: If date is MinValue but launch has a valid Unix timestamp, parse from raw JSON field
-        foreach (var launch in filteredLaunches)
-        {
-            if (launch.DateUtc == DateTime.MinValue && !string.IsNullOrEmpty(launch.RawDateUtc))
-            {
-                if (DateTime.TryParse(launch.RawDateUtc, null, System.Globalization.DateTimeStyles.RoundtripKind, out var parsed))
-                {
-                    launch.DateUtc = parsed;
-                }
-            }
-        }
+
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             @foreach (var launch in filteredLaunches)
             {
@@ -47,13 +37,25 @@
                     <div class="card h-100">
                         <div class="card-body">
                             <h5 class="card-title" title="@launch.Name">@launch.Name</h5>
-                            <p class="card-text"><strong>Date:</strong> @((launch.DateUtc == DateTime.MinValue ? "TBD" : launch.DateUtc.ToLocalTime().ToString("yyyy-MM-dd HH:mm")))</p>
+                            <p class="card-text">
+                                <strong>Date:</strong> 
+                                @(launch.DateUtc == DateTime.MinValue ? "TBD" : launch.DateUtc.ToLocalTime().ToString("yyyy-MM-dd HH:mm"))
+                            </p>
                             <p class="card-text"><strong>Rocket:</strong> @launch.Rocket</p>
-                            <p class="card-text"><strong>Success:</strong> @((launch.Success == true)
-                                ? @<span title="Success"><i class="fas fa-check-circle text-success"></i></span>
-                                : (launch.Success == false)
-                                    ? @<span title="Failure"><i class="fas fa-times-circle text-danger"></i></span>
-                                    : @<span title="TBD"><i class="fas fa-clock text-warning"></i></span>)
+                            <p class="card-text">
+                                <strong>Success:</strong> 
+                                @if (launch.Success == true)
+                                {
+                                    <span title="Success"><i class="fas fa-check-circle text-success"></i></span>
+                                }
+                                else if (launch.Success == false)
+                                {
+                                    <span title="Failure"><i class="fas fa-times-circle text-danger"></i></span>
+                                }
+                                else
+                                {
+                                    <span title="TBD"><i class="fas fa-clock text-warning"></i></span>
+                                }
                             </p>
                             @if (!string.IsNullOrEmpty(launch.Details))
                             {
@@ -73,10 +75,14 @@
     {
         <div class="alert alert-danger text-center">@errorMessage</div>
     }
+    else
+    {
+        <div class="alert alert-info text-center">No launches found.</div>
+    }
 </div>
 
 @code {
-    private List<Launch>? launches;
+    private List<Launch> launches = new();
     private bool isLoading = false;
     private string? errorMessage;
     private bool showUpcoming = true;
@@ -93,39 +99,14 @@
         errorMessage = null;
         try
         {
-            string url = showUpcoming
-                ? "https://api.spacexdata.com/v4/launches/upcoming"
-                : "https://api.spacexdata.com/v4/launches/past";
-            var json = await Http.GetStringAsync(url);
-            launches = System.Text.Json.JsonSerializer.Deserialize<List<Launch>>(json, new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            // Map RawDateUtc
-            foreach (var l in launches ?? new List<Launch>())
-            {
-                using var doc = System.Text.Json.JsonDocument.Parse(json);
-                foreach (var element in doc.RootElement.EnumerateArray())
-                {
-                    if (element.TryGetProperty("name", out var nameProp) && nameProp.GetString() == l.Name)
-                    {
-                        if (element.TryGetProperty("date_utc", out var dateProp))
-                        {
-                            l.RawDateUtc = dateProp.GetString();
-                        }
-                    }
-                }
-            }
-            if (!showUpcoming)
-            {
-                launches = launches?.OrderByDescending(l => l.DateUtc).Take(12).ToList();
-            }
-            else
-            {
-                launches = launches?.OrderBy(l => l.DateUtc).Take(12).ToList();
-            }
+            launches = showUpcoming 
+                ? await SpaceXService.GetUpcomingLaunchesAsync()
+                : await SpaceXService.GetPastLaunchesAsync();
         }
         catch (Exception)
         {
             errorMessage = "Could not fetch SpaceX launches. Please try again later.";
-            launches = null;
+            launches = new List<Launch>();
         }
         isLoading = false;
     }
@@ -142,22 +123,4 @@
         await LoadLaunchesAsync();
     }
 
-    private Task OnSuccessFilterChanged(ChangeEventArgs e)
-    {
-        successFilter = e.Value?.ToString() ?? "all";
-        StateHasChanged();
-        return Task.CompletedTask;
-    }
-
-    public class Launch
-    {
-        public string Name { get; set; } = string.Empty;
-        public DateTime DateUtc { get; set; }
-        public string? RawDateUtc { get; set; } // for fallback parsing
-        public string Rocket { get; set; } = string.Empty;
-        public bool? Success { get; set; }
-        public string? Details { get; set; }
-        public LaunchLinks Links { get; set; } = new();
-    }
-    public class LaunchLinks { public string Webcast { get; set; } = string.Empty; }
 }

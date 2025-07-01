@@ -1,6 +1,99 @@
-html, body {
-    font-family: 'Montserrat', Arial, sans-serif;
-    background: #f8fafc;
+/* Enhanced Home Page Styles */
+.text-white-75 {
+    color: rgba(255, 255, 255, 0.75) !important;
+}
+
+/* Dark mode support for home page */
+[data-theme="dark"] .card-title {
+    color: var(--text) !important;
+}
+
+[data-theme="dark"] .card-text {
+    color: var(--text-muted) !important;
+}
+
+[data-theme="dark"] .text-muted {
+    color: var(--text-muted) !important;
+}
+
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5 {
+    color: var(--text) !important;
+}
+
+[data-theme="dark"] .gradient-bg {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, var(--accent-2) 100%) !important;
+}
+
+[data-theme="dark"] .profile-img {
+    border-color: var(--surface) !important;
+    background: var(--surface) !important;
+}
+
+[data-theme="dark"] .divider {
+    border-top-color: var(--border) !important;
+}
+
+.icon-wrapper {
+    display: inline-block;
+    padding: 1rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-light) 0%, var(--accent) 100%);
+    color: white;
+    transition: var(--transition);
+}
+
+.card:hover .icon-wrapper {
+    transform: scale(1.1);
+}
+
+.feature-item {
+    transition: var(--transition);
+}
+
+.feature-item:hover {
+    transform: translateX(10px);
+}
+
+.feature-icon {
+    color: var(--success);
+    margin-top: 0.25rem;
+}
+
+.stats-card {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.stats-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.stat-number {
+    position: relative;
+    z-index: 2;
+}
+
+.stat-label {
+    position: relative;
+    z-index: 2;
+    font-size: 0.9rem;
+    font-weight: 500;
 }
 .gradient-bg {
     background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
@@ -120,4 +213,15 @@ html, body {
     background: var(--primary-dark);
     color: #fff;
     box-shadow: 0 4px 16px rgba(79, 140, 255, 0.16);
+}
+
+[data-theme="dark"] .stats-card {
+    background: linear-gradient(135deg, #232946 0%, #1a2233 100%) !important;
+    color: var(--text) !important;
+}
+
+[data-theme="dark"] .glass-effect {
+    background: rgba(30, 41, 59, 0.7) !important;
+    border: 1px solid var(--border) !important;
+    color: var(--text) !important;
 }

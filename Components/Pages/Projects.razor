@@ -1,81 +1,129 @@
 @page "/projects"
 @using MyPortfolio.Services
 @using MyPortfolio.Models
+@using MyPortfolio.Components.Shared
 @inject GitHubService GitHubService
 
-<PageTitle>Projects - My Portfolio</PageTitle>
+<PageTitle>Projects - Mark Smith</PageTitle>
 
 <div class="container py-5">
-    <h1 class="text-center mb-5">My Projects</h1>
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <h1 class="text-center mb-4">My Projects</h1>
+            <p class="lead text-center text-muted mb-5">
+                Here are some of my recent projects and contributions. Each project represents a unique challenge and learning opportunity.
+            </p>
+        </div>
+    </div>
 
-    <!-- Internal Site Projects Section -->
-    <section>
-        <h2 class="text-center mb-4">Featured In-Site Projects</h2>
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5">
+    <!-- Side Projects Section -->
+    <section class="mb-5">
+        <h2 class="text-center mb-4">Side Projects</h2>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
             <div class="col">
-                <a href="/nasa-apod" class="card h-100 text-decoration-none text-reset" style="display:block;">
+                <a href="/nasa-apod" class="card h-100 project-card text-decoration-none text-reset">
                     <div class="card-body">
-                        <h5 class="card-title mb-2"><i class="fas fa-moon me-2"></i>NASA Astronomy Picture</h5>
-                        <p class="card-text">See today's NASA Astronomy Picture of the Day, with explanation and credits from NASA's open API.</p>
-                        <span class="badge bg-info">API Demo</span>
+                        <h5 class="card-title">
+                            <i class="fas fa-meteor me-2 text-warning"></i>NASA APOD
+                        </h5>
+                        <p class="card-text">
+                            View the Astronomy Picture of the Day, with details and explanations, powered by NASA's public API.
+                        </p>
+                        <div class="d-flex justify-content-end">
+                            <span class="btn btn-outline-primary btn-sm disabled">Internal</span>
+                        </div>
                     </div>
                 </a>
             </div>
             <div class="col">
-                <a href="/weather" class="card h-100 text-decoration-none text-reset" style="display:block;">
+                <a href="/spacex" class="card h-100 project-card text-decoration-none text-reset">
                     <div class="card-body">
-                        <h5 class="card-title mb-2"><i class="fas fa-cloud-sun me-2"></i>Weather Dashboard</h5>
-                        <p class="card-text">Check the current weather for any city using the OpenWeatherMap API.</p>
-                        <span class="badge bg-info">API Demo</span>
+                        <h5 class="card-title">
+                            <i class="fas fa-rocket me-2 text-danger"></i>SpaceX Launches
+                        </h5>
+                        <p class="card-text">
+                            Explore recent and upcoming SpaceX launches, with mission details and rocket info, using the SpaceX API.
+                        </p>
+                        <div class="d-flex justify-content-end">
+                            <span class="btn btn-outline-primary btn-sm disabled">Internal</span>
+                        </div>
                     </div>
                 </a>
             </div>
             <div class="col">
-                <a href="/spacex" class="card h-100 text-decoration-none text-reset" style="display:block;">
+                <a href="/weather" class="card h-100 project-card text-decoration-none text-reset">
                     <div class="card-body">
-                        <h5 class="card-title mb-2"><i class="fas fa-rocket me-2"></i>SpaceX Launches</h5>
-                        <p class="card-text">View upcoming and recent SpaceX launches, with mission details and webcast links.</p>
-                        <span class="badge bg-info">API Demo</span>
+                        <h5 class="card-title">
+                            <i class="fas fa-cloud-sun-rain me-2 text-info"></i>Weather Dashboard
+                        </h5>
+                        <p class="card-text">
+                            Check the weather for multiple cities, with daily caching and a modern, responsive UI.
+                        </p>
+                        <div class="d-flex justify-content-end">
+                            <span class="btn btn-outline-primary btn-sm disabled">Internal</span>
+                        </div>
                     </div>
                 </a>
             </div>
             <div class="col">
-                <a href="/strava" class="card h-100 text-decoration-none text-reset" style="display:block;">
+                <a href="/strava" class="card h-100 project-card text-decoration-none text-reset">
                     <div class="card-body">
-                        <h5 class="card-title mb-2"><i class="fas fa-biking me-2"></i>Strava Activities</h5>
-                        <p class="card-text">Browse my recent Strava activities, including distance, speed, and heart rate stats, fetched live from the Strava API.</p>
-                        <span class="badge bg-info">API Demo</span>
+                        <h5 class="card-title">
+                            <i class="fas fa-running me-2 text-success"></i>Strava Analytics
+                        </h5>
+                        <p class="card-text">
+                            Analyse your Strava activities with interactive charts, heatmaps, and performance metrics.
+                        </p>
+                        <div class="d-flex justify-content-end">
+                            <span class="btn btn-outline-primary btn-sm disabled">Internal</span>
+                        </div>
                     </div>
                 </a>
             </div>
-            <!-- Add more internal project cards here as needed -->
         </div>
     </section>
 
     <!-- GitHub Repositories Section -->
     <section>
         <h2 class="text-center mb-4">GitHub Repositories</h2>
-        @if (repositories == null)
+        
+        @if (isLoading)
         {
-            <div class="text-center">
-                <div class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                </div>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                @for (int i = 0; i < 6; i++)
+                {
+                    <div class="col">
+                        <SkeletonCard ShowImage="false" />
+                    </div>
+                }
             </div>
         }
-        else if (!repositories.Any())
+        else if (errorMessage != null)
         {
-            <div class="text-center">
-                <p>No repositories found.</p>
+            <ErrorDisplay 
+                Title="Failed to Load Projects" 
+                Message="@errorMessage"
+                ShowRetry="true"
+                IsRetrying="@isRetrying"
+                OnRetry="LoadRepositoriesAsync" />
+        }
+        else if (repositories == null || !repositories.Any())
+        {
+            <div class="text-center py-5">
+                <div class="empty-state">
+                    <i class="fas fa-folder-open fa-3x text-muted mb-3"></i>
+                    <h4 class="text-muted">No repositories found</h4>
+                    <p class="text-muted">Check back later for new projects!</p>
+                </div>
             </div>
         }
         else
         {
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 fade-in">
                 @foreach (var repo in repositories)
                 {
                     <div class="col">
-                        <a href="@repo.HtmlUrl" target="_blank" class="card h-100 text-decoration-none text-reset" style="display:block;">
+                        <a href="@repo.HtmlUrl" target="_blank" class="card h-100 text-decoration-none text-reset project-card" style="display:block;">
                             <div class="card-body">
                                 <h5 class="card-title mb-2">@repo.Name</h5>
                                 <p class="card-text">@repo.Description</p>
@@ -86,7 +134,7 @@
                                     }
                                     @if (repo.Topics.Any())
                                     {
-                                        @foreach (var topic in repo.Topics)
+                                        @foreach (var topic in repo.Topics.Take(3))
                                         {
                                             <span class="badge bg-info me-1">@topic</span>
                                         }
@@ -106,18 +154,9 @@
                                         </span>
                                     }
                                 </div>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <small class="text-muted">
-                                        <i class="fas fa-clock me-1"></i>
-                                        Updated @GetTimeAgo(repo.UpdatedAt)
-                                    </small>
-                                    <div>
-                                        @if (!string.IsNullOrEmpty(repo.Homepage))
-                                        {
-                                            <a href="@repo.Homepage" target="_blank" class="btn btn-outline-primary btn-sm me-2" onclick="event.stopPropagation();"> <i class="fas fa-external-link-alt"></i> </a>
-                                        }
-                                        <a href="@repo.HtmlUrl" target="_blank" class="btn btn-primary btn-sm" onclick="event.stopPropagation();"> <i class="fab fa-github me-1"></i>View </a>
-                                    </div>
+                                <div class="text-muted small">
+                                    <i class="fas fa-clock me-1"></i>
+                                    Updated @GetTimeAgo(repo.UpdatedAt)
                                 </div>
                             </div>
                         </a>
@@ -130,10 +169,41 @@
 
 @code {
     private List<GitHubRepository>? repositories;
+    private bool isLoading = true;
+    private bool isRetrying = false;
+    private string? errorMessage;
 
     protected override async Task OnInitializedAsync()
     {
-        repositories = await GitHubService.GetRepositoriesAsync();
+        await LoadRepositoriesAsync();
+    }
+
+    private async Task LoadRepositoriesAsync()
+    {
+        if (isRetrying)
+        {
+            isRetrying = true;
+        }
+        else
+        {
+            isLoading = true;
+        }
+        
+        errorMessage = null;
+        
+        try
+        {
+            repositories = await GitHubService.GetRepositoriesAsync();
+        }
+        catch (Exception)
+        {
+            errorMessage = "Failed to load projects. Please check your connection and try again.";
+        }
+        finally
+        {
+            isLoading = false;
+            isRetrying = false;
+        }
     }
 
     private string GetTimeAgo(DateTime dateTime)
@@ -162,4 +232,4 @@
         }
         return "just now";
     }
-} 
+}

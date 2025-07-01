@@ -1,0 +1,37 @@
+<div class="error-container text-center py-4">
+    <div class="error-icon mb-3">
+        <i class="fas fa-exclamation-triangle fa-3x text-warning"></i>
+    </div>
+    <h4 class="error-title mb-3">@Title</h4>
+    <p class="error-message text-muted mb-4">@Message</p>
+    @if (ShowRetry)
+    {
+        <button class="btn btn-primary" @onclick="OnRetry" disabled="@IsRetrying">
+            @if (IsRetrying)
+            {
+                <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                <span>Retrying...</span>
+            }
+            else
+            {
+                <i class="fas fa-redo me-2"></i>
+                <span>Try Again</span>
+            }
+        </button>
+    }
+    @if (!string.IsNullOrEmpty(AdditionalInfo))
+    {
+        <div class="error-details mt-3">
+            <small class="text-muted">@AdditionalInfo</small>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public string Title { get; set; } = "Something went wrong";
+    [Parameter] public string Message { get; set; } = "We encountered an error while loading the data.";
+    [Parameter] public string? AdditionalInfo { get; set; }
+    [Parameter] public bool ShowRetry { get; set; } = true;
+    [Parameter] public bool IsRetrying { get; set; } = false;
+    [Parameter] public EventCallback OnRetry { get; set; }
+} 

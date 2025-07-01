@@ -25,6 +25,14 @@
       "PackagePath": "staticwebassets\\css\\home.css"
     },
     {
+      "Id": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\css\\loading.css",
+      "PackagePath": "staticwebassets\\css\\loading.css"
+    },
+    {
+      "Id": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\css\\projects.css",
+      "PackagePath": "staticwebassets\\css\\projects.css"
+    },
+    {
       "Id": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
@@ -55,6 +63,10 @@
     {
       "Id": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\js\\strava-visuals.js",
       "PackagePath": "staticwebassets\\js\\strava-visuals.js"
+    },
+    {
+      "Id": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\js\\theme.js",
+      "PackagePath": "staticwebassets\\js\\theme.js"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.MyPortfolio.Microsoft.AspNetCore.StaticWebAssets.props",

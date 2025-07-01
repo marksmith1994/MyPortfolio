@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ImLhYsxkCDUPu+Iq1+VbXpl79umqUi/SYSzxvfazFbY=",
+  "Hash": "mepIaHAf969e/GTRSDige22fFsYpIkf+7R7MctWHrDs=",
   "Source": "MyPortfolio",
   "BasePath": "_content/MyPortfolio",
   "Mode": "Default",
@@ -148,6 +148,44 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\home.css"
+    },
+    {
+      "Identity": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\css\\loading.css",
+      "SourceId": "MyPortfolio",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\",
+      "BasePath": "_content/MyPortfolio",
+      "RelativePath": "css/loading.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\loading.css"
+    },
+    {
+      "Identity": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\css\\projects.css",
+      "SourceId": "MyPortfolio",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\",
+      "BasePath": "_content/MyPortfolio",
+      "RelativePath": "css/projects.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\projects.css"
     },
     {
       "Identity": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\css\\site.css",
@@ -300,6 +338,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\strava-visuals.js"
+    },
+    {
+      "Identity": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\js\\theme.js",
+      "SourceId": "MyPortfolio",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\",
+      "BasePath": "_content/MyPortfolio",
+      "RelativePath": "js/theme.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\theme.js"
     }
   ]
 }

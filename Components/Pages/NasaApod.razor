@@ -1,6 +1,6 @@
 @page "/nasa-apod"
-@using System.Net.Http.Json
-@inject HttpClient Http
+@using MyPortfolio.Services
+@inject NasaService NasaService
 
 <PageTitle>NASA Astronomy Picture of the Day</PageTitle>
 
@@ -50,17 +50,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var apiKey = "DEMO_KEY"; // Replace with your own API key if you have one
-        apod = await Http.GetFromJsonAsync<ApodResult>($"https://api.nasa.gov/planetary/apod?api_key={apiKey}");
-    }
-
-    public class ApodResult
-    {
-        public string Title { get; set; } = string.Empty;
-        public string Explanation { get; set; } = string.Empty;
-        public string Url { get; set; } = string.Empty;
-        public string MediaType { get; set; } = string.Empty;
-        public string Date { get; set; } = string.Empty;
-        public string Copyright { get; set; } = string.Empty;
+        apod = await NasaService.GetApodAsync();
     }
 }
