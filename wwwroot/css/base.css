@@ -35,18 +35,6 @@
     --transition-slow: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Dark Mode Variables */
-[data-theme="dark"] {
-    --background: #0f172a;
-    --surface: #1e293b;
-    --surface-hover: #334155;
-    --text: #f1f5f9;
-    --text-muted: #94a3b8;
-    --border: #334155;
-    --footer-bg: #1e293b;
-    --navbar-text: #ffffff;
-}
-
 html, body {
     min-height: 100%;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -203,51 +191,6 @@ main.container {
     padding: 2rem 0;
 }
 
-/* Theme Toggle Button */
-.theme-toggle {
-    background: rgba(255, 255, 255, 0.1) !important;
-    border: 2px solid rgba(255, 255, 255, 0.3) !important;
-    color: #ffffff !important;
-    border-radius: 50% !important;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: var(--transition);
-    margin-left: 1rem;
-    backdrop-filter: blur(10px);
-    padding: 0 !important;
-    min-width: 40px !important;
-    min-height: 40px !important;
-}
-
-.theme-toggle:hover {
-    background: rgba(255, 255, 255, 0.2) !important;
-    border-color: rgba(255, 255, 255, 0.5) !important;
-    color: #ffffff !important;
-    transform: scale(1.1);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.theme-toggle:focus {
-    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
-    outline: none;
-}
-
-/* Dark mode specific adjustments */
-[data-theme="dark"] .theme-toggle {
-    background: rgba(255, 255, 255, 0.1) !important;
-    border-color: rgba(255, 255, 255, 0.3) !important;
-    color: #ffffff !important;
-}
-
-[data-theme="dark"] .theme-toggle:hover {
-    background: rgba(255, 255, 255, 0.2) !important;
-    border-color: rgba(255, 255, 255, 0.5) !important;
-    color: #ffffff !important;
-}
-
 .footer-section a {
     color: var(--text-muted);
     transition: var(--transition);
@@ -275,14 +218,6 @@ main.container {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-}
-
-[data-theme="dark"] .text-gradient {
-    background: none !important;
-    -webkit-background-clip: unset;
-    -webkit-text-fill-color: unset;
-    background-clip: unset;
-    color: #ffffff !important;
 }
 
 .glass-effect {
@@ -336,4 +271,4 @@ main.container {
     .card-body {
         padding: 1rem;
     }
-}
+} 

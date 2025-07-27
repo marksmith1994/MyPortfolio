@@ -22,7 +22,6 @@ builder.Services.AddScoped<NasaService>();
 builder.Services.AddScoped<WeatherService>();
 builder.Services.AddScoped<SpaceXService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
-builder.Services.AddScoped<ThemeService>();
 builder.Services.AddLogging();
 
 var app = builder.Build();

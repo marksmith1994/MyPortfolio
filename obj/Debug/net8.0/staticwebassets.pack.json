@@ -21,6 +21,10 @@
       "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
     },
     {
+      "Id": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\css\\base.css",
+      "PackagePath": "staticwebassets\\css\\base.css"
+    },
+    {
       "Id": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\css\\enhanced-projects.css",
       "PackagePath": "staticwebassets\\css\\enhanced-projects.css"
     },
@@ -57,10 +61,6 @@
       "PackagePath": "staticwebassets\\css\\strava.css"
     },
     {
-      "Id": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\css\\theme.css",
-      "PackagePath": "staticwebassets\\css\\theme.css"
-    },
-    {
       "Id": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\css\\timeline.css",
       "PackagePath": "staticwebassets\\css\\timeline.css"
     },
@@ -95,10 +95,6 @@
     {
       "Id": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\js\\strava-visuals.js",
       "PackagePath": "staticwebassets\\js\\strava-visuals.js"
-    },
-    {
-      "Id": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\js\\theme.js",
-      "PackagePath": "staticwebassets\\js\\theme.js"
     },
     {
       "Id": "C:\\Users\\Mark\\source\\MyPortfolio\\wwwroot\\js\\update-skills.js",

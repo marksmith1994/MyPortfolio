@@ -1,13 +1,10 @@
 @namespace MyPortfolio.Components.Layout
 @inherits LayoutComponentBase
-@using MyPortfolio.Services
-@inject ThemeService ThemeService
 
-<link href="css/theme.css" rel="stylesheet">
+<link href="css/base.css" rel="stylesheet">
 <link href="css/loading.css" rel="stylesheet">
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<script src="js/theme.js"></script>
 
 <PageTitle>Mark Smith - Portfolio</PageTitle>
 
@@ -20,9 +17,6 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <NavMenu />
-                <div class="navbar-nav ms-auto">
-                    <ThemeToggle />
-                </div>
             </div>
         </div>
     </nav>
@@ -43,13 +37,3 @@
         </div>
     </footer>
 </div>
-
-@code {
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await ThemeService.InitializeThemeAsync();
-        }
-    }
-}
