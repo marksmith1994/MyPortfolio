@@ -16,13 +16,19 @@ namespace MyPortfolio.Services
         public EmailService(IConfiguration configuration)
         {
             _configuration = configuration;
-            _sendGridApiKey = _configuration["SendGrid:ApiKey"] ?? throw new ArgumentNullException("SendGrid:ApiKey");
-            _fromEmail = _configuration["SendGrid:FromEmail"] ?? throw new ArgumentNullException("SendGrid:FromEmail");
+            _sendGridApiKey = _configuration["SendGrid:ApiKey"] ?? string.Empty;
+            _fromEmail = _configuration["SendGrid:FromEmail"] ?? string.Empty;
             _fromName = _configuration["SendGrid:FromName"] ?? "Portfolio Contact Form";
         }
 
         public async Task SendEmailAsync(ContactModel contactModel)
         {
+            // Check if SendGrid is properly configured
+            if (string.IsNullOrEmpty(_sendGridApiKey) || string.IsNullOrEmpty(_fromEmail))
+            {
+                throw new InvalidOperationException("SendGrid is not properly configured. Please check your API key and sender email settings.");
+            }
+
             var client = new SendGridClient(_sendGridApiKey);
             var from = new EmailAddress(_fromEmail, _fromName);
             var to = new EmailAddress(_toEmail, "Mark Smith");
