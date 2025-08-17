@@ -122,10 +122,10 @@
             antiSpamAnswer = string.Empty;
             showSuccess = true;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            // Console.WriteLine($"Error sending email: {ex.Message}");
-            errorMessage = "There was an error sending your message. Please try again later.";
+            errorMessage = $"There was an error sending your message: {ex.Message}";
+            showError = true;
         }
         finally
         {
