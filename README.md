@@ -1,139 +1,66 @@
-# My Portfolio Website
+# Mark Smith - Senior Software Engineer Portfolio
 
-A modern, responsive portfolio website built with Blazor WebAssembly, showcasing my professional experience, projects, and skills.
+A modern, responsive portfolio website showcasing my professional experience, technical skills, and project work. Built with cutting-edge web technologies to demonstrate both my development capabilities and design sensibilities.
 
-## Features
+## 🚀 Live Demo
 
-- 🎨 Modern and responsive design with a custom color scheme
-- 📱 Mobile-first approach for optimal viewing on all devices
-- 🔍 Dynamic GitHub repository integration
-- 🎯 Clean and intuitive navigation
-- 🎭 Interactive components and smooth animations
-- 📊 Skills showcase with visual indicators
-- 📧 Contact form for easy communication
+[View My Portfolio](https://your-portfolio-url.com)
 
-## Tech Stack
+## ✨ Features
 
-- **Frontend**: Blazor WebAssembly
-- **Styling**: Bootstrap 5, Custom CSS
-- **Icons**: Font Awesome
-- **API Integration**: GitHub API
-- **Deployment**: GitHub Pages
+- **Modern Design**: Clean, professional interface with smooth animations and micro-interactions
+- **Responsive Layout**: Optimized for all devices with a mobile-first approach
+- **Dynamic Content**: Real-time integration with GitHub repositories and external APIs
+- **Interactive Elements**: Engaging user experience with custom animations and visual feedback
+- **Contact Integration**: Functional contact form with email delivery
+- **Performance Optimized**: Fast loading times and efficient resource management
 
-## Project Structure
+## 🛠️ Tech Stack
 
-```
-MyPortfolio/
-├── Components/
-│   ├── Layout/           # Layout components (MainLayout, NavMenu)
-│   ├── Pages/            # Page components (Home, Projects, About, Contact)
-│   └── Shared/           # Shared components
-├── Models/               # Data models
-├── Services/             # Service classes (GitHubService)
-├── wwwroot/              # Static files
-│   ├── css/             # Stylesheets
-│   └── images/          # Image assets
-└── Program.cs           # Application entry point
-```
+### Frontend
+- **Blazor WebAssembly** - Modern .NET web framework for interactive client-side applications
+- **Bootstrap 5** - Responsive CSS framework for consistent, mobile-first design
+- **Custom CSS** - Tailored styling with modern CSS features and animations
+- **Font Awesome** - Professional icon library
 
-## Getting Started
+### Backend & Services
+- **ASP.NET Core** - High-performance web framework
+- **GitHub API** - Dynamic repository integration
+- **SMTP Email Service** - Contact form functionality
+- **External APIs** - Integration with NASA APOD, SpaceX, Strava, and Weather services
 
-### Prerequisites
+### Development & Deployment
+- **.NET 8.0** - Latest .NET framework with cutting-edge features
+- **Azure App Service** - Cloud hosting and deployment
+- **GitHub Actions** - CI/CD pipeline automation
 
-- [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
-- [Visual Studio 2022](https://visualstudio.microsoft.com/) or [Visual Studio Code](https://code.visualstudio.com/)
+## 📱 Sections
 
-### Installation
+- **Home**: Professional introduction and overview
+- **Projects**: Showcase of GitHub repositories and personal projects
+- **Skills**: Technical competencies with visual indicators
+- **Experience**: Professional background and achievements
+- **Contact**: Direct communication channels and contact form
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/MyPortfolio.git
-   ```
+## 🎨 Design Philosophy
 
-2. Navigate to the project directory:
-   ```bash
-   cd MyPortfolio
-   ```
+The portfolio emphasizes:
+- **Clean Typography**: Readable, professional font choices
+- **Consistent Color Scheme**: Terracotta, sage green, and soft off-white palette
+- **Smooth Animations**: Subtle micro-interactions for enhanced user experience
+- **Accessibility**: WCAG compliant design for inclusive user experience
+- **Performance**: Optimized loading times and efficient resource usage
 
-3. Restore dependencies:
-   ```bash
-   dotnet restore
-   ```
+## 🔗 Connect With Me
 
-4. Run the application:
-   ```bash
-   dotnet run
-   ```
+- **LinkedIn**: [Mark Smith](https://linkedin.com/in/marksmithdeveloper)
+- **GitHub**: [@marksmith1994](https://github.com/marksmith1994)
+- **Email**: marksmith.ms804@gmail.com
 
-5. Open your browser and navigate to `https://localhost:5001`
-
-## Customization
-
-### Color Scheme
-
-The website uses a custom color scheme:
-- Primary: `#B85042` (Terracotta)
-- Background: `#E7E8D1` (Soft off-white)
-- Secondary: `#A7BEAE` (Sage green)
-
-To modify the colors, update the CSS variables in `wwwroot/css/app.css`.
-
-### GitHub Integration
-
-The Projects page automatically fetches and displays your GitHub repositories. To customize this:
-
-1. Update the GitHub username in `Services/GitHubService.cs`
-2. Modify the repository display in `Components/Pages/Projects.razor`
-
-## Configuration & API Key Safety
-
-This project uses third-party APIs (e.g., GitHub API). **Never commit real API keys or secrets to source control.**
-
-### Local Development
-- Use the [.NET Secret Manager](https://learn.microsoft.com/en-us/aspnet/core/security/app-secrets) to store API keys and sensitive settings securely on your machine:
-  ```bash
-  dotnet user-secrets set "GitHub:ApiKey" "<YOUR_GITHUB_API_KEY>"
-  ```
-- These secrets are never committed and are only available on your local machine.
-
-### Production Deployment
-- Use environment variables or a cloud secrets manager (e.g., Azure Key Vault) to provide API keys and secrets securely.
-- The app will automatically read configuration from environment variables in production.
-
-### Example `appsettings.json`
-```json
-{
-  "GitHub": {
-    "ApiKey": "<GITHUB_API_KEY>"
-  }
-}
-```
-**Do not put real values in this file!**
-
-### .gitignore
-- The `.gitignore` is set up to exclude all build outputs, user secrets, and sensitive files by default.
-
-### API Key Safety in Code
-- All services check for missing or empty API keys and fail gracefully with a clear error message.
-- API keys are never logged or exposed in error messages.
-
-## Deployment
-
-The website is configured for deployment to GitHub Pages. To deploy:
-
-1. Push your changes to the `main` branch
-2. GitHub Actions will automatically build and deploy the site
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Contact
+---
 
-- GitHub: [@marksmith1994](https://github.com/marksmith1994)
-- LinkedIn: [Mark Smith](https://linkedin.com/in/marksmithdeveloper)
-- Email: marksmith.ms804@gmail.com 
+*Built with ❤️ using Blazor WebAssembly and modern web technologies* 
