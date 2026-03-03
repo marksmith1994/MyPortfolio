@@ -1,0 +1,324 @@
+@page "/f1"
+@using MyPortfolio.Services
+@inject F1Service F1Service
+
+<PageTitle>F1 Dashboard - Mark Smith</PageTitle>
+
+<link href="css/f1.css" rel="stylesheet">
+
+<div class="f1-dashboard">
+
+    <!-- Header -->
+    <div class="f1-header">
+        <div class="container py-5">
+            <div class="d-flex align-items-center justify-content-center mb-2">
+                <div class="f1-logo me-3">F1</div>
+                <h1 class="text-white mb-0 fw-bold">Formula 1 Dashboard</h1>
+            </div>
+            <p class="text-center mb-4" style="color: rgba(255,255,255,0.7)">
+                Live standings, race results and season calendar
+            </p>
+
+            @if (nextRace != null)
+            {
+                <div class="next-race-banner">
+                    <div class="next-race-label">NEXT RACE</div>
+                    <div class="next-race-name">@nextRace.RaceName</div>
+                    <div class="next-race-details">
+                        <span><i class="fas fa-map-marker-alt me-1"></i>@nextRace.Circuit?.Location?.Locality, @nextRace.Circuit?.Location?.Country</span>
+                        <span class="mx-3">|</span>
+                        <span><i class="fas fa-calendar me-1"></i>@nextRace.RaceDateTime.ToString("dd MMM yyyy")</span>
+                        <span class="mx-3">|</span>
+                        <span class="countdown-text"><i class="fas fa-clock me-1"></i>@GetCountdown(nextRace.RaceDateTime)</span>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="container py-4">
+
+        <!-- Tab Navigation -->
+        <div class="f1-tabs mb-4">
+            <button class="f1-tab @(activeTab == "drivers" ? "active" : "")" @onclick='() => activeTab = "drivers"'>
+                <i class="fas fa-user me-2"></i>Driver Standings
+            </button>
+            <button class="f1-tab @(activeTab == "constructors" ? "active" : "")" @onclick='() => activeTab = "constructors"'>
+                <i class="fas fa-car me-2"></i>Constructors
+            </button>
+            <button class="f1-tab @(activeTab == "lastrace" ? "active" : "")" @onclick='() => activeTab = "lastrace"'>
+                <i class="fas fa-flag-checkered me-2"></i>Last Race
+            </button>
+            <button class="f1-tab @(activeTab == "calendar" ? "active" : "")" @onclick='() => activeTab = "calendar"'>
+                <i class="fas fa-calendar-alt me-2"></i>Calendar
+            </button>
+        </div>
+
+        @if (isLoading)
+        {
+            <div class="text-center py-5">
+                <div class="spinner-border text-danger" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p class="text-muted mt-3">Loading F1 data...</p>
+            </div>
+        }
+        else if (errorMessage != null)
+        {
+            <div class="alert alert-danger text-center">
+                <i class="fas fa-exclamation-circle me-2"></i>@errorMessage
+            </div>
+        }
+        else
+        {
+            <!-- Driver Standings -->
+            @if (activeTab == "drivers")
+            {
+                @if (driverStandings.Any())
+                {
+                    <div class="standings-table">
+                        @foreach (var s in driverStandings)
+                        {
+                            var pos = int.TryParse(s.Position, out var p) ? p : 99;
+                            <div class="standing-row @(pos <= 3 ? $"top-{pos}" : "")">
+                                <div class="position-badge">@s.Position</div>
+                                <div class="driver-info">
+                                    <div class="driver-code">@s.Driver?.Code</div>
+                                    <div class="driver-name">@s.Driver?.FullName</div>
+                                    <div class="driver-team" style="color: @GetTeamColor(s.TeamName)">@s.TeamName</div>
+                                </div>
+                                <div class="driver-stats">
+                                    <div class="points-value">@s.Points</div>
+                                    <div class="points-label">PTS</div>
+                                    <div class="wins-value">@s.Wins W</div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center py-5 text-muted">
+                        <i class="fas fa-user fa-3x mb-3"></i>
+                        <p>No standings data available yet.</p>
+                    </div>
+                }
+            }
+
+            <!-- Constructor Standings -->
+            @if (activeTab == "constructors")
+            {
+                @if (constructorStandings.Any())
+                {
+                    <div class="standings-table">
+                        @foreach (var s in constructorStandings)
+                        {
+                            var pos = int.TryParse(s.Position, out var p) ? p : 99;
+                            <div class="standing-row @(pos <= 3 ? $"top-{pos}" : "")">
+                                <div class="position-badge">@s.Position</div>
+                                <div class="team-color-bar" style="background: @GetTeamColor(s.Constructor?.Name ?? "")"></div>
+                                <div class="driver-info">
+                                    <div class="driver-name">@s.Constructor?.Name</div>
+                                    <div class="driver-team text-muted">@s.Constructor?.Nationality</div>
+                                </div>
+                                <div class="driver-stats">
+                                    <div class="points-value">@s.Points</div>
+                                    <div class="points-label">PTS</div>
+                                    <div class="wins-value">@s.Wins W</div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center py-5 text-muted">
+                        <i class="fas fa-car fa-3x mb-3"></i>
+                        <p>No standings data available yet.</p>
+                    </div>
+                }
+            }
+
+            <!-- Last Race -->
+            @if (activeTab == "lastrace")
+            {
+                @if (lastRace != null && lastRace.Results.Any())
+                {
+                    <div class="race-header mb-4">
+                        <h2 class="text-center fw-bold">@lastRace.RaceName</h2>
+                        <p class="text-center text-muted">
+                            <i class="fas fa-map-marker-alt me-1"></i>@lastRace.Circuit?.Location?.Locality, @lastRace.Circuit?.Location?.Country
+                            <span class="mx-2">|</span>
+                            <i class="fas fa-calendar me-1"></i>@(DateTime.TryParse(lastRace.Date, out var rd) ? rd.ToString("dd MMMM yyyy") : lastRace.Date)
+                        </p>
+                    </div>
+
+                    @{
+                        var podium = lastRace.Results.Take(3).ToList();
+                    }
+
+                    @if (podium.Count >= 3)
+                    {
+                        <div class="podium mb-5">
+                            <div class="podium-place">
+                                <div class="podium-driver">@podium[1].Driver?.Code</div>
+                                <div class="podium-name">@podium[1].Driver?.FamilyName</div>
+                                <div class="podium-team" style="color: @GetTeamColor(podium[1].Constructor?.Name ?? "")">@podium[1].Constructor?.Name</div>
+                                <div class="podium-block p2">2nd</div>
+                            </div>
+                            <div class="podium-place">
+                                <div class="podium-driver">@podium[0].Driver?.Code</div>
+                                <div class="podium-name">@podium[0].Driver?.FamilyName</div>
+                                <div class="podium-team" style="color: @GetTeamColor(podium[0].Constructor?.Name ?? "")">@podium[0].Constructor?.Name</div>
+                                <div class="podium-block p1">1st</div>
+                            </div>
+                            <div class="podium-place">
+                                <div class="podium-driver">@podium[2].Driver?.Code</div>
+                                <div class="podium-name">@podium[2].Driver?.FamilyName</div>
+                                <div class="podium-team" style="color: @GetTeamColor(podium[2].Constructor?.Name ?? "")">@podium[2].Constructor?.Name</div>
+                                <div class="podium-block p3">3rd</div>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="standings-table">
+                        @foreach (var r in lastRace.Results)
+                        {
+                            var pos = int.TryParse(r.Position, out var p) ? p : 99;
+                            <div class="standing-row @(pos <= 3 ? $"top-{pos}" : "")">
+                                <div class="position-badge">@r.Position</div>
+                                <div class="driver-info">
+                                    <div class="driver-code">@r.Driver?.Code</div>
+                                    <div class="driver-name">@r.Driver?.FullName</div>
+                                    <div class="driver-team" style="color: @GetTeamColor(r.Constructor?.Name ?? "")">@r.Constructor?.Name</div>
+                                </div>
+                                <div class="driver-stats">
+                                    <div class="points-value">
+                                        @(r.Time?.Time ?? r.Status)
+                                        @if (r.HasFastestLap)
+                                        {
+                                            <span class="fastest-lap-badge ms-1" title="Fastest Lap"><i class="fas fa-stopwatch"></i></span>
+                                        }
+                                    </div>
+                                    <div class="points-label">@r.Points pts</div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center py-5 text-muted">
+                        <i class="fas fa-flag fa-3x mb-3"></i>
+                        <p>No race results available yet for this season.</p>
+                    </div>
+                }
+            }
+
+            <!-- Calendar -->
+            @if (activeTab == "calendar")
+            {
+                @if (schedule.Any())
+                {
+                    <div class="race-calendar">
+                        @foreach (var race in schedule)
+                        {
+                            var isNext = nextRace?.RaceName == race.RaceName;
+                            <div class="calendar-race @(race.IsPast ? "past-race" : "") @(isNext ? "next-race-highlight" : "")">
+                                <div class="race-round">R@(race.Round)</div>
+                                <div class="race-info">
+                                    <div class="race-name">@race.RaceName</div>
+                                    <div class="race-circuit text-muted">
+                                        <i class="fas fa-map-marker-alt me-1"></i>@race.Circuit?.Location?.Locality, @race.Circuit?.Location?.Country
+                                    </div>
+                                </div>
+                                <div class="race-date text-end">
+                                    <div class="fw-bold">@race.RaceDateTime.ToString("dd MMM")</div>
+                                    <div class="text-muted small">@race.RaceDateTime.ToString("yyyy")</div>
+                                    @if (isNext)
+                                    {
+                                        <span class="badge bg-danger mt-1">NEXT</span>
+                                    }
+                                    else if (race.IsPast)
+                                    {
+                                        <span class="badge bg-secondary mt-1">DONE</span>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center py-5 text-muted">
+                        <i class="fas fa-calendar fa-3x mb-3"></i>
+                        <p>No schedule data available.</p>
+                    </div>
+                }
+            }
+        }
+    </div>
+</div>
+
+@code {
+    private string activeTab = "drivers";
+    private bool isLoading = true;
+    private string? errorMessage;
+
+    private List<F1DriverStanding> driverStandings = new();
+    private List<F1ConstructorStanding> constructorStandings = new();
+    private F1RaceResult? lastRace;
+    private List<F1ScheduleRace> schedule = new();
+    private F1ScheduleRace? nextRace;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var driverTask = F1Service.GetDriverStandingsAsync();
+            var constructorTask = F1Service.GetConstructorStandingsAsync();
+            var lastRaceTask = F1Service.GetLastRaceAsync();
+            var scheduleTask = F1Service.GetScheduleAsync();
+
+            await Task.WhenAll(driverTask, constructorTask, lastRaceTask, scheduleTask);
+
+            driverStandings = driverTask.Result;
+            constructorStandings = constructorTask.Result;
+            lastRace = lastRaceTask.Result;
+            schedule = scheduleTask.Result;
+            nextRace = schedule.FirstOrDefault(r => !r.IsPast);
+        }
+        catch (Exception)
+        {
+            errorMessage = "Failed to load F1 data. Please try again later.";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private string GetCountdown(DateTime raceDate)
+    {
+        var diff = raceDate - DateTime.Now;
+        if (diff.TotalSeconds <= 0) return "Race weekend!";
+        if (diff.TotalDays >= 1) return $"In {(int)diff.TotalDays} days";
+        if (diff.TotalHours >= 1) return $"In {(int)diff.TotalHours} hours";
+        return "Starting soon!";
+    }
+
+    private string GetTeamColor(string teamName) => teamName.ToLower() switch
+    {
+        var t when t.Contains("red bull") => "#3671C6",
+        var t when t.Contains("ferrari") => "#E8002D",
+        var t when t.Contains("mercedes") => "#27F4D2",
+        var t when t.Contains("mclaren") => "#FF8000",
+        var t when t.Contains("aston") => "#229971",
+        var t when t.Contains("alpine") => "#FF87BC",
+        var t when t.Contains("williams") => "#64C4FF",
+        var t when t.Contains("sauber") || t.Contains("kick") => "#52E252",
+        var t when t.Contains("haas") => "#B6BABD",
+        var t when t.Contains("rb") || t.Contains("racing bulls") || t.Contains("toro rosso") => "#6692FF",
+        _ => "#6c757d"
+    };
+}

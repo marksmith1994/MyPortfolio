@@ -16,11 +16,13 @@ builder.Services.AddHttpClient<StravaService>();
 builder.Services.AddHttpClient<NasaService>();
 builder.Services.AddHttpClient<WeatherService>();
 builder.Services.AddHttpClient<SpaceXService>();
+builder.Services.AddHttpClient<F1Service>();
 builder.Services.AddScoped<GitHubService>();
 builder.Services.AddScoped<StravaService>();
 builder.Services.AddScoped<NasaService>();
 builder.Services.AddScoped<WeatherService>();
 builder.Services.AddScoped<SpaceXService>();
+builder.Services.AddScoped<F1Service>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddLogging();
 

@@ -452,6 +452,11 @@ wwwroot/files/cv.pdf
 wwwroot/files/Resume.pdf
 wwwroot/files/resume.pdf
 
+# ===== Planning & Notes =====
+plan/
+*.md
+!README.md
+
 # ===== .NET 8 Specific =====
 # Blazor WebAssembly
 *.blazor.js
