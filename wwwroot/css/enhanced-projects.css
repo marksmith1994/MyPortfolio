@@ -362,16 +362,6 @@
     color: #fff;
 }
 
-/* Hidden repo card (CSS transition, no JS show/hide) */
-.row .col {
-    transition: opacity 0.25s ease, transform 0.25s ease;
-}
-
-.repo-col--hidden {
-    opacity: 0;
-    transform: scale(0.93);
-    pointer-events: none;
-}
 
 /* Animation for project cards */
 .project-card {

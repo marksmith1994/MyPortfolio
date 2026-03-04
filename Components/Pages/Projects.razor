@@ -236,10 +236,9 @@
             </div>
 
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 fade-in">
-                @foreach (var repo in repositories)
+                @foreach (var repo in FilteredRepositories)
                 {
-                    var isVisible = selectedLanguage == null || repo.Language == selectedLanguage;
-                    <div class="col @(isVisible ? "" : "repo-col--hidden")">
+                    <div class="col">
                         <div class="card h-100 project-card">
                             <div class="card-body d-flex flex-column">
                                 <div class="repo-header mb-3">
@@ -321,6 +320,10 @@
         .Distinct()
         .OrderBy(l => l)
         .ToList() ?? new();
+
+    private IEnumerable<GitHubRepository> FilteredRepositories => selectedLanguage == null
+        ? repositories!
+        : repositories!.Where(r => r.Language == selectedLanguage);
 
     protected override async Task OnInitializedAsync()
     {
