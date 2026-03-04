@@ -35,7 +35,7 @@
 
             <div class="card">
                 <div class="card-body">
-                    <EditForm Model="@contactModel" OnValidSubmit="HandleValidSubmit">
+                    <EditForm Model="@contactModel" OnValidSubmit="HandleValidSubmit" OnInvalidSubmit="ClearMessages">
                         <DataAnnotationsValidator />
                         <ValidationSummary />
 
@@ -100,6 +100,13 @@
     private string errorMessage = string.Empty;
     private string antiSpamAnswer = string.Empty;
     private bool showAntiSpamError = false;
+
+    private void ClearMessages()
+    {
+        showSuccess = false;
+        showError = false;
+        showAntiSpamError = false;
+    }
 
     private async Task HandleValidSubmit()
     {
