@@ -279,30 +279,42 @@
     .skills-overview {
         padding: 1rem;
     }
-    
+
     .skill-radar-chart {
         min-height: 300px;
         margin-bottom: 1rem;
     }
-    
+
     .skill-cards {
         grid-template-columns: 1fr;
     }
-    
+
     .skill-card {
         padding: 1rem;
     }
-    
+
     .skill-icon {
         font-size: 1.5rem;
     }
-    
+
     .skill-tags {
         gap: 0.25rem;
     }
-    
+
     .skill-tag {
         font-size: 0.7rem;
+        padding: 0.2rem 0.6rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .skill-card-header {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .skill-level {
+        font-size: 0.75rem;
         padding: 0.2rem 0.6rem;
     }
 }

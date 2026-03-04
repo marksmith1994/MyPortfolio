@@ -316,6 +316,17 @@
 }
 
 /* Responsive Design */
+@media (max-width: 576px) {
+    .repo-filters {
+        gap: 0.4rem;
+    }
+
+    .repo-filter-btn {
+        font-size: 0.78rem;
+        padding: 0.3rem 0.7rem;
+    }
+}
+
 @media (max-width: 768px) {
     .project-image-container {
         height: 150px;

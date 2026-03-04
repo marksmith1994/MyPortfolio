@@ -413,4 +413,19 @@ main.container {
     .card-body {
         padding: 1rem;
     }
+
+    /* Tighter button padding on small screens */
+    .btn {
+        padding: 0.5rem 1.1rem;
+    }
+
+    /* Footer links spacing */
+    .footer-link {
+        margin: 0 0.5rem;
+    }
+
+    /* Divider narrower on mobile */
+    .divider {
+        width: 90%;
+    }
 }
