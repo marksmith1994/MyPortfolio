@@ -2,10 +2,32 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize skill card interactions
     initSkillCards();
-    
+
     // Update skill levels to text-based
     updateSkillLevels();
+
+    // Animate progress bars when scrolled into view
+    initProgressBars();
 });
+
+function initProgressBars() {
+    const levelToPercent = { expert: 95, advanced: 75, intermediate: 55, beginner: 35 };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const card = entry.target;
+            const bar = card.querySelector('.skill-progress-bar');
+            if (!bar) return;
+            const level = card.getAttribute('data-level');
+            const pct = isNaN(level) ? (levelToPercent[level] ?? 55) : Math.min(parseInt(level), 100);
+            bar.style.width = pct + '%';
+            observer.unobserve(card);
+        });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('.skill-card').forEach(card => observer.observe(card));
+}
 
 function updateSkillLevels() {
     const skillCards = document.querySelectorAll('.skill-card');

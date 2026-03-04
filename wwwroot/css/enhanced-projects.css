@@ -335,6 +335,44 @@
     }
 }
 
+/* Repo Language Filter */
+.repo-filters {
+    flex-wrap: wrap;
+}
+
+.repo-filter-btn {
+    border: 2px solid var(--border);
+    background: var(--surface);
+    color: var(--text-muted);
+    border-radius: 20px;
+    padding: 0.35rem 1rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.repo-filter-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: var(--surface);
+}
+
+.repo-filter-btn.active {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    border-color: transparent;
+    color: #fff;
+}
+
+/* Hidden repo card (CSS transition, no JS show/hide) */
+.row .col {
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.repo-col--hidden {
+    opacity: 0;
+    transform: scale(0.93);
+    pointer-events: none;
+}
+
 /* Animation for project cards */
 .project-card {
     animation: fadeInUp 0.6s ease forwards;

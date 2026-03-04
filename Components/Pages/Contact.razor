@@ -72,6 +72,11 @@
                             }
                         </div>
 
+                        <!-- Honeypot: hidden from real users, bots fill this in -->
+                        <div style="position:absolute;left:-9999px;height:0;overflow:hidden;" aria-hidden="true">
+                            <input type="text" @bind="honeypot" autocomplete="off" tabindex="-1" />
+                        </div>
+
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary" disabled="@isSending">
                                 @if (isSending)
@@ -100,6 +105,7 @@
     private string errorMessage = string.Empty;
     private string antiSpamAnswer = string.Empty;
     private bool showAntiSpamError = false;
+    private string honeypot = string.Empty;
 
     private void ClearMessages()
     {
@@ -114,6 +120,14 @@
         showSuccess = false;
         showError = false;
         showAntiSpamError = false;
+
+        // Honeypot check — bots fill this in, humans don't
+        if (!string.IsNullOrEmpty(honeypot))
+        {
+            showSuccess = true;
+            isSending = false;
+            return;
+        }
 
         // Simple anti-spam check
         if (antiSpamAnswer.Trim() != "7")

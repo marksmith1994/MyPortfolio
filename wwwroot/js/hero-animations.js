@@ -37,6 +37,37 @@ document.addEventListener('DOMContentLoaded', function() {
     // to ensure hero buttons remain clickable
 });
 
+// Animated counters — trigger when stats card scrolls into view
+(function () {
+    function animateCounter(el) {
+        const target = parseInt(el.getAttribute('data-count'), 10);
+        const suffix = el.getAttribute('data-suffix') || '';
+        const duration = 1200;
+        const start = performance.now();
+
+        function step(now) {
+            const progress = Math.min((now - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+            el.textContent = Math.floor(eased * target) + suffix;
+            if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            entry.target.querySelectorAll('.stat-number[data-count]').forEach(animateCounter);
+            observer.unobserve(entry.target);
+        });
+    }, { threshold: 0.5 });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const statsCard = document.querySelector('.stats-card');
+        if (statsCard) observer.observe(statsCard);
+    });
+})();
+
 // Add ripple animation to CSS
 const style = document.createElement('style');
 style.textContent = `
