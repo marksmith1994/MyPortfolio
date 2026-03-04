@@ -20,3 +20,14 @@
         </NavLink>
     </li>
 </ul>
+
+<script>
+    document.addEventListener('click', function (e) {
+        if (!e.target.closest('.navbar-nav .nav-link')) return;
+        var collapse = document.getElementById('navbarNav');
+        if (collapse && collapse.classList.contains('show')) {
+            var bsCollapse = bootstrap.Collapse.getInstance(collapse);
+            if (bsCollapse) bsCollapse.hide();
+        }
+    });
+</script>
