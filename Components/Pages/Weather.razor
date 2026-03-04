@@ -110,7 +110,11 @@
         try
         {
             var result = await WeatherService.GetWeatherForCityAsync(city);
-            if (result != null && !weatherResults.Any(w => w.Name.Equals(result.Name, StringComparison.OrdinalIgnoreCase)))
+            if (result == null)
+            {
+                errorMessage = $"City \"{city}\" not found. Please check the spelling and try again.";
+            }
+            else if (!weatherResults.Any(w => w.Name.Equals(result.Name, StringComparison.OrdinalIgnoreCase)))
             {
                 weatherResults.Insert(0, result);
             }

@@ -74,21 +74,6 @@
     opacity: 0.8;
 }
 
-.strava-preview {
-    background: linear-gradient(135deg, #059669 0%, #10b981 50%, #34d399 100%);
-    position: relative;
-}
-
-.strava-preview::before {
-    content: '🏃';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 4rem;
-    opacity: 0.8;
-}
-
 .f1-preview {
     background: linear-gradient(135deg, #1a0000 0%, #8b0000 50%, #c00000 100%);
     position: relative;

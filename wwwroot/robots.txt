@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://marksmith-portfolio.azurewebsites.net/sitemap.xml

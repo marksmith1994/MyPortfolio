@@ -310,7 +310,7 @@
 
     private async Task LoadRepositoriesAsync()
     {
-        if (isRetrying)
+        if (errorMessage != null)
         {
             isRetrying = true;
         }
