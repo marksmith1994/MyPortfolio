@@ -251,6 +251,10 @@
 }
 
 /* Dark Mode Support */
+[data-theme="dark"] .skill-progress {
+    background: var(--border);
+}
+
 [data-theme="dark"] .skills-overview {
     background: linear-gradient(135deg, var(--surface) 0%, var(--surface-hover) 100%);
 }

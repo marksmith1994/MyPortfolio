@@ -63,10 +63,71 @@
     color: var(--text-muted) !important;
 }
 
+[data-theme="dark"] .btn-outline-secondary {
+    color: var(--text-muted);
+    border-color: var(--border);
+}
+
+[data-theme="dark"] .btn-outline-secondary:hover {
+    background: var(--surface-hover);
+    color: var(--text);
+    border-color: var(--border);
+}
+
+[data-theme="dark"] .alert-danger {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: rgba(239, 68, 68, 0.3);
+    color: #fca5a5;
+}
+
+[data-theme="dark"] .alert-success {
+    background: rgba(16, 185, 129, 0.15);
+    border-color: rgba(16, 185, 129, 0.3);
+    color: #6ee7b7;
+}
+
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6 {
+    color: var(--text);
+}
+
+[data-theme="dark"] .validation-message,
+[data-theme="dark"] .field-validation-error {
+    color: #fca5a5;
+}
+
+html {
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-light) transparent;
+}
+
 html, body {
     min-height: 100%;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--primary-light); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+::selection {
+    background: var(--primary);
+    color: #fff;
+}
+
+:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+    border-radius: 4px;
 }
 
 body {
@@ -128,8 +189,14 @@ main.container {
     transform: translateX(-50%);
 }
 
-.navbar .nav-link:hover::after {
+.navbar .nav-link:hover::after,
+.navbar .nav-link.active::after {
     width: 100%;
+}
+
+.navbar .nav-link.active {
+    opacity: 1;
+    font-weight: 600;
 }
 
 /* Enhanced Buttons */
@@ -320,6 +387,16 @@ main.container {
     .navbar-collapse .nav-link.active {
         background: rgba(255, 255, 255, 0.15);
     }
+}
+
+/* Page content fade-in */
+main.container {
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 /* Responsive Improvements */

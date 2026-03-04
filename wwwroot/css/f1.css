@@ -103,8 +103,8 @@
 }
 
 .f1-tab.active {
-    color: #dc3545;
-    border-bottom-color: #dc3545;
+    color: var(--f1-red, #dc3545);
+    border-bottom-color: var(--f1-red, #dc3545);
     font-weight: 600;
 }
 
@@ -336,10 +336,19 @@
 }
 
 /* Dark Mode */
+[data-theme="dark"] {
+    --f1-red: #f87171;
+}
+
 [data-theme="dark"] .standing-row,
 [data-theme="dark"] .calendar-race {
     background: var(--surface);
     border-color: var(--border);
+}
+
+[data-theme="dark"] .standing-row:hover,
+[data-theme="dark"] .calendar-race:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
 [data-theme="dark"] .position-badge {
@@ -349,6 +358,28 @@
 
 [data-theme="dark"] .next-race-banner {
     background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .calendar-race.next-race-highlight {
+    border-color: #f87171;
+    background: rgba(248, 113, 113, 0.08);
+}
+
+[data-theme="dark"] .f1-tabs {
+    border-bottom-color: var(--border);
+}
+
+[data-theme="dark"] .f1-tab:hover {
+    color: var(--text);
+}
+
+[data-theme="dark"] .driver-name,
+[data-theme="dark"] .race-name {
+    color: var(--text);
+}
+
+[data-theme="dark"] .podium-name {
+    color: var(--text);
 }
 
 /* Responsive */

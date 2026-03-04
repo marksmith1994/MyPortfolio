@@ -279,6 +279,23 @@
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%) !important;
 }
 
+/* Dark Mode — Filter Buttons */
+[data-theme="dark"] .repo-filter-btn {
+    background: var(--surface);
+    border-color: var(--border);
+    color: var(--text-muted);
+}
+
+[data-theme="dark"] .repo-filter-btn:hover {
+    border-color: var(--primary-light);
+    color: var(--primary-light);
+}
+
+[data-theme="dark"] .repo-filter-btn.active {
+    color: #fff;
+    border-color: transparent;
+}
+
 /* Dark Mode Support */
 [data-theme="dark"] .project-card {
     background: var(--surface);
