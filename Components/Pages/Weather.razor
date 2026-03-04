@@ -2,21 +2,33 @@
 @using MyPortfolio.Services
 @inject WeatherService WeatherService
 
+<link href="css/weather.css" rel="stylesheet">
+
 <PageTitle>Weather Dashboard</PageTitle>
 
 <div class="container py-5">
     <h1 class="text-center mb-4">Weather Dashboard</h1>
-    <div class="weather-search mx-auto mb-4 p-4 rounded shadow-sm bg-white" style="max-width: 430px;">
+    <div class="weather-search mx-auto mb-4 p-4 rounded shadow-sm">
         <div class="input-group mb-3">
             <input class="form-control" @bind="city" @bind:event="oninput" placeholder="Enter city name..." title="Type a city and press Enter or click Search" @onkeypress="OnKeyPress" />
             <button class="btn btn-primary" @onclick="GetWeatherAsync" title="Fetch weather for the entered city">
                 <i class="fas fa-search"></i>
             </button>
         </div>
+        <div class="text-center">
+            <button class="btn btn-outline-secondary btn-sm" @onclick="ToggleUnit" title="Toggle temperature unit">
+                Switch to &deg;@(isFahrenheit ? "C" : "F")
+            </button>
+        </div>
     </div>
+
     @if (isLoading)
     {
-        <div class="text-center"><div class="spinner-border text-primary" role="status"></div></div>
+        <div class="weather-row d-flex flex-wrap justify-content-center gap-4">
+            <LoadingSkeleton ShowImage="false" ShowBadges="false" />
+            <LoadingSkeleton ShowImage="false" ShowBadges="false" />
+            <LoadingSkeleton ShowImage="false" ShowBadges="false" />
+        </div>
     }
     else if (weatherResults.Count > 0)
     {
@@ -25,7 +37,7 @@
             {
                 <div class="weather-card p-4 mb-4 rounded shadow-lg bg-gradient">
                     <div class="d-flex align-items-center mb-3">
-                        <img src="@($"https://openweathermap.org/img/wn/{w.Weather[0].Icon}@2x.png")" alt="Weather Icon" style="width:72px; height:72px;" class="me-3" />
+                        <img src="@($"https://openweathermap.org/img/wn/{w.Weather[0].Icon}@2x.png")" alt="Weather Icon" class="weather-icon me-3" />
                         <div>
                             <h3 class="mb-0">@w.Name, @w.Sys.Country</h3>
                             <div class="lead">@w.Weather[0].Main (@w.Weather[0].Description)</div>
@@ -33,7 +45,7 @@
                     </div>
                     <div class="row text-center mb-2">
                         <div class="col">
-                            <div class="display-5 fw-bold">@w.Main.Temp.ToString("0")&deg;C</div>
+                            <div class="display-5 fw-bold">@FormatTemp(w.Main.Temp)&deg;@(isFahrenheit ? "F" : "C")</div>
                             <div class="small text-muted">Temperature</div>
                         </div>
                         <div class="col">
@@ -66,34 +78,17 @@
     }
 </div>
 
-<style>
-    .weather-row {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-    .weather-card {
-        min-width: 300px;
-        max-width: 350px;
-        flex: 1 1 300px;
-        background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
-        color: #222;
-    }
-    @@media (max-width: 1000px) {
-        .weather-card {
-            min-width: 100%;
-            max-width: 100%;
-        }
-    }
-    .weather-search {
-        background: #f8fafc;
-    }
-</style>
-
 @code {
     private string city = string.Empty;
+    private bool isFahrenheit = false;
     private List<WeatherResult> weatherResults = new();
     private bool isLoading = false;
     private string? errorMessage;
+
+    private string FormatTemp(double celsius) =>
+        isFahrenheit ? ((celsius * 9.0 / 5.0) + 32).ToString("0") : celsius.ToString("0");
+
+    private void ToggleUnit() => isFahrenheit = !isFahrenheit;
 
     protected override async Task OnInitializedAsync()
     {

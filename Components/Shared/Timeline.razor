@@ -72,11 +72,7 @@
     [Parameter]
     public List<TimelineItem> Items { get; set; } = new();
     
-    private void ToggleItem(TimelineItem item)
-    {
-        item.IsExpanded = !item.IsExpanded;
-        StateHasChanged();
-    }
+    private void ToggleItem(TimelineItem item) => item.IsExpanded = !item.IsExpanded;
     
     public class TimelineItem
     {

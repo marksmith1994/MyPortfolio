@@ -1,4 +1,11 @@
-<ul class="navbar-nav">
+@inject IJSRuntime JSRuntime
+
+<ul class="navbar-nav me-auto">
+    <li class="nav-item">
+        <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+            <i class="fas fa-home me-2"></i> Home
+        </NavLink>
+    </li>
     <li class="nav-item">
         <NavLink class="nav-link" href="projects">
             <i class="fas fa-code me-2"></i> Projects
@@ -15,3 +22,27 @@
         </NavLink>
     </li>
 </ul>
+
+<button class="btn btn-link nav-link theme-toggle-btn ms-2" @onclick="ToggleThemeAsync" title="Toggle dark/light mode">
+    <i class="fas @(isDark ? "fa-sun" : "fa-moon")"></i>
+</button>
+
+@code {
+    private bool isDark = false;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            var theme = await JSRuntime.InvokeAsync<string>("applyStoredTheme");
+            isDark = theme == "dark";
+            StateHasChanged();
+        }
+    }
+
+    private async Task ToggleThemeAsync()
+    {
+        var newTheme = await JSRuntime.InvokeAsync<string>("toggleTheme");
+        isDark = newTheme == "dark";
+    }
+}

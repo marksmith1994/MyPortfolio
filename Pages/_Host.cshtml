@@ -15,11 +15,13 @@
     <link rel="stylesheet" href="css/microinteractions.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link rel="icon" type="image/png" href="favicon.png" />
+    <script>(function(){var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);})();</script>
     <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
 </head>
 <body>
     <component type="typeof(MyPortfolio.Components.App)" render-mode="ServerPrerendered" />
 
+    <script src="js/theme.js"></script>
     <script src="_framework/blazor.server.js"></script>
     <script src="bootstrap/bootstrap.bundle.min.js"></script>
     <script src="js/microinteractions.js"></script>

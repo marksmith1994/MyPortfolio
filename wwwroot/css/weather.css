@@ -1,0 +1,29 @@
+.weather-row {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.weather-search {
+    max-width: 430px;
+    background: #f8fafc;
+}
+
+.weather-card {
+    min-width: 300px;
+    max-width: 350px;
+    flex: 1 1 300px;
+    background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+    color: #222;
+}
+
+.weather-icon {
+    width: 72px;
+    height: 72px;
+}
+
+@media (max-width: 1000px) {
+    .weather-card {
+        min-width: 100%;
+        max-width: 100%;
+    }
+}

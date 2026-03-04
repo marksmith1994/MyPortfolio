@@ -5,9 +5,23 @@
 <PageTitle>NASA Astronomy Picture of the Day</PageTitle>
 
 <div class="container py-5">
-    <h1 class="text-center mb-4">NASA Astronomy Picture of the Day</h1>
+    <h1 class="text-center mb-2">NASA Astronomy Picture of the Day</h1>
+    <p class="text-center text-muted mb-4">Browse any date back to June 16, 1995</p>
 
-    @if (apod == null)
+    <div class="d-flex justify-content-center align-items-center gap-2 mb-4 flex-wrap">
+        <input type="date" class="form-control" style="max-width: 200px;"
+               min="1995-06-16" max="@maxDate"
+               @bind="selectedDate" @bind:format="yyyy-MM-dd"
+               @bind:after="LoadApodAsync" />
+        <button class="btn btn-outline-primary" @onclick="LoadRandomAsync" title="Load a random APOD">
+            <i class="fas fa-random me-1"></i>Random
+        </button>
+        <button class="btn btn-outline-secondary" @onclick="LoadTodayAsync" title="Go back to today">
+            <i class="fas fa-calendar-day me-1"></i>Today
+        </button>
+    </div>
+
+    @if (isLoading)
     {
         <div class="text-center">
             <div class="spinner-border text-primary" role="status">
@@ -15,7 +29,11 @@
             </div>
         </div>
     }
-    else
+    else if (errorMessage != null)
+    {
+        <div class="alert alert-danger text-center mx-auto" style="max-width: 700px;">@errorMessage</div>
+    }
+    else if (apod != null)
     {
         <div class="card mx-auto" style="max-width: 700px;">
             @if (!string.IsNullOrEmpty(apod.Url))
@@ -23,7 +41,7 @@
                 var mediaType = string.IsNullOrEmpty(apod.MediaType) ? "image" : apod.MediaType;
                 if (mediaType == "image")
                 {
-                    <img src="@apod.Url" class="card-img-top" alt="NASA Astronomy Picture of the Day" />
+                    <img src="@apod.Url" class="card-img-top" alt="@apod.Title" />
                 }
                 else if (mediaType == "video")
                 {
@@ -33,13 +51,24 @@
                 }
             }
             <div class="card-body">
-                <h5 class="card-title" title="@apod.Title">@apod.Title</h5>
-                <p class="card-text" title="@apod.Explanation">@apod.Explanation</p>
-                <p class="card-text"><small class="text-muted" title="Date of this APOD">Date: @apod.Date</small></p>
-                @if (!string.IsNullOrEmpty(apod.Copyright))
-                {
-                    <p class="card-text"><small class="text-muted" title="Image copyright and credits">&copy; @apod.Copyright</small></p>
-                }
+                <h5 class="card-title">@apod.Title</h5>
+                <p class="card-text">@apod.Explanation</p>
+                <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mt-3">
+                    <small class="text-muted"><i class="fas fa-calendar me-1"></i>@apod.Date</small>
+                    @if (!string.IsNullOrEmpty(apod.Copyright))
+                    {
+                        <small class="text-muted">&copy; @apod.Copyright</small>
+                    }
+                    @{
+                        var apodDateStr = DateTime.TryParse(apod.Date, out var pd) ? pd.ToString("yyMMdd") : "";
+                    }
+                    @if (!string.IsNullOrEmpty(apodDateStr))
+                    {
+                        <a href="https://apod.nasa.gov/apod/ap@(apodDateStr).html" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm">
+                            <i class="fas fa-external-link-alt me-1"></i>View on NASA
+                        </a>
+                    }
+                </div>
             </div>
         </div>
     }
@@ -47,9 +76,43 @@
 
 @code {
     private ApodResult? apod;
+    private bool isLoading = true;
+    private string? errorMessage;
+    private DateTime selectedDate = DateTime.Today;
+    private string maxDate = DateTime.Today.ToString("yyyy-MM-dd");
+    private static readonly DateTime FirstApodDate = new DateTime(1995, 6, 16);
 
     protected override async Task OnInitializedAsync()
     {
-        apod = await NasaService.GetApodAsync();
+        await LoadApodAsync();
+    }
+
+    private async Task LoadApodAsync()
+    {
+        isLoading = true;
+        errorMessage = null;
+        try
+        {
+            apod = await NasaService.GetApodAsync(selectedDate.ToString("yyyy-MM-dd"));
+            if (apod == null) errorMessage = "No image found for this date.";
+        }
+        catch
+        {
+            errorMessage = "Could not load the picture. Please try another date.";
+        }
+        isLoading = false;
+    }
+
+    private async Task LoadRandomAsync()
+    {
+        var range = (DateTime.Today - FirstApodDate).Days;
+        selectedDate = FirstApodDate.AddDays(Random.Shared.Next(range));
+        await LoadApodAsync();
+    }
+
+    private async Task LoadTodayAsync()
+    {
+        selectedDate = DateTime.Today;
+        await LoadApodAsync();
     }
 }

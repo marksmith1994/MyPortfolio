@@ -24,6 +24,7 @@ builder.Services.AddScoped<WeatherService>();
 builder.Services.AddScoped<SpaceXService>();
 builder.Services.AddScoped<F1Service>();
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddMemoryCache();
 builder.Services.AddLogging();
 
 var app = builder.Build();

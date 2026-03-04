@@ -15,9 +15,17 @@
                 <div class="f1-logo me-3">F1</div>
                 <h1 class="text-white mb-0 fw-bold">Formula 1 Dashboard</h1>
             </div>
-            <p class="text-center mb-4" style="color: rgba(255,255,255,0.7)">
+            <p class="text-center mb-3" style="color: rgba(255,255,255,0.7)">
                 Live standings, race results and season calendar
             </p>
+            <div class="d-flex justify-content-center mb-4">
+                <select class="form-select w-auto text-center" @bind="selectedYear" @bind:after="LoadDataAsync" style="background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.3);">
+                    @foreach (var year in availableYears)
+                    {
+                        <option value="@year" style="color: #1e293b;">@(year == "current" ? "Current Season" : year)</option>
+                    }
+                </select>
+            </div>
 
             @if (nextRace != null)
             {
@@ -262,6 +270,12 @@
     private string activeTab = "drivers";
     private bool isLoading = true;
     private string? errorMessage;
+    private string selectedYear = "current";
+
+    private static readonly List<string> availableYears =
+        new[] { "current" }
+        .Concat(Enumerable.Range(2020, DateTime.UtcNow.Year - 2020 + 1).Select(y => y.ToString()).Reverse())
+        .ToList();
 
     private List<F1DriverStanding> driverStandings = new();
     private List<F1ConstructorStanding> constructorStandings = new();
@@ -269,22 +283,26 @@
     private List<F1ScheduleRace> schedule = new();
     private F1ScheduleRace? nextRace;
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync() => await LoadDataAsync();
+
+    private async Task LoadDataAsync()
     {
+        isLoading = true;
+        errorMessage = null;
         try
         {
-            var driverTask = F1Service.GetDriverStandingsAsync();
-            var constructorTask = F1Service.GetConstructorStandingsAsync();
-            var lastRaceTask = F1Service.GetLastRaceAsync();
-            var scheduleTask = F1Service.GetScheduleAsync();
+            var driverTask      = F1Service.GetDriverStandingsAsync(selectedYear);
+            var constructorTask = F1Service.GetConstructorStandingsAsync(selectedYear);
+            var lastRaceTask    = F1Service.GetLastRaceAsync(selectedYear);
+            var scheduleTask    = F1Service.GetScheduleAsync(selectedYear);
 
             await Task.WhenAll(driverTask, constructorTask, lastRaceTask, scheduleTask);
 
-            driverStandings = driverTask.Result;
+            driverStandings      = driverTask.Result;
             constructorStandings = constructorTask.Result;
-            lastRace = lastRaceTask.Result;
-            schedule = scheduleTask.Result;
-            nextRace = schedule.FirstOrDefault(r => !r.IsPast);
+            lastRace             = lastRaceTask.Result;
+            schedule             = scheduleTask.Result;
+            nextRace             = selectedYear == "current" ? schedule.FirstOrDefault(r => !r.IsPast) : null;
         }
         catch (Exception)
         {

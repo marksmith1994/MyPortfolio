@@ -2,74 +2,94 @@
 @using MyPortfolio.Services
 @inject SpaceXService SpaceXService
 
+<link href="css/spacex.css" rel="stylesheet">
+
 <PageTitle>SpaceX Launches</PageTitle>
 
 <div class="container py-5">
-    <h1 class="text-center mb-4">SpaceX Launches</h1>
-    <div class="mb-4 text-center">
-        <button class="btn btn-primary me-2" @onclick="ShowUpcoming" title="Show upcoming launches">Upcoming Launches</button>
-        <button class="btn btn-secondary me-4" @onclick="ShowPast" title="Show past launches">Past Launches</button>
-        <select class="form-select d-inline-block w-auto" @bind="successFilter" title="Filter by launch success">
-            <option value="all">All</option>
+    <h1 class="text-center mb-2">SpaceX Launches</h1>
+    <p class="text-center text-muted mb-4">Real-time data from the SpaceX API</p>
+
+    <div class="d-flex justify-content-center align-items-center gap-2 flex-wrap mb-4">
+        <button class="btn @(showUpcoming ? "btn-primary" : "btn-outline-primary")" @onclick="ShowUpcoming">
+            <i class="fas fa-rocket me-2"></i>Upcoming
+        </button>
+        <button class="btn @(!showUpcoming ? "btn-primary" : "btn-outline-primary")" @onclick="ShowPast">
+            <i class="fas fa-history me-2"></i>Past
+        </button>
+        <select class="form-select w-auto" @bind="successFilter" @bind:after="StateHasChanged">
+            <option value="all">All outcomes</option>
             <option value="success">Success</option>
             <option value="failure">Failure</option>
             <option value="tbd">TBD</option>
         </select>
     </div>
+
     @if (isLoading)
     {
         <div class="text-center"><div class="spinner-border text-primary" role="status"></div></div>
     }
     else if (launches != null && launches.Count > 0)
     {
-        var filteredLaunches = launches;
-        if (successFilter == "success")
-            filteredLaunches = launches.Where(l => l.Success == true).ToList();
-        else if (successFilter == "failure")
-            filteredLaunches = launches.Where(l => l.Success == false).ToList();
-        else if (successFilter == "tbd")
-            filteredLaunches = launches.Where(l => l.Success == null).ToList();
+        var filtered = successFilter switch
+        {
+            "success" => launches.Where(l => l.Success == true).ToList(),
+            "failure" => launches.Where(l => l.Success == false).ToList(),
+            "tbd"     => launches.Where(l => l.Success == null).ToList(),
+            _         => launches
+        };
 
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            @foreach (var launch in filteredLaunches)
+            @foreach (var launch in filtered)
             {
                 <div class="col">
-                    <div class="card h-100">
+                    <div class="card h-100 spacex-card">
+                        <div class="spacex-card-header">
+                            @if (!string.IsNullOrEmpty(launch.Links.Patch?.Small))
+                            {
+                                <img src="@launch.Links.Patch.Small" alt="@launch.Name mission patch" class="mission-patch" />
+                            }
+                            else
+                            {
+                                <div class="mission-patch-placeholder">
+                                    <i class="fas fa-rocket"></i>
+                                </div>
+                            }
+                            <div class="outcome-badge @GetOutcomeClass(launch.Success)">
+                                @GetOutcomeLabel(launch.Success)
+                            </div>
+                        </div>
                         <div class="card-body">
-                            <h5 class="card-title" title="@launch.Name">@launch.Name</h5>
-                            <p class="card-text">
-                                <strong>Date:</strong> 
-                                @(launch.DateUtc == DateTime.MinValue ? "TBD" : launch.DateUtc.ToLocalTime().ToString("yyyy-MM-dd HH:mm"))
+                            <h5 class="card-title">@launch.Name</h5>
+                            <p class="card-text text-muted small mb-1">
+                                <i class="fas fa-calendar me-1"></i>
+                                @(launch.DateUtc == DateTime.MinValue ? "TBD" : launch.DateUtc.ToLocalTime().ToString("dd MMM yyyy, HH:mm"))
                             </p>
-                            <p class="card-text"><strong>Rocket:</strong> @launch.Rocket</p>
-                            <p class="card-text">
-                                <strong>Success:</strong> 
-                                @if (launch.Success == true)
-                                {
-                                    <span title="Success"><i class="fas fa-check-circle text-success"></i></span>
-                                }
-                                else if (launch.Success == false)
-                                {
-                                    <span title="Failure"><i class="fas fa-times-circle text-danger"></i></span>
-                                }
-                                else
-                                {
-                                    <span title="TBD"><i class="fas fa-clock text-warning"></i></span>
-                                }
+                            <p class="card-text text-muted small mb-2">
+                                <i class="fas fa-rocket me-1"></i>@launch.Rocket
                             </p>
                             @if (!string.IsNullOrEmpty(launch.Details))
                             {
-                                <p class="card-text" title="@launch.Details">@launch.Details</p>
-                            }
-                            @if (!string.IsNullOrEmpty(launch.Links.Webcast))
-                            {
-                                <a href="@launch.Links.Webcast" target="_blank" class="btn btn-outline-info btn-sm mt-2" title="Watch webcast">Webcast</a>
+                                <p class="card-text small launch-details">@launch.Details</p>
                             }
                         </div>
+                        @if (!string.IsNullOrEmpty(launch.Links.Webcast))
+                        {
+                            <div class="card-footer bg-transparent border-top-0 pt-0">
+                                <a href="@launch.Links.Webcast" target="_blank" class="btn btn-outline-primary btn-sm w-100">
+                                    <i class="fab fa-youtube me-1"></i>Watch Webcast
+                                </a>
+                            </div>
+                        }
                     </div>
                 </div>
             }
         </div>
+
+        @if (!filtered.Any())
+        {
+            <div class="alert alert-info text-center">No launches match that filter.</div>
+        }
     }
     else if (errorMessage != null)
     {
@@ -99,28 +119,32 @@
         errorMessage = null;
         try
         {
-            launches = showUpcoming 
+            launches = showUpcoming
                 ? await SpaceXService.GetUpcomingLaunchesAsync()
                 : await SpaceXService.GetPastLaunchesAsync();
         }
-        catch (Exception)
+        catch
         {
             errorMessage = "Could not fetch SpaceX launches. Please try again later.";
-            launches = new List<Launch>();
+            launches = new();
         }
         isLoading = false;
     }
 
-    private async Task ShowUpcoming()
-    {
-        showUpcoming = true;
-        await LoadLaunchesAsync();
-    }
+    private async Task ShowUpcoming() { showUpcoming = true; await LoadLaunchesAsync(); }
+    private async Task ShowPast()     { showUpcoming = false; await LoadLaunchesAsync(); }
 
-    private async Task ShowPast()
+    private static string GetOutcomeClass(bool? success) => success switch
     {
-        showUpcoming = false;
-        await LoadLaunchesAsync();
-    }
+        true  => "outcome-success",
+        false => "outcome-failure",
+        _     => "outcome-tbd"
+    };
 
+    private static string GetOutcomeLabel(bool? success) => success switch
+    {
+        true  => "Success",
+        false => "Failure",
+        _     => "TBD"
+    };
 }

@@ -1,5 +1,6 @@
 using System.Net.Http.Json;
 using System.Text.Json.Serialization;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 
 namespace MyPortfolio.Services
@@ -8,94 +9,91 @@ namespace MyPortfolio.Services
     {
         private readonly HttpClient _httpClient;
         private readonly ILogger<F1Service> _logger;
+        private readonly IMemoryCache _cache;
 
-        private static List<F1DriverStanding>? _cachedDriverStandings;
-        private static List<F1ConstructorStanding>? _cachedConstructorStandings;
-        private static F1RaceResult? _cachedLastRace;
-        private static List<F1ScheduleRace>? _cachedSchedule;
-        private static DateTime _lastCacheTime = DateTime.MinValue;
-        private static readonly TimeSpan CacheDuration = TimeSpan.FromHours(1);
-
-        public F1Service(HttpClient httpClient, ILogger<F1Service> logger)
+        public F1Service(HttpClient httpClient, ILogger<F1Service> logger, IMemoryCache cache)
         {
             _httpClient = httpClient;
             _logger = logger;
+            _cache = cache;
         }
 
-        private bool CacheIsValid() =>
-            _lastCacheTime != DateTime.MinValue && DateTime.UtcNow - _lastCacheTime < CacheDuration;
+        private TimeSpan GetExpiry(string year) =>
+            year == "current" ? TimeSpan.FromHours(1) : TimeSpan.FromDays(30);
 
-        public async Task<List<F1DriverStanding>> GetDriverStandingsAsync()
+        public async Task<List<F1DriverStanding>> GetDriverStandingsAsync(string year = "current")
         {
-            if (CacheIsValid() && _cachedDriverStandings != null) return _cachedDriverStandings;
+            string key = $"f1:drivers:{year}";
+            if (_cache.TryGetValue(key, out List<F1DriverStanding>? cached) && cached != null) return cached;
             try
             {
                 var root = await _httpClient.GetFromJsonAsync<F1DriverStandingsRoot>(
-                    "https://api.jolpi.ca/ergast/f1/current/driverStandings.json");
-                _cachedDriverStandings = root?.MRData?.StandingsTable?.StandingsLists?
-                    .FirstOrDefault()?.DriverStandings ?? new();
-                _lastCacheTime = DateTime.UtcNow;
-                return _cachedDriverStandings;
+                    $"https://api.jolpi.ca/ergast/f1/{year}/driverStandings.json");
+                var result = root?.MRData?.StandingsTable?.StandingsLists?.FirstOrDefault()?.DriverStandings ?? new();
+                _cache.Set(key, result, GetExpiry(year));
+                return result;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error fetching F1 driver standings");
-                return _cachedDriverStandings ?? new();
+                _logger.LogError(ex, "Error fetching F1 driver standings for {Year}", year);
+                return new();
             }
         }
 
-        public async Task<List<F1ConstructorStanding>> GetConstructorStandingsAsync()
+        public async Task<List<F1ConstructorStanding>> GetConstructorStandingsAsync(string year = "current")
         {
-            if (CacheIsValid() && _cachedConstructorStandings != null) return _cachedConstructorStandings;
+            string key = $"f1:constructors:{year}";
+            if (_cache.TryGetValue(key, out List<F1ConstructorStanding>? cached) && cached != null) return cached;
             try
             {
                 var root = await _httpClient.GetFromJsonAsync<F1ConstructorStandingsRoot>(
-                    "https://api.jolpi.ca/ergast/f1/current/constructorStandings.json");
-                _cachedConstructorStandings = root?.MRData?.StandingsTable?.StandingsLists?
-                    .FirstOrDefault()?.ConstructorStandings ?? new();
-                _lastCacheTime = DateTime.UtcNow;
-                return _cachedConstructorStandings;
+                    $"https://api.jolpi.ca/ergast/f1/{year}/constructorStandings.json");
+                var result = root?.MRData?.StandingsTable?.StandingsLists?.FirstOrDefault()?.ConstructorStandings ?? new();
+                _cache.Set(key, result, GetExpiry(year));
+                return result;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error fetching F1 constructor standings");
-                return _cachedConstructorStandings ?? new();
+                _logger.LogError(ex, "Error fetching F1 constructor standings for {Year}", year);
+                return new();
             }
         }
 
-        public async Task<F1RaceResult?> GetLastRaceAsync()
+        public async Task<F1RaceResult?> GetLastRaceAsync(string year = "current")
         {
-            if (CacheIsValid() && _cachedLastRace != null) return _cachedLastRace;
+            string key = $"f1:lastrace:{year}";
+            if (_cache.TryGetValue(key, out F1RaceResult? cached)) return cached;
             try
             {
                 var root = await _httpClient.GetFromJsonAsync<F1RaceResultRoot>(
-                    "https://api.jolpi.ca/ergast/f1/current/last/results.json");
-                _cachedLastRace = root?.MRData?.RaceTable?.Races?.FirstOrDefault();
-                _lastCacheTime = DateTime.UtcNow;
-                return _cachedLastRace;
+                    $"https://api.jolpi.ca/ergast/f1/{year}/last/results.json");
+                var result = root?.MRData?.RaceTable?.Races?.FirstOrDefault();
+                if (result != null) _cache.Set(key, result, GetExpiry(year));
+                return result;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error fetching F1 last race results");
-                return _cachedLastRace;
+                _logger.LogError(ex, "Error fetching F1 last race for {Year}", year);
+                return null;
             }
         }
 
-        public async Task<List<F1ScheduleRace>> GetScheduleAsync()
+        public async Task<List<F1ScheduleRace>> GetScheduleAsync(string year = "current")
         {
-            if (CacheIsValid() && _cachedSchedule != null) return _cachedSchedule;
+            string key = $"f1:schedule:{year}";
+            if (_cache.TryGetValue(key, out List<F1ScheduleRace>? cached) && cached != null) return cached;
             try
             {
                 var root = await _httpClient.GetFromJsonAsync<F1ScheduleRoot>(
-                    "https://api.jolpi.ca/ergast/f1/current.json");
-                _cachedSchedule = root?.MRData?.RaceTable?.Races ?? new();
-                _lastCacheTime = DateTime.UtcNow;
-                return _cachedSchedule;
+                    $"https://api.jolpi.ca/ergast/f1/{year}.json");
+                var result = root?.MRData?.RaceTable?.Races ?? new();
+                _cache.Set(key, result, GetExpiry(year));
+                return result;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error fetching F1 schedule");
-                return _cachedSchedule ?? new();
+                _logger.LogError(ex, "Error fetching F1 schedule for {Year}", year);
+                return new();
             }
         }
     }
