@@ -300,18 +300,40 @@ main.container {
     transform: rotate(20deg);
 }
 
+/* Mobile collapsed navbar */
+@media (max-width: 991.98px) {
+    .navbar-collapse {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+        margin-top: 0.5rem;
+        padding: 0.5rem 0;
+        border-radius: 0 0 8px 8px;
+    }
+
+    .navbar-collapse .nav-link {
+        padding: 0.6rem 1rem;
+        border-radius: 6px;
+        margin: 0.1rem 0.5rem;
+    }
+
+    .navbar-collapse .nav-link:hover,
+    .navbar-collapse .nav-link.active {
+        background: rgba(255, 255, 255, 0.15);
+    }
+}
+
 /* Responsive Improvements */
 @media (max-width: 768px) {
     .navbar .navbar-brand {
         font-size: 1.25rem;
     }
-    
+
     main.container {
         padding-top: 1rem;
         padding-bottom: 1rem;
     }
-    
+
     .card-body {
         padding: 1rem;
     }
-} 
+}

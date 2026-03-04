@@ -1,5 +1,6 @@
 @namespace MyPortfolio.Components.Layout
 @inherits LayoutComponentBase
+@inject IJSRuntime JSRuntime
 
 <link href="css/base.css" rel="stylesheet">
 <link href="css/loading.css" rel="stylesheet">
@@ -12,9 +13,14 @@
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand" href="/">Mark Smith</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <div class="d-flex align-items-center gap-1 ms-auto ms-lg-0">
+                <button class="btn btn-link theme-toggle-btn" @onclick="ToggleThemeAsync" title="Toggle dark/light mode">
+                    <i class="fas @(isDark ? "fa-sun" : "fa-moon")"></i>
+                </button>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <NavMenu />
             </div>
@@ -37,3 +43,23 @@
         </div>
     </footer>
 </div>
+
+@code {
+    private bool isDark = false;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            var theme = await JSRuntime.InvokeAsync<string>("applyStoredTheme");
+            isDark = theme == "dark";
+            StateHasChanged();
+        }
+    }
+
+    private async Task ToggleThemeAsync()
+    {
+        var newTheme = await JSRuntime.InvokeAsync<string>("toggleTheme");
+        isDark = newTheme == "dark";
+    }
+}

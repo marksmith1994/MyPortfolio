@@ -1,5 +1,3 @@
-@inject IJSRuntime JSRuntime
-
 <ul class="navbar-nav me-auto">
     <li class="nav-item">
         <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
@@ -22,27 +20,3 @@
         </NavLink>
     </li>
 </ul>
-
-<button class="btn btn-link nav-link theme-toggle-btn ms-2" @onclick="ToggleThemeAsync" title="Toggle dark/light mode">
-    <i class="fas @(isDark ? "fa-sun" : "fa-moon")"></i>
-</button>
-
-@code {
-    private bool isDark = false;
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            var theme = await JSRuntime.InvokeAsync<string>("applyStoredTheme");
-            isDark = theme == "dark";
-            StateHasChanged();
-        }
-    }
-
-    private async Task ToggleThemeAsync()
-    {
-        var newTheme = await JSRuntime.InvokeAsync<string>("toggleTheme");
-        isDark = newTheme == "dark";
-    }
-}
