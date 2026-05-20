@@ -1,0 +1,219 @@
+@page "/hobbies"
+@using System.Text.Json
+@inject IWebHostEnvironment Env
+
+<link href="css/hobbies.css" rel="stylesheet">
+
+<PageTitle>Hobbies - Mark Smith</PageTitle>
+
+<div class="container py-5">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="display-5 fw-bold mb-1">Hobbies &amp; Interests</h1>
+            <p class="text-muted">Outside of work</p>
+        </div>
+    </div>
+
+    <ul class="nav nav-tabs hobbies-tabs mb-4" id="hobbiesTabs">
+        <li class="nav-item">
+            <button class="nav-link @(activeTab == "books" ? "active" : "")" @onclick='() => activeTab = "books"'>
+                <i class="fas fa-book me-2"></i>Reading
+                <span class="tab-count">@allBooks.Count</span>
+            </button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link @(activeTab == "travel" ? "active" : "")" @onclick='() => activeTab = "travel"'>
+                <i class="fas fa-plane me-2"></i>Travel
+                @if (trips.Count > 0)
+                {
+                    <span class="tab-count">@trips.Count</span>
+                }
+            </button>
+        </li>
+    </ul>
+
+    @if (activeTab == "books")
+    {
+        <div class="filter-bar mb-4">
+            <div class="filter-row mb-2">
+                <span class="filter-label">Year</span>
+                <button class="filter-btn @(selectedYear == null ? "active" : "")" @onclick="() => SetYearFilter(null)">All</button>
+                @foreach (var year in years)
+                {
+                    <button class="filter-btn @(selectedYear == year ? "active" : "")" @onclick="() => SetYearFilter(year)">@year</button>
+                }
+            </div>
+            <div class="filter-row">
+                <span class="filter-label">Genre</span>
+                <button class="filter-btn genre @(selectedGenre == null ? "active" : "")" @onclick="() => SetGenreFilter(null)">All</button>
+                @foreach (var genre in genres)
+                {
+                    <button class="filter-btn genre @(selectedGenre == genre ? "active" : "")" @onclick="() => SetGenreFilter(genre)">@genre</button>
+                }
+            </div>
+        </div>
+
+        <p class="text-muted small mb-3">@filteredBooks.Count of @allBooks.Count books</p>
+
+        <div class="row g-4">
+            @foreach (var book in filteredBooks)
+            {
+                <div class="col-sm-6 col-lg-4">
+                    <div class="book-card card h-100">
+                        @if (!string.IsNullOrEmpty(book.CoverUrl))
+                        {
+                            <div class="book-cover-wrap">
+                                <img src="@book.CoverUrl" class="book-cover" alt="@book.Title cover"
+                                     onerror="this.closest('.book-cover-wrap').style.display='none'" />
+                            </div>
+                        }
+                        <div class="card-body d-flex flex-column">
+                            <div class="d-flex align-items-start justify-content-between gap-2 mb-1">
+                                <h5 class="book-title mb-0">@book.Title</h5>
+                                @if (book.CurrentlyReading)
+                                {
+                                    <span class="badge bg-success flex-shrink-0">Reading</span>
+                                }
+                            </div>
+                            <p class="book-author text-muted mb-3">@book.Author</p>
+
+                            <div class="d-flex flex-wrap gap-2 mb-3">
+                                <span class="badge genre-badge">@book.Genre</span>
+                                <span class="badge year-badge">@book.YearRead</span>
+                            </div>
+
+                            <div class="rating-row mb-3">
+                                <span class="rating-score @RatingClass(book.Rating)">@book.Rating<span class="rating-denom">/10</span></span>
+                                <div class="rating-track">
+                                    <div class="rating-fill @RatingClass(book.Rating)" style="width:@(book.Rating * 10)%"></div>
+                                </div>
+                            </div>
+
+                            <p class="book-review flex-grow-1">@book.Review</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    @if (activeTab == "travel")
+    {
+        @if (trips.Count == 0)
+        {
+            <div class="empty-state text-center py-5">
+                <i class="fas fa-camera fa-3x text-muted mb-3"></i>
+                <h4 class="text-muted">Photos coming soon</h4>
+                <p class="text-muted">Add trip entries to <code>wwwroot/data/hobbies-photos.json</code> and drop images into <code>wwwroot/images/hobbies/</code></p>
+            </div>
+        }
+        else
+        {
+            @foreach (var trip in trips)
+            {
+                <div class="trip-section mb-5">
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <h3 class="trip-title mb-0">@trip.Title</h3>
+                        <span class="badge year-badge">@trip.Year</span>
+                    </div>
+                    @if (!string.IsNullOrEmpty(trip.Description))
+                    {
+                        <p class="text-muted mb-3">@trip.Description</p>
+                    }
+                    <div class="row g-3">
+                        @foreach (var photo in trip.Photos)
+                        {
+                            <div class="col-sm-6 col-md-4 col-lg-3">
+                                <div class="photo-card">
+                                    <img src="@photo.Src" alt="@photo.Caption" class="photo-img"
+                                         onerror="this.src='/images/profile.jpeg'" />
+                                    @if (!string.IsNullOrEmpty(photo.Caption) || !string.IsNullOrEmpty(photo.Location))
+                                    {
+                                        <div class="photo-caption">
+                                            @if (!string.IsNullOrEmpty(photo.Location))
+                                            {
+                                                <span class="photo-location"><i class="fas fa-map-marker-alt me-1"></i>@photo.Location</span>
+                                            }
+                                            @if (!string.IsNullOrEmpty(photo.Caption))
+                                            {
+                                                <span class="photo-text">@photo.Caption</span>
+                                            }
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        }
+    }
+</div>
+
+@code {
+    private string activeTab = "books";
+
+    private List<Book> allBooks = [];
+    private List<Book> filteredBooks = [];
+    private List<int> years = [];
+    private List<string> genres = [];
+    private int? selectedYear;
+    private string? selectedGenre;
+
+    private List<Trip> trips = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        var booksPath = Path.Combine(Env.WebRootPath, "data", "books-data.json");
+        var booksJson = await File.ReadAllTextAsync(booksPath);
+        var booksData = JsonSerializer.Deserialize<BooksData>(booksJson, JsonSerializerOptions.Web);
+        allBooks = booksData?.Books ?? [];
+        years = [.. allBooks.Select(b => b.YearRead).Distinct().OrderByDescending(y => y)];
+        genres = [.. allBooks.Select(b => b.Genre).Distinct().OrderBy(g => g)];
+        ApplyFilters();
+
+        var photosPath = Path.Combine(Env.WebRootPath, "data", "hobbies-photos.json");
+        if (File.Exists(photosPath))
+        {
+            var photosJson = await File.ReadAllTextAsync(photosPath);
+            var photosData = JsonSerializer.Deserialize<PhotosData>(photosJson, JsonSerializerOptions.Web);
+            trips = photosData?.Trips ?? [];
+        }
+    }
+
+    private void SetYearFilter(int? year) { selectedYear = year; ApplyFilters(); }
+    private void SetGenreFilter(string? genre) { selectedGenre = genre; ApplyFilters(); }
+
+    private void ApplyFilters()
+    {
+        filteredBooks = [.. allBooks
+            .Where(b => selectedYear == null || b.YearRead == selectedYear)
+            .Where(b => selectedGenre == null || b.Genre == selectedGenre)];
+    }
+
+    private static string RatingClass(int r) => r >= 8 ? "great" : r >= 7 ? "good" : "ok";
+
+    private record BooksData(List<Book> Books);
+    private record PhotosData(List<Trip> Trips);
+
+    private record Book(
+        string Title,
+        string Author,
+        int YearRead,
+        int Rating,
+        string Genre,
+        string Review,
+        string? CoverUrl = null,
+        bool CurrentlyReading = false);
+
+    private record Trip(
+        string Title,
+        int Year,
+        string? Description,
+        List<Photo> Photos);
+
+    private record Photo(
+        string Src,
+        string? Caption = null,
+        string? Location = null);
+}
