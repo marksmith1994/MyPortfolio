@@ -456,6 +456,7 @@ wwwroot/files/resume.pdf
 plan/
 *.md
 !README.md
+!CLAUDE.md
 
 # ===== .NET 8 Specific =====
 # Blazor WebAssembly
