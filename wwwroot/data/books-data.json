@@ -1,0 +1,185 @@
+{
+  "books": [
+    {
+      "title": "Onyx Storm",
+      "author": "Rebecca Yarros",
+      "yearRead": 2025,
+      "rating": 7,
+      "genre": "Romantasy",
+      "review": "Following on well from Iron Flame so far. Still reading — early impressions are positive.",
+      "coverUrl": "https://covers.openlibrary.org/b/isbn/9781649374189-M.jpg",
+      "currentlyReading": true
+    },
+    {
+      "title": "Iron Flame",
+      "author": "Rebecca Yarros",
+      "yearRead": 2024,
+      "rating": 6,
+      "genre": "Romantasy",
+      "review": "Extremely readable and fun with interesting character development. Has a genuinely strong story, but it leans so heavily on cliffhangers that the tension starts to feel manufactured. I enjoyed the plot — I just sometimes felt more pulled along by the cliffhangers than by the narrative itself.",
+      "coverUrl": "https://covers.openlibrary.org/b/isbn/9781649374172-M.jpg"
+    },
+    {
+      "title": "The Fourth Wing",
+      "author": "Rebecca Yarros",
+      "yearRead": 2024,
+      "rating": 8,
+      "genre": "Romantasy",
+      "review": "Do I like romantasy? Answer: yes. The world is vivid and easy to picture, the writing pulls you along effortlessly, and I haven't felt quite this absorbed in a book in a while. Made me feel young again. Does lean on cliffhangers heavily, but it works.",
+      "coverUrl": "https://covers.openlibrary.org/b/isbn/9781649374042-M.jpg"
+    },
+    {
+      "title": "The Satsuma Complex",
+      "author": "Bob Mortimer",
+      "yearRead": 2024,
+      "rating": 5,
+      "genre": "Comedy",
+      "review": "Wouldn't have finished it if it wasn't Bob Mortimer. Thin plot and a bit of an odd structure. But reading it in his comedic voice and timing made it just about worth it. One and done.",
+      "coverUrl": "https://covers.openlibrary.org/b/isbn/9781529094619-M.jpg"
+    },
+    {
+      "title": "Dungeon Crawler Carl",
+      "author": "Matt Dinniman",
+      "yearRead": 2024,
+      "rating": 7,
+      "genre": "Sci-Fi",
+      "review": "A fun, easy read recommended by a friend. An RPG-style apocalypse where the game mechanics feel intuitive rather than overwhelming. Great palette cleanser between big series — will pick up the next one in due course.",
+      "coverUrl": "https://covers.openlibrary.org/b/isbn/9781948963978-M.jpg"
+    },
+    {
+      "title": "Light Bringer",
+      "author": "Pierce Brown",
+      "yearRead": 2024,
+      "rating": 9,
+      "genre": "Sci-Fi",
+      "review": "The final twist broke my heart. Follows Lysander and Darrow primarily, with some of the best character development in the series. Left me genuinely questioning whether everything can be wrapped up in one final book.",
+      "coverUrl": "https://covers.openlibrary.org/b/isbn/9780425285022-M.jpg"
+    },
+    {
+      "title": "Dark Age",
+      "author": "Pierce Brown",
+      "yearRead": 2024,
+      "rating": 8,
+      "genre": "Sci-Fi",
+      "review": "Picks up the pace considerably from Iron Gold. The relentless action occasionally tips into overload, but the world is fully-realised and the stakes feel real. Nobody is safe, which makes every chapter genuinely tense.",
+      "coverUrl": "https://covers.openlibrary.org/b/isbn/9780425285992-M.jpg"
+    },
+    {
+      "title": "Iron Gold",
+      "author": "Pierce Brown",
+      "yearRead": 2024,
+      "rating": 6,
+      "genre": "Sci-Fi",
+      "review": "A big shift from the original three — four different POVs set a decade later. The new characters take time to warm to and 600 pages of world-building for the next arc is a slog, even if it's necessary foundation for what follows.",
+      "coverUrl": "https://covers.openlibrary.org/b/isbn/9780425285978-M.jpg"
+    },
+    {
+      "title": "Morning Star",
+      "author": "Pierce Brown",
+      "yearRead": 2024,
+      "rating": 8,
+      "genre": "Sci-Fi",
+      "review": "A satisfying close to the original trilogy. Pierce Brown isn't the most refined writer but he's built a brilliant world and the story kept me hooked. A few too many 'heroes never die' moments, but enormously engaging.",
+      "coverUrl": "https://covers.openlibrary.org/b/isbn/9780804178556-M.jpg"
+    },
+    {
+      "title": "Golden Son",
+      "author": "Pierce Brown",
+      "yearRead": 2024,
+      "rating": 9,
+      "genre": "Sci-Fi",
+      "review": "Best book I've read in a very long time. Not much to say other than it's relentless, and the twist genuinely caught me off guard. When a sequel outclasses the original, you know you're onto something special.",
+      "coverUrl": "https://covers.openlibrary.org/b/isbn/9780804178549-M.jpg"
+    },
+    {
+      "title": "Red Rising",
+      "author": "Pierce Brown",
+      "yearRead": 2024,
+      "rating": 8,
+      "genre": "Sci-Fi",
+      "review": "Put it down the first time as I wasn't in the right headspace. Came back to it and it clicked. The first 100 pages are a slow burn, but what a build. Brilliant character and world-building without drowning in fantasy lore.",
+      "coverUrl": "https://covers.openlibrary.org/b/isbn/9780345539786-M.jpg"
+    },
+    {
+      "title": "Artemis",
+      "author": "Andy Weir",
+      "yearRead": 2023,
+      "rating": 5,
+      "genre": "Sci-Fi",
+      "review": "Not Andy Weir's best. The plot felt rushed in places and contrived in others. Both rushed and drawn-out at the same time, somehow. Readable but forgettable — a step back from The Martian.",
+      "coverUrl": "https://covers.openlibrary.org/b/isbn/9780553448122-M.jpg"
+    },
+    {
+      "title": "Dune",
+      "author": "Frank Herbert",
+      "yearRead": 2023,
+      "rating": 6,
+      "genre": "Sci-Fi",
+      "review": "Great world-building but a touch too long. Didn't offer a huge amount beyond what the film covers, and I think I'd have struggled to keep up without having seen it first. Solid book — will read the second but will probably leave it there.",
+      "coverUrl": "https://covers.openlibrary.org/b/isbn/9780441013593-M.jpg"
+    },
+    {
+      "title": "Once There Were Wolves",
+      "author": "Charlotte McConaghy",
+      "yearRead": 2023,
+      "rating": 7,
+      "genre": "Literary Fiction",
+      "review": "A slow start during a tired spell, but a solid book. Perhaps a bit too much going on for me to fully track. That said, reading from a female protagonist's perspective on aggressive male behaviour was a genuinely different experience.",
+      "coverUrl": "https://covers.openlibrary.org/b/isbn/9781250175564-M.jpg"
+    },
+    {
+      "title": "Migrations",
+      "author": "Charlotte McConaghy",
+      "yearRead": 2023,
+      "rating": 7,
+      "genre": "Literary Fiction",
+      "review": "Easy, readable writing style with a bittersweet ending. The constant chapter-end cliffhangers started to feel a bit manufactured after a while, and a few moments stretched believability. Overall though, an enjoyable book.",
+      "coverUrl": "https://covers.openlibrary.org/b/isbn/9781250301697-M.jpg"
+    },
+    {
+      "title": "Jurassic Park",
+      "author": "Michael Crichton",
+      "yearRead": 2023,
+      "rating": 7,
+      "genre": "Sci-Fi",
+      "review": "Darker and more technical than the film. Lost me a little in the middle but enjoyed picking up an actual physical book and not stressing about reading speed or chapter length. A good thriller that earns its reputation.",
+      "coverUrl": "https://covers.openlibrary.org/b/isbn/9780345370951-M.jpg"
+    },
+    {
+      "title": "To Kill a Mockingbird",
+      "author": "Harper Lee",
+      "yearRead": 2022,
+      "rating": 7,
+      "genre": "Classic",
+      "review": "Some slow chapters, but brilliant characters and lessons that land just as hard as an adult as they would at school age. The central message — choosing calm over reaction — is one I could stand to remember more often.",
+      "coverUrl": "https://covers.openlibrary.org/b/isbn/9780061743528-M.jpg"
+    },
+    {
+      "title": "Slow Horses",
+      "author": "Mick Herron",
+      "yearRead": 2022,
+      "rating": 6,
+      "genre": "Spy Thriller",
+      "review": "Read after watching the TV series, which probably wasn't ideal — knowing the plot in advance takes the edge off. Good easy read, though the show actually had a better ending for once. Will return to the series after giving the show some breathing room.",
+      "coverUrl": "https://covers.openlibrary.org/b/isbn/9781616951016-M.jpg"
+    },
+    {
+      "title": "The Children of Húrin",
+      "author": "J.R.R. Tolkien",
+      "yearRead": 2022,
+      "rating": 6,
+      "genre": "Fantasy",
+      "review": "A lot of lore upfront, but a genuinely dark and different corner of the LOTR universe. Didn't stress about pace and just let the story carry me — which it did by the end. A heavier read than expected but rewarding for Tolkien fans.",
+      "coverUrl": "https://covers.openlibrary.org/b/isbn/9780618894642-M.jpg"
+    },
+    {
+      "title": "1984",
+      "author": "George Orwell",
+      "yearRead": 2022,
+      "rating": 6,
+      "genre": "Classic",
+      "review": "Slow start and not quite what I imagined, with a morbid atmosphere that feels unexpectedly relevant to today's world. Rich with hidden meanings — it made me reflect on how much I absorb when reading versus just scanning pages. Good book with a memorable, if bleak, ending.",
+      "coverUrl": "https://covers.openlibrary.org/b/isbn/9780451524935-M.jpg"
+    }
+  ]
+}
