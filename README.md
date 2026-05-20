@@ -55,11 +55,14 @@ cd MyPortfolio
 Create a `.env` file in the project root:
 
 ```
-NASA_API_KEY=your_nasa_key
-WEATHER_API_KEY=your_weather_key
-GMAIL_APP_PASSWORD=your_gmail_app_password
-GMAIL_FROM_ADDRESS=you@gmail.com
+Nasa__ApiKey=your_nasa_key
+Weather__ApiKey=your_weather_key
+Email__GmailAddress=you@gmail.com
+Email__GmailPassword=your_gmail_app_password
+GitHub__Token=your_github_pat
 ```
+
+> The double-underscore (`__`) maps to the `:` separator in ASP.NET Core's configuration system (e.g. `Nasa__ApiKey` → `Nasa:ApiKey`). Azure App Service application settings follow the same convention.
 
 Then run:
 
@@ -67,7 +70,9 @@ Then run:
 dotnet run
 ```
 
-NASA and Weather API keys are free — get them at [api.nasa.gov](https://api.nasa.gov) and [weatherapi.com](https://www.weatherapi.com).
+- NASA and Weather API keys are free — get them at [api.nasa.gov](https://api.nasa.gov) and [weatherapi.com](https://www.weatherapi.com).
+- `GitHub__Token` is optional but recommended — without it the GitHub API is limited to 60 requests/hour per IP; a personal access token (read-only, public repos scope) raises this to 5,000/hour.
+- `Email__GmailPassword` should be a [Gmail app password](https://support.google.com/accounts/answer/185833), not your account password.
 
 ---
 

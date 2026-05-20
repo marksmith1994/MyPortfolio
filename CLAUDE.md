@@ -11,24 +11,33 @@ dotnet run
 # Build (release)
 dotnet build --configuration Release
 
+# Run all tests
+dotnet test
+
+# Run a single test class
+dotnet test --filter "FullyQualifiedName~GitHubServiceTests"
+
 # Publish
 dotnet publish -c Release -o ./publish
 ```
 
-There are no automated tests in this project. `TreatWarningsAsErrors` is set to `true` in the `.csproj`, so build warnings become errors — keep the build clean.
+`TreatWarningsAsErrors` is set to `true` in the main project's `.csproj`, so build warnings become errors — keep the build clean. The test project (`MyPortfolio.Tests`) does not inherit this setting.
 
 ## Local secrets
 
 API keys are loaded from a `.env` file in the project root via `DotNetEnv`. The `.env` values are mapped to `IConfiguration` using these keys (see `appsettings.json` for the structure):
 
-| Env var | Config key | Used by |
-|---|---|---|
-| `NASA_API_KEY` | `Nasa:ApiKey` | `NasaService` |
-| `WEATHER_API_KEY` | `Weather:ApiKey` | `WeatherService` |
-| `GMAIL_APP_PASSWORD` | `Email:GmailPassword` | `EmailService` |
-| `GMAIL_FROM_ADDRESS` | `Email:GmailAddress` | `EmailService` |
+ASP.NET Core maps env vars to nested config keys using `__` as the separator (`Email__GmailAddress` → `Email:GmailAddress`). Azure App Service application settings follow the same convention.
 
-Without these, NASA and Weather pages silently return no data; the Contact form throws.
+| `.env` / Azure App Setting | Config key | Used by |
+|---|---|---|
+| `Nasa__ApiKey` | `Nasa:ApiKey` | `NasaService` |
+| `Weather__ApiKey` | `Weather:ApiKey` | `WeatherService` |
+| `Email__GmailAddress` | `Email:GmailAddress` | `EmailService` |
+| `Email__GmailPassword` | `Email:GmailPassword` | `EmailService` |
+| `GitHub__Token` | `GitHub:Token` | `GitHubService` (optional) |
+
+Without the email vars the Contact form throws. Without NASA/Weather keys those pages silently return no data. Without a GitHub token the API is rate-limited to 60 requests/hour per IP.
 
 ## Architecture
 

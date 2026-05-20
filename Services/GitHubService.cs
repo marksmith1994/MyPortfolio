@@ -22,6 +22,10 @@ namespace MyPortfolio.Services
             _cache = cache;
             _httpClient.DefaultRequestHeaders.Add("User-Agent", "MyPortfolio");
             _httpClient.DefaultRequestHeaders.Add("Accept", "application/vnd.github.v3+json");
+            var token = _configuration["GitHub:Token"];
+            if (!string.IsNullOrEmpty(token))
+                _httpClient.DefaultRequestHeaders.Authorization =
+                    new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
         }
 
         public async Task<List<GitHubRepository>> GetRepositoriesAsync()
