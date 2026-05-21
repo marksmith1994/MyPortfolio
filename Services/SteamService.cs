@@ -43,7 +43,7 @@ namespace MyPortfolio.Services
                     .Take(count)
                     .ToList();
 
-                _cache.Set(CacheKey, top, TimeSpan.FromHours(24));
+                _cache.Set(CacheKey, top, TimeSpan.FromDays(7));
                 _logger.LogInformation("Cached {Count} Steam games", top.Count);
                 return top;
             }
