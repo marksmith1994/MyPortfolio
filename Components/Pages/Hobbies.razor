@@ -33,21 +33,27 @@
     @if (activeTab == "books")
     {
         <div class="filter-bar mb-4">
-            <div class="filter-row mb-2">
-                <span class="filter-label">Year</span>
-                <button class="filter-btn @(selectedYear == null ? "active" : "")" @onclick="() => SetYearFilter(null)">All</button>
-                @foreach (var year in years)
-                {
-                    <button class="filter-btn @(selectedYear == year ? "active" : "")" @onclick="() => SetYearFilter(year)">@year</button>
-                }
-            </div>
             <div class="filter-row">
-                <span class="filter-label">Genre</span>
-                <button class="filter-btn genre @(selectedGenre == null ? "active" : "")" @onclick="() => SetGenreFilter(null)">All</button>
-                @foreach (var genre in genres)
-                {
-                    <button class="filter-btn genre @(selectedGenre == genre ? "active" : "")" @onclick="() => SetGenreFilter(genre)">@genre</button>
-                }
+                <div class="filter-select-wrap">
+                    <label class="filter-label">Year</label>
+                    <select class="filter-select" @onchange="e => SetYearFilter(e.Value?.ToString() == "" ? null : int.Parse(e.Value!.ToString()!))">
+                        <option value="">All</option>
+                        @foreach (var year in years)
+                        {
+                            <option value="@year" selected="@(selectedYear == year)">@year</option>
+                        }
+                    </select>
+                </div>
+                <div class="filter-select-wrap">
+                    <label class="filter-label">Genre</label>
+                    <select class="filter-select" @onchange="e => SetGenreFilter(e.Value?.ToString() == "" ? null : e.Value!.ToString())">
+                        <option value="">All</option>
+                        @foreach (var genre in genres)
+                        {
+                            <option value="@genre" selected="@(selectedGenre == genre)">@genre</option>
+                        }
+                    </select>
+                </div>
             </div>
         </div>
 
