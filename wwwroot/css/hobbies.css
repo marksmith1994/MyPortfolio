@@ -109,13 +109,8 @@
 
 .book-stars { font-size: 1.3rem; letter-spacing: 2px; line-height: 1; }
 .star-full  { color: #f59e0b; }
-.star-empty { color: var(--border); }
-.star-half  {
-    background: linear-gradient(to right, #f59e0b 50%, var(--border) 50%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
+.star-empty { color: #cbd5e1; }
+.star-half  { color: #f59e0b; opacity: 0.45; }
 
 /* ── Game cards ──────────────────────────── */
 
