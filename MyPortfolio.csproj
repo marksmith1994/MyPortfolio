@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="MyPortfolio.Tests\**" />
+    <Content Remove="MyPortfolio.Tests\**" />
+    <EmbeddedResource Remove="MyPortfolio.Tests\**" />
+    <None Remove="MyPortfolio.Tests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="DotNetEnv" Version="2.5.0" />
   </ItemGroup>
 
