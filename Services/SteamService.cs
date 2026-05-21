@@ -12,7 +12,7 @@ namespace MyPortfolio.Services
         private readonly IMemoryCache _cache;
 
         private const string ApiBase = "https://api.steampowered.com";
-        private const string CacheKey = "steam:games";
+        private const string CacheKey = "steam:summary";
 
         public SteamService(HttpClient httpClient, ILogger<SteamService> logger, IConfiguration configuration, IMemoryCache cache)
         {
@@ -22,9 +22,9 @@ namespace MyPortfolio.Services
             _cache = cache;
         }
 
-        public async Task<List<SteamGame>> GetTopGamesAsync(int count = 15)
+        public async Task<SteamSummary> GetSummaryAsync()
         {
-            if (_cache.TryGetValue(CacheKey, out List<SteamGame>? cached) && cached != null)
+            if (_cache.TryGetValue(CacheKey, out SteamSummary? cached) && cached != null)
                 return cached;
 
             try
@@ -32,28 +32,66 @@ namespace MyPortfolio.Services
                 var apiKey = _configuration["Steam:ApiKey"];
                 var steamId = _configuration["Steam:UserId"];
 
-                var response = await _httpClient.GetFromJsonAsync<SteamOwnedGamesResponse>(
+                var gamesResponse = await _httpClient.GetFromJsonAsync<SteamOwnedGamesResponse>(
                     $"{ApiBase}/IPlayerService/GetOwnedGames/v1/?key={apiKey}&steamid={steamId}&include_appinfo=true&include_played_free_games=true");
 
-                var games = response?.Response?.Games ?? [];
+                var allGames = gamesResponse?.Response?.Games ?? [];
+                var totalGames = gamesResponse?.Response?.GameCount ?? allGames.Count;
+                var totalHours = (int)Math.Round(allGames.Sum(g => g.PlaytimeForever) / 60.0);
 
-                var top = games
+                var topGames = allGames
                     .Where(g => g.PlaytimeForever > 0)
                     .OrderByDescending(g => g.PlaytimeForever)
-                    .Take(count)
+                    .Take(15)
                     .ToList();
 
-                _cache.Set(CacheKey, top, TimeSpan.FromDays(7));
-                _logger.LogInformation("Cached {Count} Steam games", top.Count);
-                return top;
+                var recentlyPlayed = allGames
+                    .Where(g => g.Playtime2Weeks > 0)
+                    .OrderByDescending(g => g.Playtime2Weeks)
+                    .ToList();
+
+                SteamProfile? profile = null;
+                try
+                {
+                    var summaryTask = _httpClient.GetFromJsonAsync<SteamPlayerSummariesResponse>(
+                        $"{ApiBase}/ISteamUser/GetPlayerSummaries/v2/?key={apiKey}&steamids={steamId}");
+                    var levelTask = _httpClient.GetFromJsonAsync<SteamLevelResponse>(
+                        $"{ApiBase}/IPlayerService/GetSteamLevel/v1/?key={apiKey}&steamid={steamId}");
+
+                    await Task.WhenAll(summaryTask, levelTask);
+
+                    var player = summaryTask.Result?.Response?.Players?.FirstOrDefault();
+                    var level = levelTask.Result?.Response?.PlayerLevel ?? 0;
+
+                    if (player != null)
+                        profile = new SteamProfile(player.PersonaName, player.AvatarFull, level);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogWarning(ex, "Could not fetch Steam profile");
+                }
+
+                var summary = new SteamSummary(profile, topGames, recentlyPlayed, totalGames, totalHours);
+                _cache.Set(CacheKey, summary, TimeSpan.FromDays(7));
+                _logger.LogInformation("Cached Steam summary: {Games} games, {Hours} hrs", totalGames, totalHours);
+                return summary;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error fetching Steam games");
-                return [];
+                _logger.LogError(ex, "Error fetching Steam data");
+                return new SteamSummary(null, [], [], 0, 0);
             }
         }
     }
+
+    public record SteamSummary(
+        SteamProfile? Profile,
+        List<SteamGame> TopGames,
+        List<SteamGame> RecentlyPlayed,
+        int TotalGames,
+        int TotalHours);
+
+    public record SteamProfile(string Name, string AvatarUrl, int Level);
 
     public class SteamOwnedGamesResponse
     {
@@ -85,7 +123,40 @@ namespace MyPortfolio.Services
         public int Playtime2Weeks { get; set; }
 
         public double HoursPlayed => Math.Round(PlaytimeForever / 60.0, 1);
-        public bool RecentlyPlayed => Playtime2Weeks > 0;
+        public double RecentHours => Math.Round(Playtime2Weeks / 60.0, 1);
         public string HeaderImageUrl => $"https://cdn.cloudflare.steamstatic.com/steam/apps/{AppId}/header.jpg";
+    }
+
+    public class SteamPlayerSummariesResponse
+    {
+        [JsonPropertyName("response")]
+        public SteamPlayersContainer? Response { get; set; }
+    }
+
+    public class SteamPlayersContainer
+    {
+        [JsonPropertyName("players")]
+        public List<SteamPlayer>? Players { get; set; }
+    }
+
+    public class SteamPlayer
+    {
+        [JsonPropertyName("personaname")]
+        public string PersonaName { get; set; } = "";
+
+        [JsonPropertyName("avatarfull")]
+        public string AvatarFull { get; set; } = "";
+    }
+
+    public class SteamLevelResponse
+    {
+        [JsonPropertyName("response")]
+        public SteamLevelContainer? Response { get; set; }
+    }
+
+    public class SteamLevelContainer
+    {
+        [JsonPropertyName("player_level")]
+        public int PlayerLevel { get; set; }
     }
 }
