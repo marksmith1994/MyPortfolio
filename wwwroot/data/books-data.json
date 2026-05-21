@@ -180,6 +180,96 @@
       "genre": "Classic",
       "review": "Slow start and not quite what I imagined, with a morbid atmosphere that feels unexpectedly relevant to today's world. Rich with hidden meanings — it made me reflect on how much I absorb when reading versus just scanning pages. Good book with a memorable, if bleak, ending.",
       "coverUrl": "https://covers.openlibrary.org/b/isbn/9780451524935-M.jpg"
+    },
+    {
+      "title": "The Fellowship of the Ring",
+      "author": "J.R.R. Tolkien",
+      "yearRead": 2024,
+      "rating": 5.0,
+      "genre": "Fantasy",
+      "review": "Finished it for the first time — not my first attempt. The opening was a slow burn, but the sections not in the films made it worthwhile. Enjoyed the second half much more.",
+      "coverUrl": "https://covers.openlibrary.org/b/isbn/9780618346257-M.jpg"
+    },
+    {
+      "title": "The Two Towers",
+      "author": "J.R.R. Tolkien",
+      "yearRead": 2024,
+      "rating": 5.0,
+      "genre": "Fantasy",
+      "review": "Started brilliantly. The battle scenes are completely different from the films but I enjoyed them all the more for it. Definitely the strongest book in the trilogy.",
+      "coverUrl": "https://covers.openlibrary.org/b/isbn/9780618346264-M.jpg"
+    },
+    {
+      "title": "The Return of the King",
+      "author": "J.R.R. Tolkien",
+      "yearRead": 2024,
+      "rating": 4.0,
+      "genre": "Fantasy",
+      "review": "A satisfying end to the trilogy, though heavy going at times. Part two dragged, and the appendices were a step too far for me. Strong ending that wrapped things up well.",
+      "coverUrl": "https://covers.openlibrary.org/b/isbn/9780618346271-M.jpg"
+    },
+    {
+      "title": "Animal Farm",
+      "author": "George Orwell",
+      "yearRead": 2024,
+      "rating": 3.5,
+      "genre": "Classic",
+      "review": "Started strong but fell off a bit. The message is powerful and clearly rooted in history I need to understand better to fully appreciate it. A short, unusual read — unlike anything else on this list.",
+      "coverUrl": "https://covers.openlibrary.org/b/isbn/9780451526342-M.jpg"
+    },
+    {
+      "title": "How to Kill Your Family",
+      "author": "Bella Mackie",
+      "yearRead": 2023,
+      "rating": 4.0,
+      "genre": "Dark Comedy",
+      "review": "Good book — a bit repetitive but solid. I seem to like twists and dark themes, this genre suits me. The final chapter could have been condensed, but overall an easy, gripping read.",
+      "coverUrl": "https://covers.openlibrary.org/b/isbn/9780008399580-M.jpg"
+    },
+    {
+      "title": "The Hobbit",
+      "author": "J.R.R. Tolkien",
+      "yearRead": 2023,
+      "rating": 4.0,
+      "genre": "Fantasy",
+      "review": "Finally finished — bucket list item ticked off. The book gave me a much greater appreciation for the films. Slower than expected, but a rewarding read.",
+      "coverUrl": "https://covers.openlibrary.org/b/isbn/9780547928227-M.jpg"
+    },
+    {
+      "title": "Project Hail Mary",
+      "author": "Andy Weir",
+      "yearRead": 2023,
+      "rating": 5.0,
+      "genre": "Sci-Fi",
+      "review": "Fantastic book. A bit heavy on the science at points, but probably one of the best books I've read. It grabbed me far more than I expected — the format is just brilliant. Really looking forward to the film.",
+      "coverUrl": "https://covers.openlibrary.org/b/isbn/9780593135204-M.jpg"
+    },
+    {
+      "title": "Lessons in Chemistry",
+      "author": "Bonnie Garmus",
+      "yearRead": 2023,
+      "rating": 4.0,
+      "genre": "Historical Fiction",
+      "review": "A great read with an insightful perspective on what women went through in the 50s. The dog subplot was an unexpected highlight. Quietly brilliant.",
+      "coverUrl": "https://covers.openlibrary.org/b/isbn/9780385547345-M.jpg"
+    },
+    {
+      "title": "Dark Matter",
+      "author": "Blake Crouch",
+      "yearRead": 2023,
+      "rating": 3.5,
+      "genre": "Sci-Fi",
+      "review": "Dropped it after 25% — poor decision, as that was just one long opening chapter. Once it kicks in, it really kicks in. Clearly written with TV in mind, which it became. Accessible and enjoyable.",
+      "coverUrl": "https://covers.openlibrary.org/b/isbn/9781101904220-M.jpg"
+    },
+    {
+      "title": "Upgrade",
+      "author": "Blake Crouch",
+      "yearRead": 2023,
+      "rating": 3.0,
+      "genre": "Sci-Fi",
+      "review": "Picked this up off the back of Dark Matter — same author, same feel. Good premise, but it got repetitive and veered into silliness towards the end. Maybe got a touch tired of the writing style, but a solid read overall.",
+      "coverUrl": "https://covers.openlibrary.org/b/isbn/9780593157534-M.jpg"
     }
   ]
 }
