@@ -82,12 +82,13 @@
                                 <span class="badge year-badge">@book.YearRead</span>
                             </div>
 
-                            <div class="rating-row mb-3">
-                                <div class="stars-widget">
-                                    <div class="stars-filled" style="width:@((int)(book.Rating / 5.0 * 100))%">★★★★★</div>
-                                    ★★★★★
-                                </div>
-                                <span class="star-label @RatingClass(book.Rating)">@(book.Rating % 1 == 0 ? ((int)book.Rating).ToString() : book.Rating.ToString("0.0"))/5</span>
+                            <div class="book-stars mb-3">
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    var diff = book.Rating - i + 1;
+                                    var cls = diff >= 1 ? "star-full" : diff >= 0.5 ? "star-half" : "star-empty";
+                                    <span class="@cls">★</span>
+                                }
                             </div>
 
                             <p class="book-review flex-grow-1">@book.Review</p>
@@ -192,9 +193,7 @@
             .Where(b => selectedGenre == null || b.Genre == selectedGenre)];
     }
 
-    private static string RatingClass(double r) => r >= 4.0 ? "great" : r >= 3.5 ? "good" : "ok";
-
-    private record BooksData(List<Book> Books);
+private record BooksData(List<Book> Books);
     private record PhotosData(List<Trip> Trips);
 
     private record Book(

@@ -107,30 +107,15 @@
 .genre-badge { background: var(--primary); color: #fff; font-weight: 500; font-size: 0.7rem; }
 .year-badge  { background: var(--surface-hover); color: var(--text-muted); border: 1px solid var(--border); font-weight: 500; font-size: 0.7rem; }
 
-.rating-row { display: flex; align-items: center; gap: 0.75rem; }
-
-.stars-widget {
-    position: relative;
-    display: inline-block;
-    color: var(--border);
-    font-size: 1.2rem;
-    letter-spacing: 3px;
-    line-height: 1;
+.book-stars { font-size: 1.3rem; letter-spacing: 2px; line-height: 1; }
+.star-full  { color: #f59e0b; }
+.star-empty { color: var(--border); }
+.star-half  {
+    background: linear-gradient(to right, #f59e0b 50%, var(--border) 50%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
-
-.stars-filled {
-    position: absolute;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-    white-space: nowrap;
-    color: #f59e0b;
-}
-
-.star-label       { font-size: 0.8rem; font-weight: 600; line-height: 1; color: var(--text-muted); }
-.star-label.great { color: #10b981; }
-.star-label.good  { color: var(--primary); }
-.star-label.ok    { color: #f59e0b; }
 
 /* ── Photo gallery ───────────────────────── */
 
