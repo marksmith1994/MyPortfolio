@@ -1,5 +1,5 @@
 .hobbies-tabs .nav-link {
-    color: var(--text-muted);
+    color: var(--text) !important;
     border: none;
     border-bottom: 2px solid transparent;
     border-radius: 0;
@@ -11,14 +11,14 @@
 }
 
 .hobbies-tabs .nav-link:hover {
-    color: var(--primary);
+    color: var(--primary) !important;
     border-bottom-color: var(--primary);
 }
 
 .hobbies-tabs .nav-link.active {
-    color: var(--primary);
+    color: var(--primary) !important;
     border-bottom: 2px solid var(--primary);
-    background: none;
+    background: none !important;
 }
 
 .tab-count {
