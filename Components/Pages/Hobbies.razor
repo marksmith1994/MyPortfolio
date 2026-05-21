@@ -15,32 +15,25 @@
         </div>
     </div>
 
-    <ul class="nav nav-tabs hobbies-tabs mb-4" id="hobbiesTabs">
-        <li class="nav-item">
-            <button class="nav-link @(activeTab == "books" ? "active" : "")" @onclick='() => activeTab = "books"'>
-                <i class="fas fa-book me-2"></i>Reading
-                <span class="tab-count">@allBooks.Count</span>
-            </button>
-        </li>
-        <li class="nav-item">
-            <button class="nav-link @(activeTab == "travel" ? "active" : "")" @onclick='() => activeTab = "travel"'>
-                <i class="fas fa-plane me-2"></i>Travel
-                @if (trips.Count > 0)
-                {
-                    <span class="tab-count">@trips.Count</span>
-                }
-            </button>
-        </li>
-        <li class="nav-item">
-            <button class="nav-link @(activeTab == "gaming" ? "active" : "")" @onclick='() => activeTab = "gaming"'>
-                <i class="fas fa-gamepad me-2"></i>Gaming
-                @if (topGames.Count > 0)
-                {
-                    <span class="tab-count">@topGames.Count</span>
-                }
-            </button>
-        </li>
-    </ul>
+    <div class="tab-switcher mb-4">
+        <button class="tab-btn @(activeTab == "books" ? "active" : "")" @onclick='() => activeTab = "books"'>
+            <i class="fas fa-book"></i>
+            <span class="tab-label">Reading</span>
+            <span class="tab-pill">@allBooks.Count</span>
+        </button>
+        <button class="tab-btn @(activeTab == "travel" ? "active" : "")" @onclick='() => activeTab = "travel"'>
+            <i class="fas fa-plane"></i>
+            <span class="tab-label">Travel</span>
+        </button>
+        <button class="tab-btn @(activeTab == "gaming" ? "active" : "")" @onclick='() => activeTab = "gaming"'>
+            <i class="fas fa-gamepad"></i>
+            <span class="tab-label">Gaming</span>
+            @if (steamSummary.TotalGames > 0)
+            {
+                <span class="tab-pill">@steamSummary.TotalGames</span>
+            }
+        </button>
+    </div>
 
     @if (activeTab == "books")
     {
@@ -96,8 +89,9 @@
                                 @for (int i = 1; i <= 5; i++)
                                 {
                                     var diff = book.Rating - i + 1;
-                                    var cls = diff >= 1 ? "star-full" : diff >= 0.5 ? "star-half" : "star-empty";
-                                    <span class="@cls">★</span>
+                                    if (diff >= 1) { <span class="star-full">★</span> }
+                                    else if (diff >= 0.5) { <span class="star-half">★</span> }
+                                    else { <span class="star-empty">☆</span> }
                                 }
                             </div>
 
@@ -111,7 +105,7 @@
 
     @if (activeTab == "gaming")
     {
-        @if (topGames.Count == 0)
+        @if (steamSummary.TopGames.Count == 0 && steamSummary.Profile == null)
         {
             <div class="empty-state text-center py-5">
                 <i class="fas fa-gamepad fa-3x text-muted mb-3"></i>
@@ -121,9 +115,55 @@
         }
         else
         {
-            <p class="text-muted small mb-3">Top @topGames.Count most played games</p>
+            @if (steamSummary.Profile != null)
+            {
+                <div class="steam-profile-card mb-4">
+                    <img src="@steamSummary.Profile.AvatarUrl" alt="Steam avatar" class="steam-avatar" />
+                    <div class="steam-profile-info">
+                        <div class="steam-name">@steamSummary.Profile.Name</div>
+                        <div class="steam-level">Level @steamSummary.Profile.Level</div>
+                    </div>
+                    <div class="steam-stats">
+                        <div class="steam-stat">
+                            <span class="steam-stat-value">@steamSummary.TotalGames.ToString("N0")</span>
+                            <span class="steam-stat-label">games</span>
+                        </div>
+                        <div class="steam-stat">
+                            <span class="steam-stat-value">@steamSummary.TotalHours.ToString("N0")</span>
+                            <span class="steam-stat-label">hours</span>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (steamSummary.RecentlyPlayed.Count > 0)
+            {
+                <h5 class="section-heading mb-3"><i class="fas fa-fire me-2"></i>Playing recently</h5>
+                <div class="row g-3 mb-5">
+                    @foreach (var game in steamSummary.RecentlyPlayed)
+                    {
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="game-card game-card-recent card h-100">
+                                <div class="game-img-wrap">
+                                    <img src="@game.HeaderImageUrl" alt="@game.Name" class="game-img"
+                                         onerror="this.closest('.game-img-wrap').style.display='none'" />
+                                </div>
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="game-title mb-2">@game.Name</h5>
+                                    <div class="d-flex flex-wrap gap-3 mt-auto">
+                                        <span class="game-hours"><i class="fas fa-clock me-1"></i>@game.HoursPlayed hrs total</span>
+                                        <span class="game-hours-recent"><i class="fas fa-fire me-1"></i>@game.RecentHours hrs lately</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+
+            <h5 class="section-heading mb-3"><i class="fas fa-trophy me-2"></i>Most played</h5>
             <div class="row g-4">
-                @foreach (var game in topGames)
+                @foreach (var game in steamSummary.TopGames)
                 {
                     <div class="col-sm-6 col-lg-4">
                         <div class="game-card card h-100">
@@ -132,14 +172,8 @@
                                      onerror="this.closest('.game-img-wrap').style.display='none'" />
                             </div>
                             <div class="card-body d-flex flex-column">
-                                <div class="d-flex align-items-start justify-content-between gap-2 mb-2">
-                                    <h5 class="game-title mb-0">@game.Name</h5>
-                                    @if (game.RecentlyPlayed)
-                                    {
-                                        <span class="badge bg-success flex-shrink-0">Playing</span>
-                                    }
-                                </div>
-                                <span class="game-hours"><i class="fas fa-clock me-1"></i>@game.HoursPlayed hrs</span>
+                                <h5 class="game-title mb-2">@game.Name</h5>
+                                <span class="game-hours mt-auto"><i class="fas fa-clock me-1"></i>@game.HoursPlayed hrs</span>
                             </div>
                         </div>
                     </div>
@@ -212,7 +246,7 @@
     private string? selectedGenre;
 
     private List<Trip> trips = [];
-    private List<MyPortfolio.Services.SteamGame> topGames = [];
+    private MyPortfolio.Services.SteamSummary steamSummary = new(null, [], [], 0, 0);
 
     protected override async Task OnInitializedAsync()
     {
@@ -224,7 +258,7 @@
         genres = [.. allBooks.Select(b => b.Genre).Distinct().OrderBy(g => g)];
         ApplyFilters();
 
-        topGames = await Steam.GetTopGamesAsync();
+        steamSummary = await Steam.GetSummaryAsync();
 
         var photosPath = Path.Combine(Env.WebRootPath, "data", "hobbies-photos.json");
         if (File.Exists(photosPath))
