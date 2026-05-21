@@ -83,10 +83,11 @@
                             </div>
 
                             <div class="rating-row mb-3">
-                                <span class="rating-score @RatingClass(book.Rating)">@book.Rating<span class="rating-denom">/10</span></span>
-                                <div class="rating-track">
-                                    <div class="rating-fill @RatingClass(book.Rating)" style="width:@(book.Rating * 10)%"></div>
+                                <div class="stars-widget">
+                                    <div class="stars-filled" style="width:@((int)(book.Rating / 5.0 * 100))%">★★★★★</div>
+                                    ★★★★★
                                 </div>
+                                <span class="star-label @RatingClass(book.Rating)">@(book.Rating % 1 == 0 ? ((int)book.Rating).ToString() : book.Rating.ToString("0.0"))/5</span>
                             </div>
 
                             <p class="book-review flex-grow-1">@book.Review</p>
@@ -191,7 +192,7 @@
             .Where(b => selectedGenre == null || b.Genre == selectedGenre)];
     }
 
-    private static string RatingClass(int r) => r >= 8 ? "great" : r >= 7 ? "good" : "ok";
+    private static string RatingClass(double r) => r >= 4.0 ? "great" : r >= 3.5 ? "good" : "ok";
 
     private record BooksData(List<Book> Books);
     private record PhotosData(List<Trip> Trips);
@@ -200,7 +201,7 @@
         string Title,
         string Author,
         int YearRead,
-        int Rating,
+        double Rating,
         string Genre,
         string Review,
         string? CoverUrl = null,
