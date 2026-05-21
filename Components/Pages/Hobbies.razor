@@ -36,7 +36,7 @@
             <div class="filter-row">
                 <div class="filter-select-wrap">
                     <label class="filter-label">Year</label>
-                    <select class="filter-select" @onchange="e => SetYearFilter(e.Value?.ToString() == "" ? null : int.Parse(e.Value!.ToString()!))">
+                    <select class="filter-select" @onchange="OnYearChanged">
                         <option value="">All</option>
                         @foreach (var year in years)
                         {
@@ -46,7 +46,7 @@
                 </div>
                 <div class="filter-select-wrap">
                     <label class="filter-label">Genre</label>
-                    <select class="filter-select" @onchange="e => SetGenreFilter(e.Value?.ToString() == "" ? null : e.Value!.ToString())">
+                    <select class="filter-select" @onchange="OnGenreChanged">
                         <option value="">All</option>
                         @foreach (var genre in genres)
                         {
@@ -272,6 +272,18 @@
 
     private void SetYearFilter(int? year) { selectedYear = year; ApplyFilters(); }
     private void SetGenreFilter(string? genre) { selectedGenre = genre; ApplyFilters(); }
+
+    private void OnYearChanged(ChangeEventArgs e)
+    {
+        var val = e.Value?.ToString();
+        SetYearFilter(string.IsNullOrEmpty(val) ? null : int.Parse(val));
+    }
+
+    private void OnGenreChanged(ChangeEventArgs e)
+    {
+        var val = e.Value?.ToString();
+        SetGenreFilter(string.IsNullOrEmpty(val) ? null : val);
+    }
 
     private void ApplyFilters()
     {
