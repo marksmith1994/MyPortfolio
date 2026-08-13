@@ -1,0 +1,71 @@
+{
+  "categories": [
+    {
+      "name": "7 Wonders of the World",
+      "icon": "fa-monument",
+      "items": [
+        { "id": "wonders-colosseum", "text": "Colosseum, Rome", "done": true },
+        { "id": "wonders-taj-mahal", "text": "Taj Mahal, Agra", "done": true },
+        { "id": "wonders-christ-redeemer", "text": "Christ the Redeemer, Rio de Janeiro", "note": "Honeymoon, Feb 2027", "done": false },
+        { "id": "wonders-great-wall", "text": "Great Wall of China", "done": false },
+        { "id": "wonders-petra", "text": "Petra, Jordan", "done": false },
+        { "id": "wonders-machu-picchu", "text": "Machu Picchu, Peru", "done": false },
+        { "id": "wonders-chichen-itza", "text": "Chichén Itzá, Mexico", "done": false }
+      ]
+    },
+    {
+      "name": "Fitness & Adventure",
+      "icon": "fa-running",
+      "items": [
+        { "id": "fitness-half-marathon", "text": "Half marathon", "note": "1:54:08, Sept 2021", "done": true },
+        { "id": "fitness-full-marathon", "text": "Full marathon", "note": "4:43:39, London 2021", "done": true },
+        { "id": "fitness-sub-50-10k", "text": "Sub-50 min 10K", "done": false },
+        { "id": "fitness-sub-4-marathon", "text": "Sub-4 marathon", "note": "Proper supported race", "done": false },
+        { "id": "fitness-crossfit-comp", "text": "Compete in a CrossFit competition", "done": false },
+        { "id": "fitness-skydive", "text": "Skydive", "done": false },
+        { "id": "fitness-scuba", "text": "Scuba dive", "note": "Get certified, then a world-class reef", "done": false },
+        { "id": "fitness-snowboard", "text": "Snowboard to a genuinely good level", "note": "Beyond reds — blacks/off-piste", "done": false }
+      ]
+    },
+    {
+      "name": "Travel",
+      "icon": "fa-plane",
+      "items": [
+        { "id": "travel-surf-sri-lanka", "text": "Surfed in Sri Lanka", "done": true },
+        { "id": "travel-zipline-forest", "text": "Ziplined in a forest", "done": true },
+        { "id": "travel-hobbiton", "text": "Saw Hobbiton", "done": true },
+        { "id": "travel-wine-nz", "text": "Wine tasted in New Zealand", "done": true },
+        { "id": "travel-safari-south-africa", "text": "Safari in South Africa", "done": true },
+        { "id": "travel-all-continents", "text": "Visit all 7 continents", "note": "Just Antarctica left after the honeymoon", "done": false },
+        { "id": "travel-northern-lights", "text": "See the Northern Lights", "note": "Norway", "done": false },
+        { "id": "travel-safari-botswana", "text": "Safari in Botswana", "done": false }
+      ]
+    },
+    {
+      "name": "Food & Drink",
+      "icon": "fa-utensils",
+      "items": [
+        { "id": "food-brisket-bge", "text": "Whole brisket cook on the Big Green Egg", "done": true },
+        { "id": "food-michelin-tasting", "text": "Michelin-star tasting menu", "note": "San Sebastián", "done": true },
+        { "id": "food-homebrew-second-style", "text": "Homebrew a second beer style", "note": "Beyond the Kölsch", "done": false }
+      ]
+    },
+    {
+      "name": "Life & Milestones",
+      "icon": "fa-flag-checkered",
+      "items": [
+        { "id": "life-bought-house", "text": "Bought a house", "done": true },
+        { "id": "life-got-dog", "text": "Got a dog", "note": "Duncan", "done": true },
+        { "id": "life-got-married", "text": "Got married", "done": true }
+      ]
+    },
+    {
+      "name": "Skills",
+      "icon": "fa-brain",
+      "items": [
+        { "id": "skills-italian", "text": "Learn conversational Italian", "done": false },
+        { "id": "skills-carpentry", "text": "Learn carpentry", "done": false }
+      ]
+    }
+  ]
+}

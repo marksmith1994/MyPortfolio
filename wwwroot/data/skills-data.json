@@ -2,34 +2,33 @@
   "workExperience": [
     {
       "title": "Senior Software Engineer",
-      "subtitle": "Downing LLP",
+      "subtitle": "Downing LLP (Remote)",
       "dateRange": "October 2023 – Present",
       "icon": "fas fa-briefcase",
       "bulletPoints": [
-        "Implemented CQRS and Mediator patterns to develop a sophisticated document generation tool for client services",
-        "Enhanced data security by implementing column-level encryption for sensitive payment-related SQL database columns",
-        "Architected financial applications using .NET, Azure, and SQL, following strict ISO standards",
-        "Participated in technical hiring and mentoring of junior developers and contractors",
-        "Implemented secure API gateways for financial transaction processing",
-        "Drove solutions from initial stakeholder discussions through to full production release"
+        "Rebuilt a document processing pipeline that was silently failing on around 10% of batches under load — moved it onto Azure Functions and Service Bus, got it to zero failures, and cut processing time for 10,000-document batches from 8 hours to 2",
+        "Take a feature once it's been prioritised — e.g. joint accounts — and run the stakeholder conversations to work out what's actually needed, then design the technical approach solo before presenting it to the team",
+        "Pushed test coverage from around 30% to 70% and added integration testing to make releases less nerve-wracking",
+        "Built LangChain-based agents that triage and route incoming requests automatically, cutting out a chunk of manual sorting",
+        "Currently introducing Event Grid to support a new pub/sub feature that didn't have anywhere to live in the existing architecture",
+        "Mentors other developers on design and testing decisions day to day"
       ],
-      "techStack": [".NET", "C#", "Azure", "SQL", "CQRS", "Mediator Pattern", "API Gateway"]
+      "techStack": [".NET", "Azure Functions", "Service Bus", "Event Grid", "LangChain", "SQL"]
     },
     {
       "title": "Software Developer",
-      "subtitle": "Thinkproject UK, Gloucester",
+      "subtitle": "Thinkproject UK, Cheltenham",
       "dateRange": "January 2021 – October 2023",
       "icon": "fas fa-code",
       "bulletPoints": [
-        "Transformed legacy monolithic architecture to modern microservice architecture",
-        "Built infrastructure using Terraform to automate Azure services",
-        "Developed services using .NET Core 6, MVC, Entity Framework, React, and Angular",
-        "Migrated on-premises database structures to Azure SQL with high availability",
-        "Created event messaging services, serverless function apps, and blob storage integrations",
-        "Developed authorisation service with Auth0 and OpenID",
-        "Chaired Employee Engagement Team, managing £50k annual budget"
+        "Helped move a legacy monolith to microservices so teams could deploy independently instead of everything going out together",
+        "Built out Azure infrastructure with Terraform — Function Apps, Azure SQL, secure networking",
+        "Migrated on-prem SQL databases to Azure SQL, with proper HA/DR in mind rather than a straight lift-and-shift",
+        "Worked across the stack — backend services plus modern front-end frameworks",
+        "Built event-driven integrations using Azure Service Bus and Blob Storage",
+        "Built an authorisation service using Auth0 and OpenID Connect"
       ],
-      "techStack": [".NET Core 6", "React", "Angular", "Azure", "Terraform", "Auth0", "Microservices"]
+      "techStack": [".NET Core", "Terraform", "Azure SQL", "Service Bus", "Blob Storage", "Auth0", "Microservices"]
     },
     {
       "title": "Developer",
@@ -37,12 +36,11 @@
       "dateRange": "August 2019 – January 2021",
       "icon": "fas fa-laptop-code",
       "bulletPoints": [
-        "Managed Compare the Market Over 50's life insurance remodel project",
-        "Developed web applications using Angular and ASP.NET",
-        "Delivered projects using Agile methodology",
-        "Created RESTful API applications with Microsoft Blazor platform"
+        "Worked on redeveloping a high-traffic insurance platform, focused on reliability and making the workflows less painful for users",
+        "Built and maintained Angular and ASP.NET applications, frontend and backend",
+        "Delivered REST APIs and UI components in Blazor"
       ],
-      "techStack": ["Angular", "ASP.NET", "Blazor", "REST APIs", "Agile"]
+      "techStack": ["Angular", "ASP.NET", "Blazor", "REST APIs"]
     },
     {
       "title": "Frontend Developer",
@@ -50,11 +48,11 @@
       "dateRange": "July 2017 – July 2019",
       "icon": "fas fa-palette",
       "bulletPoints": [
-        "Analysed and debugged front and back-end performance issues",
-        "Updated legacy websites to modern security standards",
-        "Designed and developed MVC Content Management Systems"
+        "Debugged and optimised web applications across several client projects",
+        "Brought legacy systems up to modern security, SEO, and accessibility standards",
+        "Built MVC-based CMS solutions"
       ],
-      "techStack": ["MVC", "CMS", "Performance Optimization", "Security"]
+      "techStack": ["MVC", "CMS", "Security", "SEO", "Accessibility"]
     }
   ],
   "education": [
