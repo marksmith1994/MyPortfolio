@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python3:*)"
+      "Bash(python3:*)",
+      "Bash(mkdir -p /home/user/MyPortfolio/wwwroot/files)",
+      "Bash(cp \"/root/.claude/uploads/2e0b3a11-7053-58cc-b690-a34bb24ae7cf/0afeeaff-Mark_Smith_CV_4.pdf\" /home/user/MyPortfolio/wwwroot/files/CV.pdf)"
     ]
   }
 }
