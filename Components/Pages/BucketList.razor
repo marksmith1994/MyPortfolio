@@ -1,0 +1,254 @@
+@page "/bucket-list"
+@using System.Text.Json
+@inject IWebHostEnvironment Env
+@inject IJSRuntime JSRuntime
+
+<link href="css/bucket-list.css" rel="stylesheet">
+
+<PageTitle>Bucket List - Mark Smith</PageTitle>
+
+<div class="container py-5">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="display-5 fw-bold mb-1">Bucket List</h1>
+            <p class="text-muted">Things to see, do and become before I'm done</p>
+        </div>
+    </div>
+
+    <div class="bucket-progress-card mb-4">
+        <div class="bucket-progress-header">
+            <span class="bucket-progress-label">@doneCount of @totalCount done</span>
+            <span class="bucket-progress-percent">@percent%</span>
+        </div>
+        <div class="bucket-progress-track">
+            <div class="bucket-progress-fill" style="width: @(percent)%"></div>
+        </div>
+    </div>
+
+    @if (categories.Count == 0)
+    {
+        <LoadingSpinner />
+    }
+    else
+    {
+        @foreach (var category in categories)
+        {
+            var catDone = category.Items.Count(i => i.Done);
+            <div class="card bucket-category-card mb-4">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
+                        <h2 class="bucket-category-title mb-0">
+                            <i class="fas @category.Icon me-2"></i>@category.Name
+                        </h2>
+                        <span class="badge bucket-category-badge">@catDone / @category.Items.Count</span>
+                    </div>
+
+                    <ul class="bucket-item-list">
+                        @foreach (var item in category.Items)
+                        {
+                            <li class="bucket-item @(item.Done ? "is-done" : "")">
+                                <label class="bucket-item-label">
+                                    <input type="checkbox" class="bucket-item-checkbox" checked="@item.Done"
+                                           @onchange="() => ToggleItem(item)" />
+                                    <span class="bucket-item-check" aria-hidden="true"><i class="fas fa-check"></i></span>
+                                    <span class="bucket-item-text-wrap">
+                                        <span class="bucket-item-text">@item.Text</span>
+                                        @if (!string.IsNullOrWhiteSpace(item.Note))
+                                        {
+                                            <span class="bucket-item-note">@item.Note</span>
+                                        }
+                                    </span>
+                                </label>
+                            </li>
+                        }
+                    </ul>
+
+                    <div class="bucket-add-row">
+                        <input type="text" class="bucket-add-input" placeholder="Add an item…"
+                               @bind="newItemText[category.Name]" @bind:event="oninput"
+                               @onkeydown="@(e => OnAddKeyDown(e, category.Name))" />
+                        <input type="text" class="bucket-add-note-input" placeholder="Note (optional)"
+                               @bind="newItemNote[category.Name]" @bind:event="oninput"
+                               @onkeydown="@(e => OnAddKeyDown(e, category.Name))" />
+                        <button type="button" class="btn btn-outline-primary bucket-add-btn" @onclick="() => AddItem(category.Name)">
+                            <i class="fas fa-plus me-1"></i>Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+@code {
+    private List<BucketListCategory> categories = new();
+    private Dictionary<string, string> newItemText = new();
+    private Dictionary<string, string> newItemNote = new();
+    private bool stateLoaded = false;
+
+    private int totalCount => categories.Sum(c => c.Items.Count);
+    private int doneCount => categories.Sum(c => c.Items.Count(i => i.Done));
+    private int percent => totalCount == 0 ? 0 : (int)Math.Round(doneCount * 100.0 / totalCount);
+
+    protected override async Task OnInitializedAsync()
+    {
+        var path = Path.Combine(Env.WebRootPath, "data", "bucket-list-data.json");
+        var json = await File.ReadAllTextAsync(path);
+        var seed = JsonSerializer.Deserialize<SeedData>(json, JsonSerializerOptions.Web);
+        categories = seed?.Categories ?? new();
+
+        foreach (var category in categories)
+        {
+            newItemText[category.Name] = "";
+            newItemNote[category.Name] = "";
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && !stateLoaded)
+        {
+            stateLoaded = true;
+            var stored = await JSRuntime.InvokeAsync<string?>("getBucketListState");
+            if (!string.IsNullOrWhiteSpace(stored))
+            {
+                var state = JsonSerializer.Deserialize<PersistedState>(stored, JsonSerializerOptions.Web);
+                if (state is not null)
+                {
+                    ApplyPersistedState(state);
+                    StateHasChanged();
+                }
+            }
+        }
+    }
+
+    private void ApplyPersistedState(PersistedState state)
+    {
+        foreach (var category in categories)
+        {
+            foreach (var item in category.Items)
+            {
+                if (state.Checked.TryGetValue(item.Id, out var done))
+                {
+                    item.Done = done;
+                }
+            }
+        }
+
+        foreach (var custom in state.CustomItems)
+        {
+            var category = categories.FirstOrDefault(c => c.Name == custom.Category);
+            if (category is null) continue;
+
+            category.Items.Add(new BucketListItem
+            {
+                Id = custom.Id,
+                Text = custom.Text,
+                Note = custom.Note,
+                Done = state.Checked.GetValueOrDefault(custom.Id, false),
+                IsCustom = true
+            });
+        }
+    }
+
+    private async Task ToggleItem(BucketListItem item)
+    {
+        item.Done = !item.Done;
+        await SaveStateAsync();
+    }
+
+    private async Task OnAddKeyDown(KeyboardEventArgs e, string categoryName)
+    {
+        if (e.Key == "Enter")
+        {
+            await AddItem(categoryName);
+        }
+    }
+
+    private async Task AddItem(string categoryName)
+    {
+        var text = newItemText.GetValueOrDefault(categoryName, "").Trim();
+        if (string.IsNullOrWhiteSpace(text)) return;
+
+        var category = categories.FirstOrDefault(c => c.Name == categoryName);
+        if (category is null) return;
+
+        var note = newItemNote.GetValueOrDefault(categoryName, "").Trim();
+
+        category.Items.Add(new BucketListItem
+        {
+            Id = "custom-" + Guid.NewGuid().ToString("N"),
+            Text = text,
+            Note = string.IsNullOrWhiteSpace(note) ? null : note,
+            Done = false,
+            IsCustom = true
+        });
+
+        newItemText[categoryName] = "";
+        newItemNote[categoryName] = "";
+
+        await SaveStateAsync();
+    }
+
+    private async Task SaveStateAsync()
+    {
+        var state = new PersistedState();
+
+        foreach (var category in categories)
+        {
+            foreach (var item in category.Items)
+            {
+                state.Checked[item.Id] = item.Done;
+
+                if (item.IsCustom)
+                {
+                    state.CustomItems.Add(new CustomItemState
+                    {
+                        Id = item.Id,
+                        Category = category.Name,
+                        Text = item.Text,
+                        Note = item.Note
+                    });
+                }
+            }
+        }
+
+        var json = JsonSerializer.Serialize(state, JsonSerializerOptions.Web);
+        await JSRuntime.InvokeVoidAsync("setBucketListState", json);
+    }
+
+    private class SeedData
+    {
+        public List<BucketListCategory> Categories { get; set; } = new();
+    }
+
+    private class BucketListCategory
+    {
+        public string Name { get; set; } = "";
+        public string Icon { get; set; } = "";
+        public List<BucketListItem> Items { get; set; } = new();
+    }
+
+    private class BucketListItem
+    {
+        public string Id { get; set; } = "";
+        public string Text { get; set; } = "";
+        public string? Note { get; set; }
+        public bool Done { get; set; }
+        public bool IsCustom { get; set; }
+    }
+
+    private class PersistedState
+    {
+        public Dictionary<string, bool> Checked { get; set; } = new();
+        public List<CustomItemState> CustomItems { get; set; } = new();
+    }
+
+    private class CustomItemState
+    {
+        public string Id { get; set; } = "";
+        public string Category { get; set; } = "";
+        public string Text { get; set; } = "";
+        public string? Note { get; set; }
+    }
+}
